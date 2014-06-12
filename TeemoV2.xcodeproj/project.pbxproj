@@ -25,19 +25,6 @@
 		2E9DCB5918E94EED00C140A7 /* TMOHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9DCB5818E94EED00C140A7 /* TMOHTTPManager.m */; };
 		2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8D85518EC075600405406 /* TMOKVDB.m */; };
 		35439A44345B41ED85CC8AFC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8388B4E5CED74D2E99AAF859 /* libPods.a */; };
-		63E3EA7618FD6B2400B97440 /* NSDate+DWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3E9E118FD6B2300B97440 /* NSDate+DWDate.m */; };
-		63E3EA7718FD6B2400B97440 /* NSString+DWString.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3E9E418FD6B2300B97440 /* NSString+DWString.m */; };
-		63E3EAA018FD6B2400B97440 /* DWButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA4918FD6B2400B97440 /* DWButton.m */; };
-		63E3EAA118FD6B2400B97440 /* DWDefaultAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA4C18FD6B2400B97440 /* DWDefaultAppDelegate.m */; };
-		63E3EAA218FD6B2400B97440 /* DWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA4F18FD6B2400B97440 /* DWImageView.m */; };
-		63E3EAA318FD6B2400B97440 /* DWPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5218FD6B2400B97440 /* DWPromptView.m */; };
-		63E3EAA418FD6B2400B97440 /* DWPullRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5518FD6B2400B97440 /* DWPullRefreshControl.m */; };
-		63E3EAA518FD6B2400B97440 /* DWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5818FD6B2400B97440 /* DWRefreshHeaderView.m */; };
-		63E3EAA618FD6B2400B97440 /* DWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5B18FD6B2400B97440 /* DWTableViewCell.m */; };
-		63E3EAA718FD6B2400B97440 /* DWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5F18FD6B2400B97440 /* DWViewController.m */; };
-		63E3EAA918FD6B2400B97440 /* DWHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA6618FD6B2400B97440 /* DWHttpClient.m */; };
-		63E3EAAC18FD6B2400B97440 /* DWHttpRequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA6C18FD6B2400B97440 /* DWHttpRequestResult.m */; };
-		63E3EAAF18FD6B2400B97440 /* Notice in Resources */ = {isa = PBXBuildFile; fileRef = 63E3EA7418FD6B2400B97440 /* Notice */; };
 		7BA56A9D871F4A05AD77A57A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8388B4E5CED74D2E99AAF859 /* libPods.a */; };
 		920F0F2118E94DB900B9E953 /* TMOUIKitCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */; };
 		920F0F2818E9625700B9E953 /* UIColor+TMOColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 920F0F2718E9625700B9E953 /* UIColor+TMOColor.m */; };
@@ -190,36 +177,6 @@
 		2E9DCB5818E94EED00C140A7 /* TMOHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOHTTPManager.m; sourceTree = "<group>"; };
 		2EE8D85418EC075600405406 /* TMOKVDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOKVDB.h; sourceTree = "<group>"; };
 		2EE8D85518EC075600405406 /* TMOKVDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOKVDB.m; sourceTree = "<group>"; };
-		63E3E9DA18FD6B2300B97440 /* DWFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWFoundation.h; sourceTree = "<group>"; };
-		63E3E9DB18FD6B2300B97440 /* DWVersionAdapt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWVersionAdapt.h; sourceTree = "<group>"; };
-		63E3E9E018FD6B2300B97440 /* NSDate+DWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DWDate.h"; sourceTree = "<group>"; };
-		63E3E9E118FD6B2300B97440 /* NSDate+DWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DWDate.m"; sourceTree = "<group>"; };
-		63E3E9E318FD6B2300B97440 /* NSString+DWString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DWString.h"; sourceTree = "<group>"; };
-		63E3E9E418FD6B2300B97440 /* NSString+DWString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DWString.m"; sourceTree = "<group>"; };
-		63E3EA4818FD6B2400B97440 /* DWButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWButton.h; sourceTree = "<group>"; };
-		63E3EA4918FD6B2400B97440 /* DWButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWButton.m; sourceTree = "<group>"; };
-		63E3EA4B18FD6B2400B97440 /* DWDefaultAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWDefaultAppDelegate.h; sourceTree = "<group>"; };
-		63E3EA4C18FD6B2400B97440 /* DWDefaultAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWDefaultAppDelegate.m; sourceTree = "<group>"; };
-		63E3EA4E18FD6B2400B97440 /* DWImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWImageView.h; sourceTree = "<group>"; };
-		63E3EA4F18FD6B2400B97440 /* DWImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWImageView.m; sourceTree = "<group>"; };
-		63E3EA5118FD6B2400B97440 /* DWPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWPromptView.h; sourceTree = "<group>"; };
-		63E3EA5218FD6B2400B97440 /* DWPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWPromptView.m; sourceTree = "<group>"; };
-		63E3EA5418FD6B2400B97440 /* DWPullRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWPullRefreshControl.h; sourceTree = "<group>"; };
-		63E3EA5518FD6B2400B97440 /* DWPullRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWPullRefreshControl.m; sourceTree = "<group>"; };
-		63E3EA5718FD6B2400B97440 /* DWRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWRefreshHeaderView.h; sourceTree = "<group>"; };
-		63E3EA5818FD6B2400B97440 /* DWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWRefreshHeaderView.m; sourceTree = "<group>"; };
-		63E3EA5A18FD6B2400B97440 /* DWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTableViewCell.h; sourceTree = "<group>"; };
-		63E3EA5B18FD6B2400B97440 /* DWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTableViewCell.m; sourceTree = "<group>"; };
-		63E3EA5C18FD6B2400B97440 /* DWUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWUIKit.h; sourceTree = "<group>"; };
-		63E3EA5E18FD6B2400B97440 /* DWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWViewController.h; sourceTree = "<group>"; };
-		63E3EA5F18FD6B2400B97440 /* DWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWViewController.m; sourceTree = "<group>"; };
-		63E3EA6518FD6B2400B97440 /* DWHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWHttpClient.h; sourceTree = "<group>"; };
-		63E3EA6618FD6B2400B97440 /* DWHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWHttpClient.m; sourceTree = "<group>"; };
-		63E3EA6B18FD6B2400B97440 /* DWHttpRequestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWHttpRequestResult.h; sourceTree = "<group>"; };
-		63E3EA6C18FD6B2400B97440 /* DWHttpRequestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWHttpRequestResult.m; sourceTree = "<group>"; };
-		63E3EA7218FD6B2400B97440 /* DWNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNetworkKit.h; sourceTree = "<group>"; };
-		63E3EA7318FD6B2400B97440 /* DWKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWKit.h; sourceTree = "<group>"; };
-		63E3EA7418FD6B2400B97440 /* Notice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notice; sourceTree = "<group>"; };
 		6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8388B4E5CED74D2E99AAF859 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		920F0F1F18E94DB900B9E953 /* TMOUIKitCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOUIKitCore.h; sourceTree = "<group>"; };
@@ -308,7 +265,6 @@
 		2E8CA9ED18E93E5F0047D335 = {
 			isa = PBXGroup;
 			children = (
-				63E3E9D818FD6AC500B97440 /* V1Adater */,
 				2E8CAA3018E947DC0047D335 /* TeemoFramework */,
 				2E8CA9FF18E93E5F0047D335 /* TeemoV2 */,
 				2E8CAA1E18E93E5F0047D335 /* TeemoV2Tests */,
@@ -483,171 +439,6 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		63E3E9D818FD6AC500B97440 /* V1Adater */ = {
-			isa = PBXGroup;
-			children = (
-				63E3E9D918FD6B2300B97440 /* DWFoundation */,
-				63E3E9E818FD6B2300B97440 /* External */,
-				63E3EA4618FD6B2400B97440 /* DWUIKit */,
-				63E3EA6118FD6B2400B97440 /* DWNetworkKit */,
-				63E3EA7318FD6B2400B97440 /* DWKit.h */,
-				63E3EA7418FD6B2400B97440 /* Notice */,
-			);
-			path = V1Adater;
-			sourceTree = "<group>";
-		};
-		63E3E9D918FD6B2300B97440 /* DWFoundation */ = {
-			isa = PBXGroup;
-			children = (
-				63E3E9DA18FD6B2300B97440 /* DWFoundation.h */,
-				63E3E9DB18FD6B2300B97440 /* DWVersionAdapt.h */,
-				63E3E9DF18FD6B2300B97440 /* NSDate+DWDate */,
-				63E3E9E218FD6B2300B97440 /* NSString+DWString */,
-			);
-			path = DWFoundation;
-			sourceTree = "<group>";
-		};
-		63E3E9DF18FD6B2300B97440 /* NSDate+DWDate */ = {
-			isa = PBXGroup;
-			children = (
-				63E3E9E018FD6B2300B97440 /* NSDate+DWDate.h */,
-				63E3E9E118FD6B2300B97440 /* NSDate+DWDate.m */,
-			);
-			path = "NSDate+DWDate";
-			sourceTree = "<group>";
-		};
-		63E3E9E218FD6B2300B97440 /* NSString+DWString */ = {
-			isa = PBXGroup;
-			children = (
-				63E3E9E318FD6B2300B97440 /* NSString+DWString.h */,
-				63E3E9E418FD6B2300B97440 /* NSString+DWString.m */,
-			);
-			path = "NSString+DWString";
-			sourceTree = "<group>";
-		};
-		63E3E9E818FD6B2300B97440 /* External */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
-		63E3EA4618FD6B2400B97440 /* DWUIKit */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA4718FD6B2400B97440 /* DWButton */,
-				63E3EA4A18FD6B2400B97440 /* DWDefaultAppDelegate */,
-				63E3EA4D18FD6B2400B97440 /* DWImageView */,
-				63E3EA5018FD6B2400B97440 /* DWPrompt */,
-				63E3EA5318FD6B2400B97440 /* DWPullRefreshControl */,
-				63E3EA5618FD6B2400B97440 /* DWTableView */,
-				63E3EA5918FD6B2400B97440 /* DWTableViewCell */,
-				63E3EA5C18FD6B2400B97440 /* DWUIKit.h */,
-				63E3EA5D18FD6B2400B97440 /* DWViewController */,
-				63E3EA6018FD6B2400B97440 /* DWWebView */,
-			);
-			path = DWUIKit;
-			sourceTree = "<group>";
-		};
-		63E3EA4718FD6B2400B97440 /* DWButton */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA4818FD6B2400B97440 /* DWButton.h */,
-				63E3EA4918FD6B2400B97440 /* DWButton.m */,
-			);
-			path = DWButton;
-			sourceTree = "<group>";
-		};
-		63E3EA4A18FD6B2400B97440 /* DWDefaultAppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA4B18FD6B2400B97440 /* DWDefaultAppDelegate.h */,
-				63E3EA4C18FD6B2400B97440 /* DWDefaultAppDelegate.m */,
-			);
-			path = DWDefaultAppDelegate;
-			sourceTree = "<group>";
-		};
-		63E3EA4D18FD6B2400B97440 /* DWImageView */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA4E18FD6B2400B97440 /* DWImageView.h */,
-				63E3EA4F18FD6B2400B97440 /* DWImageView.m */,
-			);
-			path = DWImageView;
-			sourceTree = "<group>";
-		};
-		63E3EA5018FD6B2400B97440 /* DWPrompt */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA5118FD6B2400B97440 /* DWPromptView.h */,
-				63E3EA5218FD6B2400B97440 /* DWPromptView.m */,
-			);
-			path = DWPrompt;
-			sourceTree = "<group>";
-		};
-		63E3EA5318FD6B2400B97440 /* DWPullRefreshControl */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA5418FD6B2400B97440 /* DWPullRefreshControl.h */,
-				63E3EA5518FD6B2400B97440 /* DWPullRefreshControl.m */,
-			);
-			path = DWPullRefreshControl;
-			sourceTree = "<group>";
-		};
-		63E3EA5618FD6B2400B97440 /* DWTableView */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA5718FD6B2400B97440 /* DWRefreshHeaderView.h */,
-				63E3EA5818FD6B2400B97440 /* DWRefreshHeaderView.m */,
-			);
-			path = DWTableView;
-			sourceTree = "<group>";
-		};
-		63E3EA5918FD6B2400B97440 /* DWTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA5A18FD6B2400B97440 /* DWTableViewCell.h */,
-				63E3EA5B18FD6B2400B97440 /* DWTableViewCell.m */,
-			);
-			path = DWTableViewCell;
-			sourceTree = "<group>";
-		};
-		63E3EA5D18FD6B2400B97440 /* DWViewController */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA5E18FD6B2400B97440 /* DWViewController.h */,
-				63E3EA5F18FD6B2400B97440 /* DWViewController.m */,
-			);
-			path = DWViewController;
-			sourceTree = "<group>";
-		};
-		63E3EA6018FD6B2400B97440 /* DWWebView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DWWebView;
-			sourceTree = "<group>";
-		};
-		63E3EA6118FD6B2400B97440 /* DWNetworkKit */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA6218FD6B2400B97440 /* DWHttpClient */,
-				63E3EA7218FD6B2400B97440 /* DWNetworkKit.h */,
-			);
-			path = DWNetworkKit;
-			sourceTree = "<group>";
-		};
-		63E3EA6218FD6B2400B97440 /* DWHttpClient */ = {
-			isa = PBXGroup;
-			children = (
-				63E3EA6518FD6B2400B97440 /* DWHttpClient.h */,
-				63E3EA6618FD6B2400B97440 /* DWHttpClient.m */,
-				63E3EA6B18FD6B2400B97440 /* DWHttpRequestResult.h */,
-				63E3EA6C18FD6B2400B97440 /* DWHttpRequestResult.m */,
-			);
-			path = DWHttpClient;
-			sourceTree = "<group>";
-		};
 		920F0F2518E9579B00B9E953 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -753,7 +544,6 @@
 				9225636F18FD1732005BD532 /* TMOUIKitDemoViewController.xib in Resources */,
 				9225636418FCD886005BD532 /* TMONetworkDemoViewController.xib in Resources */,
 				9225635F18FCD209005BD532 /* TMODemoViewController.xib in Resources */,
-				63E3EAAF18FD6B2400B97440 /* Notice in Resources */,
 				9225637418FD1B85005BD532 /* TMOSmartyViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -837,15 +627,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E9DCB5918E94EED00C140A7 /* TMOHTTPManager.m in Sources */,
-				63E3EAA518FD6B2400B97440 /* DWRefreshHeaderView.m in Sources */,
 				F0F6FC2018F999090005A5BF /* UIView+TMOSmarty.m in Sources */,
 				927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */,
 				9225635D18FCD1FA005BD532 /* TMODemoViewController.m in Sources */,
 				9225637818FD2397005BD532 /* TMOSmartyMoreViewController.m in Sources */,
 				9225636A18FD1413005BD532 /* TMOFMDBDemoViewController.m in Sources */,
-				63E3EAA318FD6B2400B97440 /* DWPromptView.m in Sources */,
 				921C01341947F3B800BB558D /* TMOSecurity.m in Sources */,
-				63E3EAA118FD6B2400B97440 /* DWDefaultAppDelegate.m in Sources */,
 				2E19538A18EA8DAF00E1F463 /* TMOHTTPResult.m in Sources */,
 				9225637318FD1B85005BD532 /* TMOSmartyViewController.m in Sources */,
 				9225636318FCD886005BD532 /* TMONetworkDemoViewController.m in Sources */,
@@ -853,28 +640,19 @@
 				92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */,
 				92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */,
 				92DA478F18E96ED60096D349 /* UIImage+TMOImage.m in Sources */,
-				63E3EAA418FD6B2400B97440 /* DWPullRefreshControl.m in Sources */,
-				63E3EA7718FD6B2400B97440 /* NSString+DWString.m in Sources */,
 				92170D651907BD1300EB9ED9 /* TMOTextKitViewController.m in Sources */,
-				63E3EAA618FD6B2400B97440 /* DWTableViewCell.m in Sources */,
 				2E8CAA0618E93E5F0047D335 /* main.m in Sources */,
-				63E3EAAC18FD6B2400B97440 /* DWHttpRequestResult.m in Sources */,
 				9225636718FD1235005BD532 /* TMOKVDBDemoViewController.m in Sources */,
 				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,
-				63E3EAA018FD6B2400B97440 /* DWButton.m in Sources */,
 				2E19539018EAA0F300E1F463 /* TMOToolKitCore.m in Sources */,
 				92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */,
-				63E3EAA718FD6B2400B97440 /* DWViewController.m in Sources */,
 				92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */,
-				63E3EA7618FD6B2400B97440 /* NSDate+DWDate.m in Sources */,
 				92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */,
 				920F0F2818E9625700B9E953 /* UIColor+TMOColor.m in Sources */,
-				63E3EAA218FD6B2400B97440 /* DWImageView.m in Sources */,
 				2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */,
 				92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */,
 				9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */,
 				2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */,
-				63E3EAA918FD6B2400B97440 /* DWHttpClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

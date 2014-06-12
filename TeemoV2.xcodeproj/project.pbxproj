@@ -1,0 +1,1121 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2E19538A18EA8DAF00E1F463 /* TMOHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E19538918EA8DAF00E1F463 /* TMOHTTPResult.m */; };
+		2E19539018EAA0F300E1F463 /* TMOToolKitCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E19538F18EAA0F300E1F463 /* TMOToolKitCore.m */; };
+		2E39406818ED4D2B008F538A /* TMOHTTPManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E39406718ED4D2B008F538A /* TMOHTTPManagerTests.m */; };
+		2E8CA9FA18E93E5F0047D335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8CA9F918E93E5F0047D335 /* Foundation.framework */; };
+		2E8CA9FC18E93E5F0047D335 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8CA9FB18E93E5F0047D335 /* CoreGraphics.framework */; };
+		2E8CA9FE18E93E5F0047D335 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8CA9FD18E93E5F0047D335 /* UIKit.framework */; };
+		2E8CAA0418E93E5F0047D335 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E8CAA0218E93E5F0047D335 /* InfoPlist.strings */; };
+		2E8CAA0618E93E5F0047D335 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8CAA0518E93E5F0047D335 /* main.m */; };
+		2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8CAA0918E93E5F0047D335 /* TMOAppDelegate.m */; };
+		2E8CAA1218E93E5F0047D335 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8CAA1118E93E5F0047D335 /* Images.xcassets */; };
+		2E8CAA1918E93E5F0047D335 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8CAA1818E93E5F0047D335 /* XCTest.framework */; };
+		2E8CAA1A18E93E5F0047D335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8CA9F918E93E5F0047D335 /* Foundation.framework */; };
+		2E8CAA1B18E93E5F0047D335 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8CA9FD18E93E5F0047D335 /* UIKit.framework */; };
+		2E8CAA2318E93E5F0047D335 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E8CAA2118E93E5F0047D335 /* InfoPlist.strings */; };
+		2E8CAA2518E93E5F0047D335 /* TeemoV2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8CAA2418E93E5F0047D335 /* TeemoV2Tests.m */; };
+		2E9DCB5918E94EED00C140A7 /* TMOHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9DCB5818E94EED00C140A7 /* TMOHTTPManager.m */; };
+		2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8D85518EC075600405406 /* TMOKVDB.m */; };
+		35439A44345B41ED85CC8AFC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8388B4E5CED74D2E99AAF859 /* libPods.a */; };
+		63E3EA7618FD6B2400B97440 /* NSDate+DWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3E9E118FD6B2300B97440 /* NSDate+DWDate.m */; };
+		63E3EA7718FD6B2400B97440 /* NSString+DWString.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3E9E418FD6B2300B97440 /* NSString+DWString.m */; };
+		63E3EAA018FD6B2400B97440 /* DWButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA4918FD6B2400B97440 /* DWButton.m */; };
+		63E3EAA118FD6B2400B97440 /* DWDefaultAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA4C18FD6B2400B97440 /* DWDefaultAppDelegate.m */; };
+		63E3EAA218FD6B2400B97440 /* DWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA4F18FD6B2400B97440 /* DWImageView.m */; };
+		63E3EAA318FD6B2400B97440 /* DWPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5218FD6B2400B97440 /* DWPromptView.m */; };
+		63E3EAA418FD6B2400B97440 /* DWPullRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5518FD6B2400B97440 /* DWPullRefreshControl.m */; };
+		63E3EAA518FD6B2400B97440 /* DWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5818FD6B2400B97440 /* DWRefreshHeaderView.m */; };
+		63E3EAA618FD6B2400B97440 /* DWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5B18FD6B2400B97440 /* DWTableViewCell.m */; };
+		63E3EAA718FD6B2400B97440 /* DWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA5F18FD6B2400B97440 /* DWViewController.m */; };
+		63E3EAA918FD6B2400B97440 /* DWHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA6618FD6B2400B97440 /* DWHttpClient.m */; };
+		63E3EAAC18FD6B2400B97440 /* DWHttpRequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E3EA6C18FD6B2400B97440 /* DWHttpRequestResult.m */; };
+		63E3EAAF18FD6B2400B97440 /* Notice in Resources */ = {isa = PBXBuildFile; fileRef = 63E3EA7418FD6B2400B97440 /* Notice */; };
+		7BA56A9D871F4A05AD77A57A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8388B4E5CED74D2E99AAF859 /* libPods.a */; };
+		920F0F2118E94DB900B9E953 /* TMOUIKitCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */; };
+		920F0F2818E9625700B9E953 /* UIColor+TMOColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 920F0F2718E9625700B9E953 /* UIColor+TMOColor.m */; };
+		92170D651907BD1300EB9ED9 /* TMOTextKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92170D631907BD1300EB9ED9 /* TMOTextKitViewController.m */; };
+		92170D661907BD1300EB9ED9 /* TMOTextKitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92170D641907BD1300EB9ED9 /* TMOTextKitViewController.xib */; };
+		921C01341947F3B800BB558D /* TMOSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = 921C01331947F3B800BB558D /* TMOSecurity.m */; };
+		921C01351948273A00BB558D /* TMOSecurity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 921C01321947F3B800BB558D /* TMOSecurity.h */; };
+		921C01361948273A00BB558D /* TMOSecurity.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 921C01331947F3B800BB558D /* TMOSecurity.m */; };
+		9225635D18FCD1FA005BD532 /* TMODemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225635C18FCD1FA005BD532 /* TMODemoViewController.m */; };
+		9225635F18FCD209005BD532 /* TMODemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225635E18FCD209005BD532 /* TMODemoViewController.xib */; };
+		9225636318FCD886005BD532 /* TMONetworkDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225636118FCD886005BD532 /* TMONetworkDemoViewController.m */; };
+		9225636418FCD886005BD532 /* TMONetworkDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225636218FCD886005BD532 /* TMONetworkDemoViewController.xib */; };
+		9225636718FD1235005BD532 /* TMOKVDBDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225636618FD1235005BD532 /* TMOKVDBDemoViewController.m */; };
+		9225636A18FD1413005BD532 /* TMOFMDBDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225636918FD1413005BD532 /* TMOFMDBDemoViewController.m */; };
+		9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225636C18FD1732005BD532 /* TMOUIKitDemoViewController.m */; };
+		9225636F18FD1732005BD532 /* TMOUIKitDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225636D18FD1732005BD532 /* TMOUIKitDemoViewController.xib */; };
+		9225637318FD1B85005BD532 /* TMOSmartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637118FD1B85005BD532 /* TMOSmartyViewController.m */; };
+		9225637418FD1B85005BD532 /* TMOSmartyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225637218FD1B85005BD532 /* TMOSmartyViewController.xib */; };
+		9225637818FD2397005BD532 /* TMOSmartyMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637618FD2397005BD532 /* TMOSmartyMoreViewController.m */; };
+		9225637918FD2397005BD532 /* TMOSmartyMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */; };
+		9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */; };
+		922F608A193490DB005AD787 /* TMOKVDB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE8D85418EC075600405406 /* TMOKVDB.h */; };
+		922F608B193490DB005AD787 /* TMOKVDB.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE8D85518EC075600405406 /* TMOKVDB.m */; };
+		922F608C193490DB005AD787 /* TMOFMDB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */; };
+		922F608D193490DB005AD787 /* TMOFMDB.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */; };
+		922F608E193490DB005AD787 /* TMOHTTPManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E9DCB5718E94EED00C140A7 /* TMOHTTPManager.h */; };
+		922F608F193490DB005AD787 /* TMOHTTPManager.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E9DCB5818E94EED00C140A7 /* TMOHTTPManager.m */; };
+		922F6090193490DB005AD787 /* TMOHTTPResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E19538818EA8DAF00E1F463 /* TMOHTTPResult.h */; };
+		922F6091193490DB005AD787 /* TMOHTTPResult.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E19538918EA8DAF00E1F463 /* TMOHTTPResult.m */; };
+		922F6092193490DB005AD787 /* TMOToolKitCore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E19538E18EAA0F300E1F463 /* TMOToolKitCore.h */; };
+		922F6093193490DB005AD787 /* TMOToolKitCore.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E19538F18EAA0F300E1F463 /* TMOToolKitCore.m */; };
+		922F6094193490DB005AD787 /* TMOToolKitMacro.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92BFF84018F6703200A13FD8 /* TMOToolKitMacro.h */; };
+		922F6095193490DB005AD787 /* NSString+TMOString.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92BFF83D18F638E700A13FD8 /* NSString+TMOString.h */; };
+		922F6096193490DB005AD787 /* NSString+TMOString.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */; };
+		922F6097193490DB005AD787 /* TMOObjectVerifier.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92C2AFF318F69375007EF9C3 /* TMOObjectVerifier.h */; };
+		922F6098193490DB005AD787 /* TMOObjectVerifier.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */; };
+		922F6099193490DB005AD787 /* TMOUIKitCore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 920F0F1F18E94DB900B9E953 /* TMOUIKitCore.h */; };
+		922F609A193490DB005AD787 /* TMOUIKitCore.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */; };
+		922F609B193490DB005AD787 /* TMOUIKitMacro.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 920F0F2218E94E2B00B9E953 /* TMOUIKitMacro.h */; };
+		922F609C193490DB005AD787 /* UIColor+TMOColor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 920F0F2618E9625700B9E953 /* UIColor+TMOColor.h */; };
+		922F609D193490DB005AD787 /* UIColor+TMOColor.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 920F0F2718E9625700B9E953 /* UIColor+TMOColor.m */; };
+		922F609E193490DB005AD787 /* UIImage+TMOImage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92DA478D18E96ED60096D349 /* UIImage+TMOImage.h */; };
+		922F609F193490DB005AD787 /* UIImage+TMOImage.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92DA478E18E96ED60096D349 /* UIImage+TMOImage.m */; };
+		922F60A0193490DB005AD787 /* UIView+TMOView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92DA479218EA624B0096D349 /* UIView+TMOView.h */; };
+		922F60A1193490DB005AD787 /* UIView+TMOView.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92DA479318EA624B0096D349 /* UIView+TMOView.m */; };
+		922F60A2193490DB005AD787 /* UIImageView+TMOImageView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */; };
+		922F60A3193490DB005AD787 /* UIImageView+TMOImageView.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */; };
+		922F60A4193490DB005AD787 /* UIView+TMOSmarty.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0F6FC1E18F999090005A5BF /* UIView+TMOSmarty.h */; };
+		922F60A5193490DB005AD787 /* UIView+TMOSmarty.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */; };
+		922F60A9193490F8005AD787 /* TModel.php in Resources */ = {isa = PBXBuildFile; fileRef = 922F60A8193490F8005AD787 /* TModel.php */; };
+		922F60AA19349104005AD787 /* TModel.php in CopyFiles */ = {isa = PBXBuildFile; fileRef = 922F60A8193490F8005AD787 /* TModel.php */; };
+		927AD2CF18FFBC7600498AD0 /* TMOFMDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */; };
+		927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */; };
+		92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */; };
+		92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */; };
+		92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */; };
+		92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */; };
+		92C13F811946D58200F6566A /* NIAttributedLabel+TagString.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */; };
+		92C13F821946D58200F6566A /* NIAttributedLabel+TagString.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */; };
+		92C13F831946D58200F6566A /* UIButton+TMOButton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */; };
+		92C13F841946D58200F6566A /* UIButton+TMOButton.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */; };
+		92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */; };
+		92DA478F18E96ED60096D349 /* UIImage+TMOImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DA478E18E96ED60096D349 /* UIImage+TMOImage.m */; };
+		92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DA479318EA624B0096D349 /* UIView+TMOView.m */; };
+		92DC4F43190E02E2009E6F81 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC4F42190E02E2009E6F81 /* CoreText.framework */; };
+		92E6DA9918ED4479002CC61F /* TMOKVDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */; };
+		F0F6FC2018F999090005A5BF /* UIView+TMOSmarty.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2E8CAA1C18E93E5F0047D335 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E8CA9EE18E93E5F0047D335 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E8CA9F518E93E5F0047D335;
+			remoteInfo = TeemoV2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		922F60891934909E005AD787 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = src;
+			dstSubfolderSpec = 16;
+			files = (
+				921C01351948273A00BB558D /* TMOSecurity.h in CopyFiles */,
+				921C01361948273A00BB558D /* TMOSecurity.m in CopyFiles */,
+				92C13F811946D58200F6566A /* NIAttributedLabel+TagString.h in CopyFiles */,
+				92C13F821946D58200F6566A /* NIAttributedLabel+TagString.m in CopyFiles */,
+				92C13F831946D58200F6566A /* UIButton+TMOButton.h in CopyFiles */,
+				92C13F841946D58200F6566A /* UIButton+TMOButton.m in CopyFiles */,
+				922F60AA19349104005AD787 /* TModel.php in CopyFiles */,
+				922F608A193490DB005AD787 /* TMOKVDB.h in CopyFiles */,
+				922F608B193490DB005AD787 /* TMOKVDB.m in CopyFiles */,
+				922F608C193490DB005AD787 /* TMOFMDB.h in CopyFiles */,
+				922F608D193490DB005AD787 /* TMOFMDB.m in CopyFiles */,
+				922F608E193490DB005AD787 /* TMOHTTPManager.h in CopyFiles */,
+				922F608F193490DB005AD787 /* TMOHTTPManager.m in CopyFiles */,
+				922F6090193490DB005AD787 /* TMOHTTPResult.h in CopyFiles */,
+				922F6091193490DB005AD787 /* TMOHTTPResult.m in CopyFiles */,
+				922F6092193490DB005AD787 /* TMOToolKitCore.h in CopyFiles */,
+				922F6093193490DB005AD787 /* TMOToolKitCore.m in CopyFiles */,
+				922F6094193490DB005AD787 /* TMOToolKitMacro.h in CopyFiles */,
+				922F6095193490DB005AD787 /* NSString+TMOString.h in CopyFiles */,
+				922F6096193490DB005AD787 /* NSString+TMOString.m in CopyFiles */,
+				922F6097193490DB005AD787 /* TMOObjectVerifier.h in CopyFiles */,
+				922F6098193490DB005AD787 /* TMOObjectVerifier.m in CopyFiles */,
+				922F6099193490DB005AD787 /* TMOUIKitCore.h in CopyFiles */,
+				922F609A193490DB005AD787 /* TMOUIKitCore.m in CopyFiles */,
+				922F609B193490DB005AD787 /* TMOUIKitMacro.h in CopyFiles */,
+				922F609C193490DB005AD787 /* UIColor+TMOColor.h in CopyFiles */,
+				922F609D193490DB005AD787 /* UIColor+TMOColor.m in CopyFiles */,
+				922F609E193490DB005AD787 /* UIImage+TMOImage.h in CopyFiles */,
+				922F609F193490DB005AD787 /* UIImage+TMOImage.m in CopyFiles */,
+				922F60A0193490DB005AD787 /* UIView+TMOView.h in CopyFiles */,
+				922F60A1193490DB005AD787 /* UIView+TMOView.m in CopyFiles */,
+				922F60A2193490DB005AD787 /* UIImageView+TMOImageView.h in CopyFiles */,
+				922F60A3193490DB005AD787 /* UIImageView+TMOImageView.m in CopyFiles */,
+				922F60A4193490DB005AD787 /* UIView+TMOSmarty.h in CopyFiles */,
+				922F60A5193490DB005AD787 /* UIView+TMOSmarty.m in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2E19538818EA8DAF00E1F463 /* TMOHTTPResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOHTTPResult.h; sourceTree = "<group>"; };
+		2E19538918EA8DAF00E1F463 /* TMOHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOHTTPResult.m; sourceTree = "<group>"; };
+		2E19538E18EAA0F300E1F463 /* TMOToolKitCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOToolKitCore.h; sourceTree = "<group>"; };
+		2E19538F18EAA0F300E1F463 /* TMOToolKitCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOToolKitCore.m; sourceTree = "<group>"; };
+		2E39406718ED4D2B008F538A /* TMOHTTPManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOHTTPManagerTests.m; sourceTree = "<group>"; };
+		2E8CA9F618E93E5F0047D335 /* TeemoV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeemoV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E8CA9F918E93E5F0047D335 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2E8CA9FB18E93E5F0047D335 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2E8CA9FD18E93E5F0047D335 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2E8CAA0118E93E5F0047D335 /* TeemoV2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeemoV2-Info.plist"; sourceTree = "<group>"; };
+		2E8CAA0318E93E5F0047D335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2E8CAA0518E93E5F0047D335 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2E8CAA0718E93E5F0047D335 /* TeemoV2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeemoV2-Prefix.pch"; sourceTree = "<group>"; };
+		2E8CAA0818E93E5F0047D335 /* TMOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMOAppDelegate.h; sourceTree = "<group>"; };
+		2E8CAA0918E93E5F0047D335 /* TMOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMOAppDelegate.m; sourceTree = "<group>"; };
+		2E8CAA1118E93E5F0047D335 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2E8CAA1718E93E5F0047D335 /* TeemoV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeemoV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E8CAA1818E93E5F0047D335 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		2E8CAA2018E93E5F0047D335 /* TeemoV2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeemoV2Tests-Info.plist"; sourceTree = "<group>"; };
+		2E8CAA2218E93E5F0047D335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2E8CAA2418E93E5F0047D335 /* TeemoV2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeemoV2Tests.m; sourceTree = "<group>"; };
+		2E9DCB5718E94EED00C140A7 /* TMOHTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOHTTPManager.h; sourceTree = "<group>"; };
+		2E9DCB5818E94EED00C140A7 /* TMOHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOHTTPManager.m; sourceTree = "<group>"; };
+		2EE8D85418EC075600405406 /* TMOKVDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOKVDB.h; sourceTree = "<group>"; };
+		2EE8D85518EC075600405406 /* TMOKVDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOKVDB.m; sourceTree = "<group>"; };
+		63E3E9DA18FD6B2300B97440 /* DWFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWFoundation.h; sourceTree = "<group>"; };
+		63E3E9DB18FD6B2300B97440 /* DWVersionAdapt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWVersionAdapt.h; sourceTree = "<group>"; };
+		63E3E9E018FD6B2300B97440 /* NSDate+DWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DWDate.h"; sourceTree = "<group>"; };
+		63E3E9E118FD6B2300B97440 /* NSDate+DWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DWDate.m"; sourceTree = "<group>"; };
+		63E3E9E318FD6B2300B97440 /* NSString+DWString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DWString.h"; sourceTree = "<group>"; };
+		63E3E9E418FD6B2300B97440 /* NSString+DWString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DWString.m"; sourceTree = "<group>"; };
+		63E3EA4818FD6B2400B97440 /* DWButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWButton.h; sourceTree = "<group>"; };
+		63E3EA4918FD6B2400B97440 /* DWButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWButton.m; sourceTree = "<group>"; };
+		63E3EA4B18FD6B2400B97440 /* DWDefaultAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWDefaultAppDelegate.h; sourceTree = "<group>"; };
+		63E3EA4C18FD6B2400B97440 /* DWDefaultAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWDefaultAppDelegate.m; sourceTree = "<group>"; };
+		63E3EA4E18FD6B2400B97440 /* DWImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWImageView.h; sourceTree = "<group>"; };
+		63E3EA4F18FD6B2400B97440 /* DWImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWImageView.m; sourceTree = "<group>"; };
+		63E3EA5118FD6B2400B97440 /* DWPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWPromptView.h; sourceTree = "<group>"; };
+		63E3EA5218FD6B2400B97440 /* DWPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWPromptView.m; sourceTree = "<group>"; };
+		63E3EA5418FD6B2400B97440 /* DWPullRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWPullRefreshControl.h; sourceTree = "<group>"; };
+		63E3EA5518FD6B2400B97440 /* DWPullRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWPullRefreshControl.m; sourceTree = "<group>"; };
+		63E3EA5718FD6B2400B97440 /* DWRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWRefreshHeaderView.h; sourceTree = "<group>"; };
+		63E3EA5818FD6B2400B97440 /* DWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWRefreshHeaderView.m; sourceTree = "<group>"; };
+		63E3EA5A18FD6B2400B97440 /* DWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTableViewCell.h; sourceTree = "<group>"; };
+		63E3EA5B18FD6B2400B97440 /* DWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTableViewCell.m; sourceTree = "<group>"; };
+		63E3EA5C18FD6B2400B97440 /* DWUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWUIKit.h; sourceTree = "<group>"; };
+		63E3EA5E18FD6B2400B97440 /* DWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWViewController.h; sourceTree = "<group>"; };
+		63E3EA5F18FD6B2400B97440 /* DWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWViewController.m; sourceTree = "<group>"; };
+		63E3EA6518FD6B2400B97440 /* DWHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWHttpClient.h; sourceTree = "<group>"; };
+		63E3EA6618FD6B2400B97440 /* DWHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWHttpClient.m; sourceTree = "<group>"; };
+		63E3EA6B18FD6B2400B97440 /* DWHttpRequestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWHttpRequestResult.h; sourceTree = "<group>"; };
+		63E3EA6C18FD6B2400B97440 /* DWHttpRequestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWHttpRequestResult.m; sourceTree = "<group>"; };
+		63E3EA7218FD6B2400B97440 /* DWNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNetworkKit.h; sourceTree = "<group>"; };
+		63E3EA7318FD6B2400B97440 /* DWKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWKit.h; sourceTree = "<group>"; };
+		63E3EA7418FD6B2400B97440 /* Notice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notice; sourceTree = "<group>"; };
+		6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		8388B4E5CED74D2E99AAF859 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		920F0F1F18E94DB900B9E953 /* TMOUIKitCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOUIKitCore.h; sourceTree = "<group>"; };
+		920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOUIKitCore.m; sourceTree = "<group>"; };
+		920F0F2218E94E2B00B9E953 /* TMOUIKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOUIKitMacro.h; sourceTree = "<group>"; };
+		920F0F2618E9625700B9E953 /* UIColor+TMOColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TMOColor.h"; sourceTree = "<group>"; };
+		920F0F2718E9625700B9E953 /* UIColor+TMOColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TMOColor.m"; sourceTree = "<group>"; };
+		92170D621907BD1300EB9ED9 /* TMOTextKitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTextKitViewController.h; sourceTree = "<group>"; };
+		92170D631907BD1300EB9ED9 /* TMOTextKitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTextKitViewController.m; sourceTree = "<group>"; };
+		92170D641907BD1300EB9ED9 /* TMOTextKitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOTextKitViewController.xib; sourceTree = "<group>"; };
+		921C01321947F3B800BB558D /* TMOSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOSecurity.h; sourceTree = "<group>"; };
+		921C01331947F3B800BB558D /* TMOSecurity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOSecurity.m; sourceTree = "<group>"; };
+		9225635B18FCD1FA005BD532 /* TMODemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMODemoViewController.h; sourceTree = "<group>"; };
+		9225635C18FCD1FA005BD532 /* TMODemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMODemoViewController.m; sourceTree = "<group>"; };
+		9225635E18FCD209005BD532 /* TMODemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMODemoViewController.xib; sourceTree = "<group>"; };
+		9225636018FCD886005BD532 /* TMONetworkDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMONetworkDemoViewController.h; sourceTree = "<group>"; };
+		9225636118FCD886005BD532 /* TMONetworkDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMONetworkDemoViewController.m; sourceTree = "<group>"; };
+		9225636218FCD886005BD532 /* TMONetworkDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMONetworkDemoViewController.xib; sourceTree = "<group>"; };
+		9225636518FD1235005BD532 /* TMOKVDBDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOKVDBDemoViewController.h; sourceTree = "<group>"; };
+		9225636618FD1235005BD532 /* TMOKVDBDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOKVDBDemoViewController.m; sourceTree = "<group>"; };
+		9225636818FD1413005BD532 /* TMOFMDBDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFMDBDemoViewController.h; sourceTree = "<group>"; };
+		9225636918FD1413005BD532 /* TMOFMDBDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDBDemoViewController.m; sourceTree = "<group>"; };
+		9225636B18FD1732005BD532 /* TMOUIKitDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOUIKitDemoViewController.h; sourceTree = "<group>"; };
+		9225636C18FD1732005BD532 /* TMOUIKitDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOUIKitDemoViewController.m; sourceTree = "<group>"; };
+		9225636D18FD1732005BD532 /* TMOUIKitDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOUIKitDemoViewController.xib; sourceTree = "<group>"; };
+		9225637018FD1B84005BD532 /* TMOSmartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOSmartyViewController.h; sourceTree = "<group>"; };
+		9225637118FD1B85005BD532 /* TMOSmartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOSmartyViewController.m; sourceTree = "<group>"; };
+		9225637218FD1B85005BD532 /* TMOSmartyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOSmartyViewController.xib; sourceTree = "<group>"; };
+		9225637518FD2397005BD532 /* TMOSmartyMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOSmartyMoreViewController.h; sourceTree = "<group>"; };
+		9225637618FD2397005BD532 /* TMOSmartyMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOSmartyMoreViewController.m; sourceTree = "<group>"; };
+		9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOSmartyMoreViewController.xib; sourceTree = "<group>"; };
+		9225637A18FD2587005BD532 /* TMOStringDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOStringDemoViewController.h; sourceTree = "<group>"; };
+		9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOStringDemoViewController.m; sourceTree = "<group>"; };
+		922F60A8193490F8005AD787 /* TModel.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = TModel.php; path = TModel/TModel.php; sourceTree = "<group>"; };
+		927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDBTests.m; sourceTree = "<group>"; };
+		927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFMDB.h; sourceTree = "<group>"; };
+		927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDB.m; sourceTree = "<group>"; };
+		92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NIAttributedLabel+TagString.m"; sourceTree = "<group>"; };
+		92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIAttributedLabel+TagString.h"; sourceTree = "<group>"; };
+		92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMOImageView.h"; sourceTree = "<group>"; };
+		92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TMOImageView.m"; sourceTree = "<group>"; };
+		92BFF83D18F638E700A13FD8 /* NSString+TMOString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TMOString.h"; sourceTree = "<group>"; };
+		92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TMOString.m"; sourceTree = "<group>"; };
+		92BFF84018F6703200A13FD8 /* TMOToolKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOToolKitMacro.h; sourceTree = "<group>"; };
+		92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TMOButton.h"; sourceTree = "<group>"; };
+		92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TMOButton.m"; sourceTree = "<group>"; };
+		92C2AFF318F69375007EF9C3 /* TMOObjectVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOObjectVerifier.h; sourceTree = "<group>"; };
+		92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOObjectVerifier.m; sourceTree = "<group>"; };
+		92DA478D18E96ED60096D349 /* UIImage+TMOImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TMOImage.h"; sourceTree = "<group>"; };
+		92DA478E18E96ED60096D349 /* UIImage+TMOImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TMOImage.m"; sourceTree = "<group>"; };
+		92DA479218EA624B0096D349 /* UIView+TMOView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TMOView.h"; sourceTree = "<group>"; };
+		92DA479318EA624B0096D349 /* UIView+TMOView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOView.m"; sourceTree = "<group>"; };
+		92DC4F42190E02E2009E6F81 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOKVDBTests.m; sourceTree = "<group>"; };
+		F0F6FC1E18F999090005A5BF /* UIView+TMOSmarty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TMOSmarty.h"; sourceTree = "<group>"; };
+		F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOSmarty.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E8CA9F318E93E5F0047D335 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92DC4F43190E02E2009E6F81 /* CoreText.framework in Frameworks */,
+				2E8CA9FC18E93E5F0047D335 /* CoreGraphics.framework in Frameworks */,
+				2E8CA9FE18E93E5F0047D335 /* UIKit.framework in Frameworks */,
+				2E8CA9FA18E93E5F0047D335 /* Foundation.framework in Frameworks */,
+				35439A44345B41ED85CC8AFC /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E8CAA1418E93E5F0047D335 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E8CAA1918E93E5F0047D335 /* XCTest.framework in Frameworks */,
+				2E8CAA1B18E93E5F0047D335 /* UIKit.framework in Frameworks */,
+				2E8CAA1A18E93E5F0047D335 /* Foundation.framework in Frameworks */,
+				7BA56A9D871F4A05AD77A57A /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E8CA9ED18E93E5F0047D335 = {
+			isa = PBXGroup;
+			children = (
+				63E3E9D818FD6AC500B97440 /* V1Adater */,
+				2E8CAA3018E947DC0047D335 /* TeemoFramework */,
+				2E8CA9FF18E93E5F0047D335 /* TeemoV2 */,
+				2E8CAA1E18E93E5F0047D335 /* TeemoV2Tests */,
+				2E8CA9F818E93E5F0047D335 /* Frameworks */,
+				2E8CA9F718E93E5F0047D335 /* Products */,
+				6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		2E8CA9F718E93E5F0047D335 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E8CA9F618E93E5F0047D335 /* TeemoV2.app */,
+				2E8CAA1718E93E5F0047D335 /* TeemoV2Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E8CA9F818E93E5F0047D335 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92DC4F42190E02E2009E6F81 /* CoreText.framework */,
+				2E8CA9F918E93E5F0047D335 /* Foundation.framework */,
+				2E8CA9FB18E93E5F0047D335 /* CoreGraphics.framework */,
+				2E8CA9FD18E93E5F0047D335 /* UIKit.framework */,
+				2E8CAA1818E93E5F0047D335 /* XCTest.framework */,
+				8388B4E5CED74D2E99AAF859 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E8CA9FF18E93E5F0047D335 /* TeemoV2 */ = {
+			isa = PBXGroup;
+			children = (
+				920F0F2518E9579B00B9E953 /* iPad */,
+				2E8CAA0818E93E5F0047D335 /* TMOAppDelegate.h */,
+				2E8CAA0918E93E5F0047D335 /* TMOAppDelegate.m */,
+				9225635B18FCD1FA005BD532 /* TMODemoViewController.h */,
+				9225635C18FCD1FA005BD532 /* TMODemoViewController.m */,
+				9225635E18FCD209005BD532 /* TMODemoViewController.xib */,
+				9225636018FCD886005BD532 /* TMONetworkDemoViewController.h */,
+				9225636118FCD886005BD532 /* TMONetworkDemoViewController.m */,
+				9225636218FCD886005BD532 /* TMONetworkDemoViewController.xib */,
+				9225636518FD1235005BD532 /* TMOKVDBDemoViewController.h */,
+				9225636618FD1235005BD532 /* TMOKVDBDemoViewController.m */,
+				9225636818FD1413005BD532 /* TMOFMDBDemoViewController.h */,
+				9225636918FD1413005BD532 /* TMOFMDBDemoViewController.m */,
+				9225636B18FD1732005BD532 /* TMOUIKitDemoViewController.h */,
+				9225636C18FD1732005BD532 /* TMOUIKitDemoViewController.m */,
+				9225636D18FD1732005BD532 /* TMOUIKitDemoViewController.xib */,
+				9225637018FD1B84005BD532 /* TMOSmartyViewController.h */,
+				9225637118FD1B85005BD532 /* TMOSmartyViewController.m */,
+				9225637218FD1B85005BD532 /* TMOSmartyViewController.xib */,
+				9225637518FD2397005BD532 /* TMOSmartyMoreViewController.h */,
+				9225637618FD2397005BD532 /* TMOSmartyMoreViewController.m */,
+				9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */,
+				9225637A18FD2587005BD532 /* TMOStringDemoViewController.h */,
+				9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */,
+				92170D621907BD1300EB9ED9 /* TMOTextKitViewController.h */,
+				92170D631907BD1300EB9ED9 /* TMOTextKitViewController.m */,
+				92170D641907BD1300EB9ED9 /* TMOTextKitViewController.xib */,
+				2E8CAA1118E93E5F0047D335 /* Images.xcassets */,
+				2E8CAA0018E93E5F0047D335 /* Supporting Files */,
+			);
+			path = TeemoV2;
+			sourceTree = "<group>";
+		};
+		2E8CAA0018E93E5F0047D335 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2E8CAA0118E93E5F0047D335 /* TeemoV2-Info.plist */,
+				2E8CAA0218E93E5F0047D335 /* InfoPlist.strings */,
+				2E8CAA0518E93E5F0047D335 /* main.m */,
+				2E8CAA0718E93E5F0047D335 /* TeemoV2-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2E8CAA1E18E93E5F0047D335 /* TeemoV2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2E8CAA2418E93E5F0047D335 /* TeemoV2Tests.m */,
+				92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */,
+				927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */,
+				2E39406718ED4D2B008F538A /* TMOHTTPManagerTests.m */,
+				2E8CAA1F18E93E5F0047D335 /* Supporting Files */,
+			);
+			path = TeemoV2Tests;
+			sourceTree = "<group>";
+		};
+		2E8CAA1F18E93E5F0047D335 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2E8CAA2018E93E5F0047D335 /* TeemoV2Tests-Info.plist */,
+				2E8CAA2118E93E5F0047D335 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2E8CAA3018E947DC0047D335 /* TeemoFramework */ = {
+			isa = PBXGroup;
+			children = (
+				922F60A8193490F8005AD787 /* TModel.php */,
+				92BF7F5218F7922800CAC2FE /* ServiceKit */,
+				2E8CAA3118E947DC0047D335 /* DataKit */,
+				2E8CAA3218E947DC0047D335 /* NetworkKit */,
+				2E8CAA3418E947DC0047D335 /* ToolKit */,
+				2E8CAA3518E947DC0047D335 /* UIKit */,
+			);
+			path = TeemoFramework;
+			sourceTree = "<group>";
+		};
+		2E8CAA3118E947DC0047D335 /* DataKit */ = {
+			isa = PBXGroup;
+			children = (
+				2EE8D85418EC075600405406 /* TMOKVDB.h */,
+				2EE8D85518EC075600405406 /* TMOKVDB.m */,
+				927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */,
+				927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */,
+			);
+			path = DataKit;
+			sourceTree = "<group>";
+		};
+		2E8CAA3218E947DC0047D335 /* NetworkKit */ = {
+			isa = PBXGroup;
+			children = (
+				2E9DCB5718E94EED00C140A7 /* TMOHTTPManager.h */,
+				2E9DCB5818E94EED00C140A7 /* TMOHTTPManager.m */,
+				2E19538818EA8DAF00E1F463 /* TMOHTTPResult.h */,
+				2E19538918EA8DAF00E1F463 /* TMOHTTPResult.m */,
+			);
+			path = NetworkKit;
+			sourceTree = "<group>";
+		};
+		2E8CAA3418E947DC0047D335 /* ToolKit */ = {
+			isa = PBXGroup;
+			children = (
+				2E19538E18EAA0F300E1F463 /* TMOToolKitCore.h */,
+				2E19538F18EAA0F300E1F463 /* TMOToolKitCore.m */,
+				92BFF84018F6703200A13FD8 /* TMOToolKitMacro.h */,
+				92BFF83D18F638E700A13FD8 /* NSString+TMOString.h */,
+				92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */,
+				92C2AFF318F69375007EF9C3 /* TMOObjectVerifier.h */,
+				92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */,
+				921C01321947F3B800BB558D /* TMOSecurity.h */,
+				921C01331947F3B800BB558D /* TMOSecurity.m */,
+			);
+			path = ToolKit;
+			sourceTree = "<group>";
+		};
+		2E8CAA3518E947DC0047D335 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */,
+				92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */,
+				920F0F1F18E94DB900B9E953 /* TMOUIKitCore.h */,
+				920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */,
+				920F0F2218E94E2B00B9E953 /* TMOUIKitMacro.h */,
+				920F0F2618E9625700B9E953 /* UIColor+TMOColor.h */,
+				920F0F2718E9625700B9E953 /* UIColor+TMOColor.m */,
+				92DA478D18E96ED60096D349 /* UIImage+TMOImage.h */,
+				92DA478E18E96ED60096D349 /* UIImage+TMOImage.m */,
+				92DA479218EA624B0096D349 /* UIView+TMOView.h */,
+				92DA479318EA624B0096D349 /* UIView+TMOView.m */,
+				92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */,
+				92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */,
+				F0F6FC1E18F999090005A5BF /* UIView+TMOSmarty.h */,
+				F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */,
+				92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */,
+				92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		63E3E9D818FD6AC500B97440 /* V1Adater */ = {
+			isa = PBXGroup;
+			children = (
+				63E3E9D918FD6B2300B97440 /* DWFoundation */,
+				63E3E9E818FD6B2300B97440 /* External */,
+				63E3EA4618FD6B2400B97440 /* DWUIKit */,
+				63E3EA6118FD6B2400B97440 /* DWNetworkKit */,
+				63E3EA7318FD6B2400B97440 /* DWKit.h */,
+				63E3EA7418FD6B2400B97440 /* Notice */,
+			);
+			path = V1Adater;
+			sourceTree = "<group>";
+		};
+		63E3E9D918FD6B2300B97440 /* DWFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				63E3E9DA18FD6B2300B97440 /* DWFoundation.h */,
+				63E3E9DB18FD6B2300B97440 /* DWVersionAdapt.h */,
+				63E3E9DF18FD6B2300B97440 /* NSDate+DWDate */,
+				63E3E9E218FD6B2300B97440 /* NSString+DWString */,
+			);
+			path = DWFoundation;
+			sourceTree = "<group>";
+		};
+		63E3E9DF18FD6B2300B97440 /* NSDate+DWDate */ = {
+			isa = PBXGroup;
+			children = (
+				63E3E9E018FD6B2300B97440 /* NSDate+DWDate.h */,
+				63E3E9E118FD6B2300B97440 /* NSDate+DWDate.m */,
+			);
+			path = "NSDate+DWDate";
+			sourceTree = "<group>";
+		};
+		63E3E9E218FD6B2300B97440 /* NSString+DWString */ = {
+			isa = PBXGroup;
+			children = (
+				63E3E9E318FD6B2300B97440 /* NSString+DWString.h */,
+				63E3E9E418FD6B2300B97440 /* NSString+DWString.m */,
+			);
+			path = "NSString+DWString";
+			sourceTree = "<group>";
+		};
+		63E3E9E818FD6B2300B97440 /* External */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		63E3EA4618FD6B2400B97440 /* DWUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA4718FD6B2400B97440 /* DWButton */,
+				63E3EA4A18FD6B2400B97440 /* DWDefaultAppDelegate */,
+				63E3EA4D18FD6B2400B97440 /* DWImageView */,
+				63E3EA5018FD6B2400B97440 /* DWPrompt */,
+				63E3EA5318FD6B2400B97440 /* DWPullRefreshControl */,
+				63E3EA5618FD6B2400B97440 /* DWTableView */,
+				63E3EA5918FD6B2400B97440 /* DWTableViewCell */,
+				63E3EA5C18FD6B2400B97440 /* DWUIKit.h */,
+				63E3EA5D18FD6B2400B97440 /* DWViewController */,
+				63E3EA6018FD6B2400B97440 /* DWWebView */,
+			);
+			path = DWUIKit;
+			sourceTree = "<group>";
+		};
+		63E3EA4718FD6B2400B97440 /* DWButton */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA4818FD6B2400B97440 /* DWButton.h */,
+				63E3EA4918FD6B2400B97440 /* DWButton.m */,
+			);
+			path = DWButton;
+			sourceTree = "<group>";
+		};
+		63E3EA4A18FD6B2400B97440 /* DWDefaultAppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA4B18FD6B2400B97440 /* DWDefaultAppDelegate.h */,
+				63E3EA4C18FD6B2400B97440 /* DWDefaultAppDelegate.m */,
+			);
+			path = DWDefaultAppDelegate;
+			sourceTree = "<group>";
+		};
+		63E3EA4D18FD6B2400B97440 /* DWImageView */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA4E18FD6B2400B97440 /* DWImageView.h */,
+				63E3EA4F18FD6B2400B97440 /* DWImageView.m */,
+			);
+			path = DWImageView;
+			sourceTree = "<group>";
+		};
+		63E3EA5018FD6B2400B97440 /* DWPrompt */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA5118FD6B2400B97440 /* DWPromptView.h */,
+				63E3EA5218FD6B2400B97440 /* DWPromptView.m */,
+			);
+			path = DWPrompt;
+			sourceTree = "<group>";
+		};
+		63E3EA5318FD6B2400B97440 /* DWPullRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA5418FD6B2400B97440 /* DWPullRefreshControl.h */,
+				63E3EA5518FD6B2400B97440 /* DWPullRefreshControl.m */,
+			);
+			path = DWPullRefreshControl;
+			sourceTree = "<group>";
+		};
+		63E3EA5618FD6B2400B97440 /* DWTableView */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA5718FD6B2400B97440 /* DWRefreshHeaderView.h */,
+				63E3EA5818FD6B2400B97440 /* DWRefreshHeaderView.m */,
+			);
+			path = DWTableView;
+			sourceTree = "<group>";
+		};
+		63E3EA5918FD6B2400B97440 /* DWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA5A18FD6B2400B97440 /* DWTableViewCell.h */,
+				63E3EA5B18FD6B2400B97440 /* DWTableViewCell.m */,
+			);
+			path = DWTableViewCell;
+			sourceTree = "<group>";
+		};
+		63E3EA5D18FD6B2400B97440 /* DWViewController */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA5E18FD6B2400B97440 /* DWViewController.h */,
+				63E3EA5F18FD6B2400B97440 /* DWViewController.m */,
+			);
+			path = DWViewController;
+			sourceTree = "<group>";
+		};
+		63E3EA6018FD6B2400B97440 /* DWWebView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DWWebView;
+			sourceTree = "<group>";
+		};
+		63E3EA6118FD6B2400B97440 /* DWNetworkKit */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA6218FD6B2400B97440 /* DWHttpClient */,
+				63E3EA7218FD6B2400B97440 /* DWNetworkKit.h */,
+			);
+			path = DWNetworkKit;
+			sourceTree = "<group>";
+		};
+		63E3EA6218FD6B2400B97440 /* DWHttpClient */ = {
+			isa = PBXGroup;
+			children = (
+				63E3EA6518FD6B2400B97440 /* DWHttpClient.h */,
+				63E3EA6618FD6B2400B97440 /* DWHttpClient.m */,
+				63E3EA6B18FD6B2400B97440 /* DWHttpRequestResult.h */,
+				63E3EA6C18FD6B2400B97440 /* DWHttpRequestResult.m */,
+			);
+			path = DWHttpClient;
+			sourceTree = "<group>";
+		};
+		920F0F2518E9579B00B9E953 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+		92BF7F5218F7922800CAC2FE /* ServiceKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServiceKit;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2E8CA9F518E93E5F0047D335 /* TeemoV2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E8CAA2818E93E5F0047D335 /* Build configuration list for PBXNativeTarget "TeemoV2" */;
+			buildPhases = (
+				B9C600F4F31B4E2495F4DD91 /* Check Pods Manifest.lock */,
+				2E8CA9F218E93E5F0047D335 /* Sources */,
+				2E8CA9F318E93E5F0047D335 /* Frameworks */,
+				2E8CA9F418E93E5F0047D335 /* Resources */,
+				DD92C7530A014E229AA94C62 /* Copy Pods Resources */,
+				922F60891934909E005AD787 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TeemoV2;
+			productName = TeemoV2;
+			productReference = 2E8CA9F618E93E5F0047D335 /* TeemoV2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2E8CAA1618E93E5F0047D335 /* TeemoV2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E8CAA2B18E93E5F0047D335 /* Build configuration list for PBXNativeTarget "TeemoV2Tests" */;
+			buildPhases = (
+				F42FF5D6311C48C5AB0143BB /* Check Pods Manifest.lock */,
+				2E8CAA1318E93E5F0047D335 /* Sources */,
+				2E8CAA1418E93E5F0047D335 /* Frameworks */,
+				2E8CAA1518E93E5F0047D335 /* Resources */,
+				00B95D20EF1D468EA77EAA15 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E8CAA1D18E93E5F0047D335 /* PBXTargetDependency */,
+			);
+			name = TeemoV2Tests;
+			productName = TeemoV2Tests;
+			productReference = 2E8CAA1718E93E5F0047D335 /* TeemoV2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2E8CA9EE18E93E5F0047D335 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TMO;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = com.duowan.zpc;
+				TargetAttributes = {
+					2E8CAA1618E93E5F0047D335 = {
+						TestTargetID = 2E8CA9F518E93E5F0047D335;
+					};
+				};
+			};
+			buildConfigurationList = 2E8CA9F118E93E5F0047D335 /* Build configuration list for PBXProject "TeemoV2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 2E8CA9ED18E93E5F0047D335;
+			productRefGroup = 2E8CA9F718E93E5F0047D335 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2E8CA9F518E93E5F0047D335 /* TeemoV2 */,
+				2E8CAA1618E93E5F0047D335 /* TeemoV2Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2E8CA9F418E93E5F0047D335 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E8CAA1218E93E5F0047D335 /* Images.xcassets in Resources */,
+				922F60A9193490F8005AD787 /* TModel.php in Resources */,
+				2E8CAA0418E93E5F0047D335 /* InfoPlist.strings in Resources */,
+				9225637918FD2397005BD532 /* TMOSmartyMoreViewController.xib in Resources */,
+				92170D661907BD1300EB9ED9 /* TMOTextKitViewController.xib in Resources */,
+				9225636F18FD1732005BD532 /* TMOUIKitDemoViewController.xib in Resources */,
+				9225636418FCD886005BD532 /* TMONetworkDemoViewController.xib in Resources */,
+				9225635F18FCD209005BD532 /* TMODemoViewController.xib in Resources */,
+				63E3EAAF18FD6B2400B97440 /* Notice in Resources */,
+				9225637418FD1B85005BD532 /* TMOSmartyViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E8CAA1518E93E5F0047D335 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E8CAA2318E93E5F0047D335 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00B95D20EF1D468EA77EAA15 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9C600F4F31B4E2495F4DD91 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DD92C7530A014E229AA94C62 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F42FF5D6311C48C5AB0143BB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2E8CA9F218E93E5F0047D335 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E9DCB5918E94EED00C140A7 /* TMOHTTPManager.m in Sources */,
+				63E3EAA518FD6B2400B97440 /* DWRefreshHeaderView.m in Sources */,
+				F0F6FC2018F999090005A5BF /* UIView+TMOSmarty.m in Sources */,
+				927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */,
+				9225635D18FCD1FA005BD532 /* TMODemoViewController.m in Sources */,
+				9225637818FD2397005BD532 /* TMOSmartyMoreViewController.m in Sources */,
+				9225636A18FD1413005BD532 /* TMOFMDBDemoViewController.m in Sources */,
+				63E3EAA318FD6B2400B97440 /* DWPromptView.m in Sources */,
+				921C01341947F3B800BB558D /* TMOSecurity.m in Sources */,
+				63E3EAA118FD6B2400B97440 /* DWDefaultAppDelegate.m in Sources */,
+				2E19538A18EA8DAF00E1F463 /* TMOHTTPResult.m in Sources */,
+				9225637318FD1B85005BD532 /* TMOSmartyViewController.m in Sources */,
+				9225636318FCD886005BD532 /* TMONetworkDemoViewController.m in Sources */,
+				920F0F2118E94DB900B9E953 /* TMOUIKitCore.m in Sources */,
+				92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */,
+				92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */,
+				92DA478F18E96ED60096D349 /* UIImage+TMOImage.m in Sources */,
+				63E3EAA418FD6B2400B97440 /* DWPullRefreshControl.m in Sources */,
+				63E3EA7718FD6B2400B97440 /* NSString+DWString.m in Sources */,
+				92170D651907BD1300EB9ED9 /* TMOTextKitViewController.m in Sources */,
+				63E3EAA618FD6B2400B97440 /* DWTableViewCell.m in Sources */,
+				2E8CAA0618E93E5F0047D335 /* main.m in Sources */,
+				63E3EAAC18FD6B2400B97440 /* DWHttpRequestResult.m in Sources */,
+				9225636718FD1235005BD532 /* TMOKVDBDemoViewController.m in Sources */,
+				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,
+				63E3EAA018FD6B2400B97440 /* DWButton.m in Sources */,
+				2E19539018EAA0F300E1F463 /* TMOToolKitCore.m in Sources */,
+				92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */,
+				63E3EAA718FD6B2400B97440 /* DWViewController.m in Sources */,
+				92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */,
+				63E3EA7618FD6B2400B97440 /* NSDate+DWDate.m in Sources */,
+				92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */,
+				920F0F2818E9625700B9E953 /* UIColor+TMOColor.m in Sources */,
+				63E3EAA218FD6B2400B97440 /* DWImageView.m in Sources */,
+				2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */,
+				92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */,
+				9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */,
+				2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */,
+				63E3EAA918FD6B2400B97440 /* DWHttpClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E8CAA1318E93E5F0047D335 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E8CAA2518E93E5F0047D335 /* TeemoV2Tests.m in Sources */,
+				927AD2CF18FFBC7600498AD0 /* TMOFMDBTests.m in Sources */,
+				2E39406818ED4D2B008F538A /* TMOHTTPManagerTests.m in Sources */,
+				92E6DA9918ED4479002CC61F /* TMOKVDBTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2E8CAA1D18E93E5F0047D335 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E8CA9F518E93E5F0047D335 /* TeemoV2 */;
+			targetProxy = 2E8CAA1C18E93E5F0047D335 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2E8CAA0218E93E5F0047D335 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E8CAA0318E93E5F0047D335 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2E8CAA2118E93E5F0047D335 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E8CAA2218E93E5F0047D335 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2E8CAA2618E93E5F0047D335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2E8CAA2718E93E5F0047D335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2E8CAA2918E93E5F0047D335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/V1Adater/External/UMSocial_Sdk_3.3.4/frameworks/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeemoV2/TeemoV2-Prefix.pch";
+				INFOPLIST_FILE = "TeemoV2/TeemoV2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/V1Adater/External/UMAnalytics_Sdk_2.2.1.OpenUDID",
+					"$(PROJECT_DIR)/V1Adater/External/UMSocial_Sdk_3.3.4/frameworks/Wechat",
+					"$(PROJECT_DIR)/V1Adater/External/UMSocial_Sdk_3.3.4",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2E8CAA2A18E93E5F0047D335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/V1Adater/External/UMSocial_Sdk_3.3.4/frameworks/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeemoV2/TeemoV2-Prefix.pch";
+				INFOPLIST_FILE = "TeemoV2/TeemoV2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/V1Adater/External/UMAnalytics_Sdk_2.2.1.OpenUDID",
+					"$(PROJECT_DIR)/V1Adater/External/UMSocial_Sdk_3.3.4/frameworks/Wechat",
+					"$(PROJECT_DIR)/V1Adater/External/UMSocial_Sdk_3.3.4",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2E8CAA2C18E93E5F0047D335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeemoV2.app/TeemoV2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeemoV2/TeemoV2-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TeemoV2Tests/TeemoV2Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		2E8CAA2D18E93E5F0047D335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeemoV2.app/TeemoV2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeemoV2/TeemoV2-Prefix.pch";
+				INFOPLIST_FILE = "TeemoV2Tests/TeemoV2Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2E8CA9F118E93E5F0047D335 /* Build configuration list for PBXProject "TeemoV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E8CAA2618E93E5F0047D335 /* Debug */,
+				2E8CAA2718E93E5F0047D335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E8CAA2818E93E5F0047D335 /* Build configuration list for PBXNativeTarget "TeemoV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E8CAA2918E93E5F0047D335 /* Debug */,
+				2E8CAA2A18E93E5F0047D335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E8CAA2B18E93E5F0047D335 /* Build configuration list for PBXNativeTarget "TeemoV2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E8CAA2C18E93E5F0047D335 /* Debug */,
+				2E8CAA2D18E93E5F0047D335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2E8CA9EE18E93E5F0047D335 /* Project object */;
+}

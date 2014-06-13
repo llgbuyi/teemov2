@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "TMOKVDB.h"
 #import <GTMHTTPUploadFetcher.h>
+#import "TMOToolKitMacro.h"
 
 NSString * const kTMONetworkCacheDatabaseKey = @"networkCache";
 
@@ -241,14 +242,18 @@ completeUploadBlock:(void (^)(TMOHTTPResult *result, NSError *error))argBlock {
 - (GTMHTTPFetcher *)getCustomFetcherWithURL:(NSString *)argURL {
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:argURL]];
     GTMHTTPFetcher *fetcher = [_fetcherService fetcherWithRequest:request];
-    [fetcher setDelegateQueue:_globalQueue];
+    if (TMO_SYSTEM_VERSION >= 6.0) {
+        [fetcher setDelegateQueue:_globalQueue];
+    }
     return fetcher;
 }
 
 - (GTMHTTPFetcher *)getDownloadFetcherWithURL:(NSString *)argURL {
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:argURL]];
     GTMHTTPFetcher *fetcher = [_downloadService fetcherWithRequest:request];
-    [fetcher setDelegateQueue:_globalQueue];
+    if (TMO_SYSTEM_VERSION >= 6.0) {
+        [fetcher setDelegateQueue:_globalQueue];
+    }
     return fetcher;
 }
 

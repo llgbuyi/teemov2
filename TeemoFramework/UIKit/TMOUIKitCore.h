@@ -13,7 +13,6 @@
 #import "UIView+TMOView.h"
 #import "UIImageView+TMOImageView.h"
 #import "UIView+TMOSmarty.h"
-#import "NIAttributedLabel+TagString.h"
 #import "UIButton+TMOButton.h"
 
 /**

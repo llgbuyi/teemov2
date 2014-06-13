@@ -1,11 +1,10 @@
-platform :ios, '6.0'
+platform :ios, '5.0'
 #NetworkKit
 pod 'gtm-http-fetcher', '~> 1.0.129'
 pod 'Reachability', '~> 3.1.1'
 
 #UIKit
 pod 'MBProgressHUD', '~> 0.8'
-pod 'NimbusKit-AttributedLabel', '~> 1.0.0'
 
 #DataKit
 pod 'FMDB', '~> 2.2'

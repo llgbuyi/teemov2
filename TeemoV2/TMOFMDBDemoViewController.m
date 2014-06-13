@@ -38,7 +38,7 @@
     }];
     
     [[TMOFMDB defaultDatabase] inDatabaseRunOnMainThread:^(FMDatabase *db) {
-        [[[UIAlertView alloc] initWithTitle:@"12313" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"12313" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil] show];
     }];
     
     FMDatabaseQueue *queue = [TMOFMDB defaultDatabase];//这将默认保存在tmp目录下一个数据文件中

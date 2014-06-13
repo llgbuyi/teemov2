@@ -78,12 +78,9 @@
 		922F60AA19349104005AD787 /* TModel.php in CopyFiles */ = {isa = PBXBuildFile; fileRef = 922F60A8193490F8005AD787 /* TModel.php */; };
 		927AD2CF18FFBC7600498AD0 /* TMOFMDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */; };
 		927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */; };
-		92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */; };
 		92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */; };
 		92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */; };
 		92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */; };
-		92C13F811946D58200F6566A /* NIAttributedLabel+TagString.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */; };
-		92C13F821946D58200F6566A /* NIAttributedLabel+TagString.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */; };
 		92C13F831946D58200F6566A /* UIButton+TMOButton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */; };
 		92C13F841946D58200F6566A /* UIButton+TMOButton.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */; };
 		92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */; };
@@ -113,8 +110,6 @@
 			files = (
 				921C01351948273A00BB558D /* TMOSecurity.h in CopyFiles */,
 				921C01361948273A00BB558D /* TMOSecurity.m in CopyFiles */,
-				92C13F811946D58200F6566A /* NIAttributedLabel+TagString.h in CopyFiles */,
-				92C13F821946D58200F6566A /* NIAttributedLabel+TagString.m in CopyFiles */,
 				92C13F831946D58200F6566A /* UIButton+TMOButton.h in CopyFiles */,
 				92C13F841946D58200F6566A /* UIButton+TMOButton.m in CopyFiles */,
 				922F60AA19349104005AD787 /* TModel.php in CopyFiles */,
@@ -214,8 +209,6 @@
 		927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDBTests.m; sourceTree = "<group>"; };
 		927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFMDB.h; sourceTree = "<group>"; };
 		927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDB.m; sourceTree = "<group>"; };
-		92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NIAttributedLabel+TagString.m"; sourceTree = "<group>"; };
-		92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIAttributedLabel+TagString.h"; sourceTree = "<group>"; };
 		92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMOImageView.h"; sourceTree = "<group>"; };
 		92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TMOImageView.m"; sourceTree = "<group>"; };
 		92BFF83D18F638E700A13FD8 /* NSString+TMOString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TMOString.h"; sourceTree = "<group>"; };
@@ -418,8 +411,6 @@
 		2E8CAA3518E947DC0047D335 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */,
-				92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */,
 				920F0F1F18E94DB900B9E953 /* TMOUIKitCore.h */,
 				920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */,
 				920F0F2218E94E2B00B9E953 /* TMOUIKitMacro.h */,
@@ -646,7 +637,6 @@
 				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,
 				2E19539018EAA0F300E1F463 /* TMOToolKitCore.m in Sources */,
 				92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */,
-				92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */,
 				92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */,
 				920F0F2818E9625700B9E953 /* UIColor+TMOColor.m in Sources */,
 				2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */,
@@ -771,6 +761,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -781,7 +772,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeemoV2/TeemoV2-Prefix.pch";
 				INFOPLIST_FILE = "TeemoV2/TeemoV2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/V1Adater/External/UMAnalytics_Sdk_2.2.1.OpenUDID",
@@ -798,6 +789,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BD09E4E614B4FC1A7EFC90E /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -808,7 +800,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeemoV2/TeemoV2-Prefix.pch";
 				INFOPLIST_FILE = "TeemoV2/TeemoV2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/V1Adater/External/UMAnalytics_Sdk_2.2.1.OpenUDID",

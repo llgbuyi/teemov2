@@ -29,8 +29,8 @@
 {
     [super viewDidLoad];
     
-    NSDictionary *data = @{@"answer": @"呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵", @"Q": @"文字", @"picture": @"http://huanju.cn/s/v1206/pic-banner01.jpg"};
-    [self.view smartyRendWithDictionary:data isRecursive:YES];
+//    NSDictionary *data = @{@"answer": @"呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵", @"Q": @"文字", @"picture": @"http://huanju.cn/s/v1206/pic-banner01.jpg"};
+//    [self.view smartyRendWithDictionary:data isRecursive:YES];
     // Do any additional setup after loading the view from its nib.
 }
 

@@ -91,6 +91,8 @@
 		92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DA479318EA624B0096D349 /* UIView+TMOView.m */; };
 		92DC4F43190E02E2009E6F81 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC4F42190E02E2009E6F81 /* CoreText.framework */; };
 		92E6DA9918ED4479002CC61F /* TMOKVDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */; };
+		AB8F8457194A9CB600290CD4 /* NSArray+TMODuplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */; };
+		AB8F845B194A9D8400290CD4 /* TMOBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */; };
 		F0F6FC2018F999090005A5BF /* UIView+TMOSmarty.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */; };
 /* End PBXBuildFile section */
 
@@ -231,6 +233,10 @@
 		92DA479318EA624B0096D349 /* UIView+TMOView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOView.m"; sourceTree = "<group>"; };
 		92DC4F42190E02E2009E6F81 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOKVDBTests.m; sourceTree = "<group>"; };
+		AB8F8455194A9CB600290CD4 /* NSArray+TMODuplicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TMODuplicate.h"; sourceTree = "<group>"; };
+		AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TMODuplicate.m"; sourceTree = "<group>"; };
+		AB8F8459194A9D8400290CD4 /* TMOBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOBaseModel.h; sourceTree = "<group>"; };
+		AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOBaseModel.m; sourceTree = "<group>"; };
 		F0F6FC1E18F999090005A5BF /* UIView+TMOSmarty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TMOSmarty.h"; sourceTree = "<group>"; };
 		F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOSmarty.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -326,6 +332,7 @@
 				92170D621907BD1300EB9ED9 /* TMOTextKitViewController.h */,
 				92170D631907BD1300EB9ED9 /* TMOTextKitViewController.m */,
 				92170D641907BD1300EB9ED9 /* TMOTextKitViewController.xib */,
+				AB8F8458194A9D7100290CD4 /* Models */,
 				2E8CAA1118E93E5F0047D335 /* Images.xcassets */,
 				2E8CAA0018E93E5F0047D335 /* Supporting Files */,
 			);
@@ -411,6 +418,8 @@
 				92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */,
 				921C01321947F3B800BB558D /* TMOSecurity.h */,
 				921C01331947F3B800BB558D /* TMOSecurity.m */,
+				AB8F8455194A9CB600290CD4 /* NSArray+TMODuplicate.h */,
+				AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */,
 			);
 			path = ToolKit;
 			sourceTree = "<group>";
@@ -451,6 +460,15 @@
 			children = (
 			);
 			path = ServiceKit;
+			sourceTree = "<group>";
+		};
+		AB8F8458194A9D7100290CD4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB8F8459194A9D8400290CD4 /* TMOBaseModel.h */,
+				AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,10 +655,12 @@
 				9225637318FD1B85005BD532 /* TMOSmartyViewController.m in Sources */,
 				9225636318FCD886005BD532 /* TMONetworkDemoViewController.m in Sources */,
 				920F0F2118E94DB900B9E953 /* TMOUIKitCore.m in Sources */,
+				AB8F845B194A9D8400290CD4 /* TMOBaseModel.m in Sources */,
 				92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */,
 				92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */,
 				92DA478F18E96ED60096D349 /* UIImage+TMOImage.m in Sources */,
 				92170D651907BD1300EB9ED9 /* TMOTextKitViewController.m in Sources */,
+				AB8F8457194A9CB600290CD4 /* NSArray+TMODuplicate.m in Sources */,
 				2E8CAA0618E93E5F0047D335 /* main.m in Sources */,
 				9225636718FD1235005BD532 /* TMOKVDBDemoViewController.m in Sources */,
 				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,

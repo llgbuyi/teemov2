@@ -11,14 +11,21 @@
 @interface NSArray (TMODuplicate)
 
 /**
- *  去重的算法
+ *  合并两个数组，并且去重
  *
  *  @param currentArray 需要添加的目标数组
  *
- *  @return 返回目标数组合并到本身后，再去重的数组
+ *  @return 返回去重的数组
  */
 - (NSArray *)unionWithoutDuplicatesWithArray:(NSArray *)currentArray;
 
+/**
+ *  根据某个key合并两个数组，并且根据该key进行去重
+ *
+ *  @param currentArray 需要添加的目标数组
+ *
+ *  @return 返回去重的数组
+ */
 - (NSArray *)unionWithoutDuplicatesWithArray:(NSArray *)currentArray forKey:(NSString *)currentKey;
 
 @end

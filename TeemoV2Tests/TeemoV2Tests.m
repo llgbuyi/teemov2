@@ -32,7 +32,10 @@
 - (void)testExample
 {
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-    [self testDuplicate];
+    
+//    [self testDuplicate];
+    
+//    [self testDuplicateWithKey];
 }
 
 - (void)testDuplicate {
@@ -58,9 +61,30 @@
     [unMoments addObject:moment1];
     [unMoments addObject:moment2];
     
-    NSLog(@"开始");
-    NSLog(@"不重复的 : %@", [unMoments unionWithoutDuplicatesWithArray:moments]);
-    NSLog(@"结束");
+    NSLog(@"Model开始");
+    NSLog(@"Model不重复的 : %@", [unMoments unionWithoutDuplicatesWithArray:moments]);
+    NSLog(@"Model结束");
+}
+
+- (void)testDuplicateWithKey {
+    NSMutableArray *oneArray = [[NSMutableArray alloc] init];
+    NSMutableArray *twoArray = [[NSMutableArray alloc] init];
+    
+    NSString *someKey = @"someKey";
+    
+    for (int i = 0; i < 1000; i ++) {
+        NSMutableDictionary *currentDictionary = [[NSMutableDictionary alloc] init];
+        [currentDictionary setValue:[NSString stringWithFormat:@"Jack%d", i] forKey:someKey];
+        [currentDictionary setValue:[NSNumber numberWithInt:i] forKey:@"number"];
+        [oneArray addObject:currentDictionary];
+        [twoArray addObject:currentDictionary];
+    }
+    
+    [oneArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Jack1000", someKey, nil]];
+    
+    NSLog(@"字典开始");
+    NSLog(@"字典不重复的 : %@", [oneArray unionWithoutDuplicatesWithArray:twoArray forKey:someKey]);
+    NSLog(@"字典结束");
 }
 
 @end

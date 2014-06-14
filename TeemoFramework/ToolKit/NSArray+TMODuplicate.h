@@ -19,4 +19,6 @@
  */
 - (NSArray *)unionWithoutDuplicatesWithArray:(NSArray *)currentArray;
 
+- (NSArray *)unionWithoutDuplicatesWithArray:(NSArray *)currentArray forKey:(NSString *)currentKey;
+
 @end

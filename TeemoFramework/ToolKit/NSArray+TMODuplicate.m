@@ -19,4 +19,24 @@
     return mutableArray;
 }
 
+- (NSArray *)unionWithoutDuplicatesWithArray:(NSArray *)currentArray forKey:(NSString *)currentKey {
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:self];
+    [mutableArray addObjectsFromArray:currentArray];
+    
+    NSArray *copy = [mutableArray copy];
+    NSInteger index = [copy count] - 1;
+    for (id object in [copy reverseObjectEnumerator]) {
+        
+        for (NSUInteger i = 0; i < index; i++) {
+            if ([[mutableArray[i] valueForKey:currentKey] isEqualToString:[object valueForKey:currentKey]]){
+                [mutableArray removeObjectAtIndex:index];
+                break;
+            }
+        }
+        index --;
+    }
+    
+    return mutableArray;
+}
+
 @end

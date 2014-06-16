@@ -47,13 +47,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    __weak TMODemoViewController *hhh = self;
-    [self.tableView refreshControlStart:^(UITableView *tableView) {
-        hhh.hello = @"123";
+    NSLog(@"%@",self);
+    [self.tableView refreshControlStart:^(UITableView *tableView, TMODemoViewController *viewController) {
+        viewController.hello = @"123";
+        NSLog(@"%@",viewController);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [tableView refreshControlDone];
         });
     } withDelay:0.0];
+    
 }
 
 //- (void)viewWillDisappear:(BOOL)animated {

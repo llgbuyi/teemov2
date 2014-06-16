@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^refreshControlCallback)(UITableView *tableView);
+typedef void(^refreshControlCallback)(UITableView *tableView, id viewController);
 
 @interface UITableView (TMOTableView)
 

@@ -46,6 +46,7 @@
 		9225637818FD2397005BD532 /* TMOSmartyMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637618FD2397005BD532 /* TMOSmartyMoreViewController.m */; };
 		9225637918FD2397005BD532 /* TMOSmartyMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */; };
 		9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */; };
+		9227912F194EF23800D6902B /* UITableView+TMOTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227912E194EF23800D6902B /* UITableView+TMOTableView.m */; };
 		922F608A193490DB005AD787 /* TMOKVDB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE8D85418EC075600405406 /* TMOKVDB.h */; };
 		922F608B193490DB005AD787 /* TMOKVDB.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE8D85518EC075600405406 /* TMOKVDB.m */; };
 		922F608C193490DB005AD787 /* TMOFMDB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */; };
@@ -212,6 +213,8 @@
 		9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOSmartyMoreViewController.xib; sourceTree = "<group>"; };
 		9225637A18FD2587005BD532 /* TMOStringDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOStringDemoViewController.h; sourceTree = "<group>"; };
 		9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOStringDemoViewController.m; sourceTree = "<group>"; };
+		9227912D194EF23800D6902B /* UITableView+TMOTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+TMOTableView.h"; sourceTree = "<group>"; };
+		9227912E194EF23800D6902B /* UITableView+TMOTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+TMOTableView.m"; sourceTree = "<group>"; };
 		922F60A8193490F8005AD787 /* TModel.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = TModel.php; path = TModel/TModel.php; sourceTree = "<group>"; };
 		927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDBTests.m; sourceTree = "<group>"; };
 		927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFMDB.h; sourceTree = "<group>"; };
@@ -444,6 +447,8 @@
 				F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */,
 				92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */,
 				92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */,
+				9227912D194EF23800D6902B /* UITableView+TMOTableView.h */,
+				9227912E194EF23800D6902B /* UITableView+TMOTableView.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */,
 				92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */,
 				9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */,
+				9227912F194EF23800D6902B /* UITableView+TMOTableView.m in Sources */,
 				2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

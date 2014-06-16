@@ -20,9 +20,16 @@
 
 @interface TMODemoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSString *hello;
+
 @end
 
 @implementation TMODemoViewController
+
+- (void)dealloc {
+    
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +45,20 @@
     [super viewDidLoad];
     //这里开始我们的使用示例，这里的示例包括了本框架所有的功能
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    __weak TMODemoViewController *hhh = self;
+    [self.tableView refreshControlStart:^(UITableView *tableView) {
+        hhh.hello = @"123";
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [tableView refreshControlDone];
+        });
+    } withDelay:0.0];
+}
+
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [self.tableView refreshControlRemove];
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -167,9 +188,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            TMONetworkDemoViewController *networkDemoViewController = [[TMONetworkDemoViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:networkDemoViewController animated:YES];
-            [networkDemoViewController demo1];
+            
+            TMODemoViewController *ddd = [[TMODemoViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:ddd animated:YES];
+            
+//            TMONetworkDemoViewController *networkDemoViewController = [[TMONetworkDemoViewController alloc] initWithNibName:nil bundle:nil];
+//            [self.navigationController pushViewController:networkDemoViewController animated:YES];
+//            [networkDemoViewController demo1];
         }
         else if (indexPath.row == 1) {
             TMONetworkDemoViewController *networkDemoViewController = [[TMONetworkDemoViewController alloc] initWithNibName:nil bundle:nil];

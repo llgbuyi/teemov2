@@ -33,6 +33,8 @@ typedef void(^refreshControlCallback)(UITableView *tableView, id viewController)
  */
 - (void)loadMoreStart:(refreshControlCallback)argCallback withDelay:(NSTimeInterval)argDelay;
 
+- (void)loadMoreInvalid:(BOOL)isInvalid;
+
 /**
  *  上拉加载完成
  *  将自动执行列表重载工作

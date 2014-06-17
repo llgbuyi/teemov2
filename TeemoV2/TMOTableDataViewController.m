@@ -45,7 +45,8 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView loadMoreStart:^(UITableView *tableView, id viewController) {
-            NSLog(@"123");
+            numbersOfRow1+=10;
+            [tableView loadMoreDone];
         } withDelay:0.0];
     });
     

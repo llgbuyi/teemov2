@@ -94,7 +94,9 @@
 
 @end
 
-@interface TMOLoadMoreView : UIView
+@interface TMOLoadMoreView : UIView{
+    BOOL _isLoading;
+}
 
 @property (nonatomic, strong) UIToolbar *toolBar;
 
@@ -126,7 +128,10 @@
 
 - (void)setup {
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     self.retryButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.scrollView action:@selector(loadMoreDidStart)];
+#pragma clang diagnostic pop
     UIBarButtonItem *fixItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixItem.width = 138.0;
     UIBarButtonItem *fixItem2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -147,6 +152,13 @@
                       forToolbarPosition:UIBarPositionAny
                               barMetrics:UIBarMetricsDefault];
     }
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityView setFrame:CGRectMake(138, 0, 44, 44)];
+    [self addSubview:self.activityView];
+    [self.activityView startAnimating];
+    [self.activityView setAlpha:0.0];
+    
     [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, 0, 44, 0)];
 }
 
@@ -161,8 +173,11 @@
         [self setFrame:CGRectMake(0, self.scrollView.contentSize.height, 320, 44)];
     }
     else if ([keyPath isEqualToString:@"contentOffset"]) {
-        if ((self.scrollView.contentSize.height - self.scrollView.contentOffset.y) < self.scrollView.frame.size.height + 20.0) {
+        if (!_isLoading && self.alpha > 0.0 && (self.scrollView.contentSize.height - self.scrollView.contentOffset.y) < self.scrollView.frame.size.height + 20.0) {
             //执行block
+            _isLoading = YES;
+            [self.activityView setAlpha:1.0];
+            [self.toolBar setAlpha:0.0];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
             [self.scrollView performSelector:@selector(loadMoreDidStart) withObject:nil];
@@ -170,6 +185,12 @@
         }
     }
     
+}
+
+- (void)stopLoading {
+    _isLoading = NO;
+    [self.activityView setAlpha:0.0];
+    [self.toolBar setAlpha:1.0];
 }
 
 @end
@@ -271,7 +292,11 @@
 }
 
 - (void)loadMoreDone {
-    [self reloadData];
+    TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
+    if (loadMoreView != nil) {
+        [loadMoreView stopLoading];
+        [self reloadData];
+    }
 }
 
 - (void)loadMoreCallbackWillCall {

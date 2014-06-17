@@ -46,7 +46,12 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView loadMoreStart:^(UITableView *tableView, id viewController) {
             numbersOfRow1+=10;
-            [tableView loadMoreDone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [tableView loadMoreDone];
+                if (numbersOfRow1 > 100) {
+                    [tableView loadMoreInvalid:YES];
+                }
+            });
         } withDelay:0.0];
     });
     

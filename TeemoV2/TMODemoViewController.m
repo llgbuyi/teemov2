@@ -15,6 +15,7 @@
 #import "TMOSmartyMoreViewController.h"
 #import "TMOStringDemoViewController.h"
 #import "TMOTextKitViewController.h"
+#import "TMOTableDataViewController.h"
 
 #import "TMOUIKitCore.h"
 
@@ -46,22 +47,6 @@
     //这里开始我们的使用示例，这里的示例包括了本框架所有的功能
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"%@",self);
-    [self.tableView refreshControlStart:^(UITableView *tableView, TMODemoViewController *viewController) {
-        viewController.hello = @"123";
-        NSLog(@"%@",viewController);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [tableView refreshControlDone];
-        });
-    } withDelay:0.0];
-    
-}
-
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [self.tableView refreshControlRemove];
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -78,7 +63,7 @@
         return 2;
     }
     else if (section == 2){
-        return 9;
+        return 10;
     }
     else if (section == 3){
         return 3;
@@ -155,6 +140,10 @@
         else if (indexPath.row == 8) {
             [cell.textLabel setText:@"PonyTextKit"];
         }
+        else if (indexPath.row == 9) {
+            [cell.textLabel setText:@"UITableView扩展"];
+            [cell.detailTextLabel setText:@"下拉刷新 上拉加载"];
+        }
     }
     else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
@@ -190,13 +179,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
-            TMODemoViewController *ddd = [[TMODemoViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:ddd animated:YES];
-            
-//            TMONetworkDemoViewController *networkDemoViewController = [[TMONetworkDemoViewController alloc] initWithNibName:nil bundle:nil];
-//            [self.navigationController pushViewController:networkDemoViewController animated:YES];
-//            [networkDemoViewController demo1];
+            TMONetworkDemoViewController *networkDemoViewController = [[TMONetworkDemoViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:networkDemoViewController animated:YES];
+            [networkDemoViewController demo1];
         }
         else if (indexPath.row == 1) {
             TMONetworkDemoViewController *networkDemoViewController = [[TMONetworkDemoViewController alloc] initWithNibName:nil bundle:nil];
@@ -263,6 +248,10 @@
         else if (indexPath.row == 8) {
             TMOTextKitViewController *textKitDemoViewController = [[TMOTextKitViewController alloc] initWithNibName:nil bundle:nil];
             [self.navigationController pushViewController:textKitDemoViewController animated:YES];
+        }
+        else if (indexPath.row == 9) {
+            TMOTableDataViewController *tableDemoViewController = [[TMOTableDataViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:tableDemoViewController animated:YES];
         }
     }
     else if (indexPath.section == 3) {

@@ -267,7 +267,7 @@
     });
     TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
     if (loadMoreView != nil) {
-        loadMoreView.isInvalid = NO;
+        [self loadMoreInvalid:NO];
     }
 }
 
@@ -341,19 +341,15 @@
             }
         }
         if (needReload) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self reloadData];
-                [loadMoreView stopLoading];
-            });
+            [self reloadData];
+            [loadMoreView stopLoading];
         }
         else {
             if ([indexPathsAdding count] > 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self beginUpdates];
-                    [self insertRowsAtIndexPaths:indexPathsAdding withRowAnimation:UITableViewRowAnimationNone];
-                    [self endUpdates];
-                    [loadMoreView stopLoading];
-                });
+                [self beginUpdates];
+                [self insertRowsAtIndexPaths:indexPathsAdding withRowAnimation:UITableViewRowAnimationNone];
+                [self endUpdates];
+                [loadMoreView stopLoading];
             }
         }
     }

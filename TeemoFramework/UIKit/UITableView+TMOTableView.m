@@ -14,6 +14,7 @@
 #import "XHActivityIndicatorView.h"
 #import "TMOUIKitMacro.h"
 #import "UIImage+TMOImage.h"
+#import "TMOToolKitCore.h"
 
 @interface TMORefreshControlView : UIView{
     BOOL _isRefreshing;
@@ -61,14 +62,13 @@
             }
         }
         
-        if (self.scrollView.contentOffset.y < -66.0 && !_isRefreshing) {
+        if (self.scrollView.contentOffset.y < -48.0 && !_isRefreshing) {
             _isRefreshing = YES;
             [self.activityView beginRefreshing];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
             [self.scrollView performSelector:@selector(refreshControlDidStart) withObject:nil];
 #pragma clang diagnostic pop
-            [self.scrollView setContentInset:UIEdgeInsetsMake(48, 0, self.scrollView.contentInset.bottom, 0)];
         }
         
         CGFloat currentY = -MIN(0.0, self.scrollView.contentOffset.y);
@@ -76,7 +76,7 @@
             [self.activityView setTimeOffset:0.0];
         }
         else {
-            CGFloat offset = (MIN(currentY, 66.0) - 16.0) / (66.0 - 16.0);
+            CGFloat offset = (MIN(currentY, 48.0) - 16.0) / (48.0 - 16.0);
             [self.activityView setTimeOffset:offset];
         }
     }
@@ -97,6 +97,10 @@
 @interface TMOLoadMoreView : UIView{
     BOOL _isLoading;
 }
+
+@property (nonatomic, assign) BOOL isInvalid;
+
+@property (nonatomic, assign) NSTimeInterval delay;
 
 @property (nonatomic, strong) UIToolbar *toolBar;
 
@@ -124,6 +128,20 @@
         [self setup];
     }
     return self;
+}
+
+- (void)setInvalid:(BOOL)isInvalid {
+    if (isInvalid) {
+        self.isInvalid = YES;
+        [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, 0, 0, 0)];
+        [self stopLoading];
+        [self setAlpha:0.0];
+    }
+    else {
+        self.isInvalid = NO;
+        [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, 0, 44, 0)];
+        [self setAlpha:1.0];
+    }
 }
 
 - (void)setup {
@@ -169,11 +187,13 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentSize"]) {
+
+    if (!self.isInvalid && [keyPath isEqualToString:@"contentSize"]) {
         [self setFrame:CGRectMake(0, self.scrollView.contentSize.height, 320, 44)];
+        [self setAlpha:1.0];
     }
     else if ([keyPath isEqualToString:@"contentOffset"]) {
-        if (!_isLoading && self.alpha > 0.0 && (self.scrollView.contentSize.height - self.scrollView.contentOffset.y) < self.scrollView.frame.size.height + 20.0) {
+        if (!_isLoading && !self.isInvalid && (self.scrollView.contentSize.height - self.scrollView.contentOffset.y) < self.scrollView.frame.size.height + 20.0) {
             //执行block
             _isLoading = YES;
             [self.activityView setAlpha:1.0];
@@ -189,6 +209,7 @@
 
 - (void)stopLoading {
     _isLoading = NO;
+    [self setAlpha:0.0];
     [self.activityView setAlpha:0.0];
     [self.toolBar setAlpha:1.0];
 }
@@ -210,6 +231,11 @@
 }
 
 - (void)refreshControlDidStart {
+    TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
+    if (loadMoreView != nil) {
+        loadMoreView.isInvalid = YES;
+        [loadMoreView stopLoading];
+    }
     if ([[self myRefreshView] callback] != nil) {
         refreshControlCallback callback = [[self myRefreshView] callback];
         if ([[self myRefreshView] delay] > 0) {
@@ -239,6 +265,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self reloadData];//refresh，always reloadData.
     });
+    TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
+    if (loadMoreView != nil) {
+        loadMoreView.isInvalid = NO;
+    }
 }
 
 - (TMORefreshControlView *)myRefreshView {
@@ -256,6 +286,7 @@
 - (void)loadMoreStart:(refreshControlCallback)argCallback withDelay:(NSTimeInterval)argDelay {
     TMOLoadMoreView *loadMoreView = [[TMOLoadMoreView alloc] initWithScrollView:self];
     loadMoreView.callback = argCallback;
+    loadMoreView.delay = argDelay;
     [self addSubview:loadMoreView];
     [loadMoreView addScrollViewObserver:self];
 }
@@ -264,48 +295,77 @@
     TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
     if (loadMoreView.callback != nil) {
         refreshControlCallback callback = loadMoreView.callback;
-        if ([[self myRefreshView] delay] > 0) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([[self myRefreshView] delay] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self performSelectorOnMainThread:@selector(loadMoreCallbackWillCall) withObject:nil waitUntilDone:YES];
+        NSTimeInterval delay = MIN(loadMoreView.delay, 0.25);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 callback(self, [self myViewController]);
-            });
-        }
-        else {
-            callback(self, [self myViewController]);
-        }
-        
+        });
     }
 }
 
 - (void)loadMoreInvalid:(BOOL)isInvalid {
-    UIView *loadMoreView = [self viewWithTag:kTMOTableViewLoadMoreViewTag];
+    TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
     if (loadMoreView != nil) {
-        if (isInvalid) {
-            [loadMoreView setAlpha:0.0];
-            [self setContentInset:UIEdgeInsetsMake(self.contentInset.top, 0, 0, 0)];
-        }
-        else {
-            [loadMoreView setAlpha:1.0];
-            [self setContentInset:UIEdgeInsetsMake(self.contentInset.top, 0, 44, 0)];
-        }
+        [loadMoreView setInvalid:isInvalid];
     }
-    
 }
 
 - (void)loadMoreDone {
     TMOLoadMoreView *loadMoreView = (TMOLoadMoreView *)[self viewWithTag:kTMOTableViewLoadMoreViewTag];
-    if (loadMoreView != nil) {
-        [loadMoreView stopLoading];
-        [self reloadData];
+    if (loadMoreView != nil && !loadMoreView.isInvalid) {
+        BOOL needReload = NO;
+        NSMutableArray *indexPathsAdding = [NSMutableArray array];
+        NSUInteger oldSectionCount = TOInteger([self valueForAdditionKey:@"loadMoreSectionCount"]);
+        NSUInteger newSectionCount = [[self dataSource] numberOfSectionsInTableView:self];
+        if (newSectionCount != oldSectionCount) {
+            needReload = YES;
+        }
+        else {
+            for (NSUInteger currentSection = 0; currentSection < oldSectionCount; currentSection++) {
+                NSString *key = [NSString stringWithFormat:@"loadMoreRowCount_%d", currentSection];
+                NSUInteger oldRowCount = TOInteger([self valueForAdditionKey:key]);
+                NSUInteger newRowCount = [[self dataSource] tableView:self numberOfRowsInSection:currentSection];
+                if (newRowCount < oldRowCount) {
+                    needReload = YES;
+                    break;
+                }
+                else if (newRowCount == oldRowCount) {
+                    //do nothing
+                }
+                else {
+                    for (NSUInteger currentRow = oldRowCount - 1; currentRow < newRowCount - 1; currentRow++) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:currentRow inSection:currentSection];
+                        [indexPathsAdding addObject:indexPath];
+                    }
+                }
+            }
+        }
+        if (needReload) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self reloadData];
+                [loadMoreView stopLoading];
+            });
+        }
+        else {
+            if ([indexPathsAdding count] > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self beginUpdates];
+                    [self insertRowsAtIndexPaths:indexPathsAdding withRowAnimation:UITableViewRowAnimationNone];
+                    [self endUpdates];
+                    [loadMoreView stopLoading];
+                });
+            }
+        }
     }
 }
 
 - (void)loadMoreCallbackWillCall {
     NSUInteger sectionCount = [[self dataSource] numberOfSectionsInTableView:self];
-    [self setAdditionValue:@(sectionCount) forKey:@"refreshControlSectionCount"];
+    [self setAdditionValue:@(sectionCount) forKey:@"loadMoreSectionCount"];
     for (NSUInteger currentSection = 0; currentSection < sectionCount; currentSection++) {
         NSUInteger rowCount = [[self dataSource] tableView:self numberOfRowsInSection:currentSection];
         [self setAdditionValue:@(rowCount)
-                        forKey:[NSString stringWithFormat:@"refreshControlRowCount_%d", currentSection]];
+                        forKey:[NSString stringWithFormat:@"loadMoreRowCount_%d", currentSection]];
     }
 }
 

@@ -51,9 +51,6 @@
 
 @interface TMOTableView ()
 
-@property (nonatomic, assign) NSInteger previousSectionNumber;
-@property (atomic, strong) NSMutableArray *previousRowNumber;
-
 @end
 
 @implementation TMOTableView
@@ -63,7 +60,6 @@
         [self removeObserver:self.myRefreshControl forKeyPath:@"contentOffset"];
     }
     if (self.myLoadMoreControl != nil) {
-        [self removeObserver:self.myLoadMoreControl forKeyPath:@"contentSize"];
         [self removeObserver:self.myLoadMoreControl forKeyPath:@"contentOffset"];
     }
 }
@@ -85,8 +81,17 @@
 }
 
 - (void)setup {
-    self.previousSectionNumber = 0;
-    self.previousRowNumber = [NSMutableArray array];
+}
+
+- (void)reloadData {
+    if (self.myLoadMoreControl != nil) {
+        self.myLoadMoreControl.alpha = 0;
+    }
+    [super reloadData];
+    if (self.myLoadMoreControl != nil) {
+        [self.myLoadMoreControl setFrame:CGRectMake(0, self.contentSize.height, 320, 44)];
+        self.myLoadMoreControl.alpha = 1;
+    }
 }
 
 - (void)refreshDone {
@@ -99,77 +104,8 @@
         [self.myLoadMoreControl stop];
         return;
     }
-//    [self doUpdates];
     [self reloadData];
     [self.myLoadMoreControl stop];
-}
-
-- (void)reloadData {
-    [super reloadData];
-    [self saveSectionAndRows];
-}
-
-- (void)endUpdates {
-    [super endUpdates];
-    [self saveSectionAndRows];
-}
-
-- (void)doUpdates {
-    BOOL shouldReload = NO;
-    NSInteger nowSectionNumber = [[self dataSource] numberOfSectionsInTableView:self];
-    NSMutableArray *indexPathsAdding = [NSMutableArray array];
-    if (nowSectionNumber != [self previousSectionNumber]) {
-        shouldReload = YES;
-    }
-    else {
-        for (NSInteger currentSection=0; currentSection<[self previousSectionNumber]; currentSection++) {
-            NSUInteger oldRowCount = [self previousNumberOfRowsInSection:currentSection];
-            NSUInteger newRowCount = [[self dataSource] tableView:self numberOfRowsInSection:currentSection];
-            if (newRowCount < oldRowCount) {
-                shouldReload = YES;
-                break;
-            }
-            else if (newRowCount == oldRowCount) {
-                //do nothing
-            }
-            else {
-                for (NSUInteger currentRow = oldRowCount - 1; currentRow < newRowCount - 1; currentRow++) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:currentRow inSection:currentSection];
-                    [indexPathsAdding addObject:indexPath];
-                }
-            }
-        }
-    }
-    if (shouldReload) {
-        [self reloadData];
-    }
-    else {
-        [self beginUpdates];
-        [self insertRowsAtIndexPaths:indexPathsAdding withRowAnimation:UITableViewRowAnimationNone];
-        [self endUpdates];
-    }
-}
-
-- (void)saveSectionAndRows {
-    if (self.dataSource != nil) {
-        self.previousSectionNumber = [[self dataSource] numberOfSectionsInTableView:self];
-        [self.previousRowNumber removeAllObjects];
-        for (NSInteger currentSection=0; currentSection<self.previousSectionNumber; currentSection++) {
-            NSNumber *rowNumber = [NSNumber numberWithInteger:[[self dataSource] tableView:self numberOfRowsInSection:currentSection]];
-            [self.previousRowNumber addObject:rowNumber];
-        }
-    }
-}
-
-- (NSInteger)previousNumberOfSections {
-    return self.previousSectionNumber;
-}
-
-- (NSInteger)previousNumberOfRowsInSection:(NSInteger)section {
-    if (ISValidArray(self.previousRowNumber, section)) {
-        return TOInteger(self.previousRowNumber[section]);
-    }
-    return 0;
 }
 
 - (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
@@ -304,10 +240,6 @@
     [self addSubview:self.activityView];
     self.isInvalid = NO;
     [self.tableView addObserver:self
-                     forKeyPath:@"contentSize"
-                        options:NSKeyValueObservingOptionNew
-                        context:nil];
-    [self.tableView addObserver:self
                      forKeyPath:@"contentOffset"
                         options:NSKeyValueObservingOptionNew
                         context:nil];
@@ -364,7 +296,9 @@
         _isInvalid = YES;
         [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 0, 0)];
         [self stop];
-        [self setAlpha:0.0];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self setAlpha:0.0];
+        });
     }
     else {
         _isInvalid = NO;
@@ -374,11 +308,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (!self.isInvalid && [keyPath isEqualToString:@"contentSize"]) {
-        [self setFrame:CGRectMake(0, self.tableView.contentSize.height, 320, 44)];
-        [self setAlpha:1.0];
-    }
-    else if ([keyPath isEqualToString:@"contentOffset"]) {
+    if ([keyPath isEqualToString:@"contentOffset"]) {
         if (!_isLoading && !self.isInvalid && !self.isFail &&
             (self.tableView.contentSize.height - self.tableView.contentOffset.y) < self.tableView.frame.size.height + 20.0) {
             //执行block
@@ -399,7 +329,6 @@
     [self.toolBar setAlpha:0.0];
     [self.activityView setAlpha:1.0];
     if (self.callback != nil) {
-        [self.tableView saveSectionAndRows];
         if (self.delay > 0) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.callback(self.tableView, [self scrollViewParentViewController]);

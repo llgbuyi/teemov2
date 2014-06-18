@@ -91,7 +91,7 @@
 
 - (void)refreshDone {
     [self reloadData];
-    [self.myRefreshControl stop];
+    [self.myRefreshControl performSelector:@selector(stop) withObject:nil afterDelay:0.5];
 }
 
 - (void)loadMoreDone {
@@ -253,7 +253,6 @@
     if (self.tableView.myLoadMoreControl != nil) {
         self.tableView.myLoadMoreControl.isInvalid = NO;
     }
-    
 }
 
 - (void)start {

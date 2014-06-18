@@ -95,10 +95,13 @@
 }
 
 - (void)loadMoreDone {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self doUpdates];
+    if (self.myLoadMoreControl != nil && self.myLoadMoreControl.isInvalid == YES) {
         [self.myLoadMoreControl stop];
-    });
+        return;
+    }
+//    [self doUpdates];
+    [self reloadData];
+    [self.myLoadMoreControl stop];
 }
 
 - (void)reloadData {
@@ -393,10 +396,10 @@
 }
 
 - (void)start {
-    NSLog(@"123");
     [self.toolBar setAlpha:0.0];
     [self.activityView setAlpha:1.0];
     if (self.callback != nil) {
+        [self.tableView saveSectionAndRows];
         if (self.delay > 0) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.callback(self.tableView, [self scrollViewParentViewController]);
@@ -410,9 +413,10 @@
 
 - (void)stop {
     [self setAlpha:0.0];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.activityView setAlpha:0.0];
         [self.toolBar setAlpha:1.0];
+        [self setAlpha:1.0];
         _isLoading = NO;
     });
 }

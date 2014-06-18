@@ -58,7 +58,7 @@
             viewController.numbersOfRow1 += 10;
             [tableView loadMoreDone];
             if (viewController.numbersOfRow1 > 100) {
-                tableView.myLoadMoreControl.isInvalid = NO;
+                tableView.myLoadMoreControl.isInvalid = YES;
             }
         });
     } withDelay:0.0];

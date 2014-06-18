@@ -381,6 +381,13 @@
             _isLoading = YES;
             [self start];
         }
+        else if (!_isLoading && !self.isInvalid && self.isFail &&
+                 (self.tableView.contentSize.height - self.tableView.contentOffset.y) < self.tableView.frame.size.height - 100) {
+            //大力拉，重试
+            _isFail = NO;
+            _isLoading = YES;
+            [self start];
+        }
     }
 }
 
@@ -412,6 +419,7 @@
     if (isFail) {
         //do Fail
         _isFail = YES;
+        _isLoading = NO;
         [self setAlpha:1.0];
         [self.toolBar setAlpha:1.0];
         [self.activityView setAlpha:0.0];

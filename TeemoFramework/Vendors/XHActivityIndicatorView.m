@@ -133,7 +133,7 @@ static NSString* const kXHRotationAnimation = @"XHRotationAnimation";
 - (CALayer *)createLayer {
     CALayer *rectLayer = [[CALayer alloc] init];
     rectLayer.backgroundColor = self.tintColor.CGColor;
-    rectLayer.frame = CGRectMake(-1, -3, 2, 6);
+    rectLayer.frame = CGRectMake(-1, -3, 2, 9);
     rectLayer.anchorPoint = CGPointMake(0.5, 2.0);
     rectLayer.allowsEdgeAntialiasing = YES;
     rectLayer.cornerRadius = 1.0f;

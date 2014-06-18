@@ -133,10 +133,10 @@
 }
 
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 48)];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 60)];
     if (self) {
         self.tableView = argTabelView;
-        self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(160, 22, 44, 44)];
+        self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(160, 26, 44, 44)];
         self.activityView.tintColor = [UIColor grayColor];
         [self addSubview:self.activityView];
         [self addScrollViewObserver];
@@ -158,7 +158,7 @@
     if ([keyPath isEqualToString:@"contentOffset"]) {
         
         if (self.isRefreshing) {
-            if (self.tableView.contentOffset.y > -48.0) {
+            if (self.tableView.contentOffset.y > -60.0) {
                 CGFloat adjustInset = -MIN(self.tableView.contentOffset.y, 0.0);
                 [self.tableView setContentInset:UIEdgeInsetsMake(adjustInset,
                                                                  0,
@@ -167,7 +167,7 @@
             }
         }
         
-        if (self.tableView.contentOffset.y < -48.0 && !_isRefreshing) {
+        if (self.tableView.contentOffset.y < -60.0 && !_isRefreshing) {
             _isRefreshing = YES;
             [self.activityView beginRefreshing];
             [self start];
@@ -178,7 +178,7 @@
             [self.activityView setTimeOffset:0.0];
         }
         else {
-            CGFloat offset = (MIN(currentY, 48.0) - 16.0) / (48.0 - 16.0);
+            CGFloat offset = (MIN(currentY, 60.0) - 16.0) / (60.0 - 16.0);
             [self.activityView setTimeOffset:offset];
         }
     }

@@ -52,7 +52,7 @@
 @interface TMOTableView ()
 
 @property (nonatomic, assign) NSInteger previousSectionNumber;
-@property (nonatomic, strong) NSMutableArray *previousRowNumber;
+@property (atomic, strong) NSMutableArray *previousRowNumber;
 
 @end
 
@@ -95,8 +95,10 @@
 }
 
 - (void)loadMoreDone {
-    [self doUpdates];
-    [self.myLoadMoreControl stop];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self doUpdates];
+        [self.myLoadMoreControl stop];
+    });
 }
 
 - (void)reloadData {
@@ -391,6 +393,7 @@
 }
 
 - (void)start {
+    NSLog(@"123");
     [self.toolBar setAlpha:0.0];
     [self.activityView setAlpha:1.0];
     if (self.callback != nil) {

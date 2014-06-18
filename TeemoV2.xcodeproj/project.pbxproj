@@ -46,7 +46,6 @@
 		9225637818FD2397005BD532 /* TMOSmartyMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637618FD2397005BD532 /* TMOSmartyMoreViewController.m */; };
 		9225637918FD2397005BD532 /* TMOSmartyMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */; };
 		9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */; };
-		9227912F194EF23800D6902B /* UITableView+TMOTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227912E194EF23800D6902B /* UITableView+TMOTableView.m */; };
 		922F608A193490DB005AD787 /* TMOKVDB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE8D85418EC075600405406 /* TMOKVDB.h */; };
 		922F608B193490DB005AD787 /* TMOKVDB.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE8D85518EC075600405406 /* TMOKVDB.m */; };
 		922F608C193490DB005AD787 /* TMOFMDB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */; };
@@ -83,6 +82,7 @@
 		927C8013194FF23F004DD8BC /* TMOTableDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */; };
 		927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */; };
 		92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */; };
+		92B971F9195163D0005CE74A /* TMOTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B971F8195163D0005CE74A /* TMOTableView.m */; };
 		92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */; };
 		92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */; };
 		92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */; };
@@ -216,8 +216,6 @@
 		9225637718FD2397005BD532 /* TMOSmartyMoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOSmartyMoreViewController.xib; sourceTree = "<group>"; };
 		9225637A18FD2587005BD532 /* TMOStringDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOStringDemoViewController.h; sourceTree = "<group>"; };
 		9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOStringDemoViewController.m; sourceTree = "<group>"; };
-		9227912D194EF23800D6902B /* UITableView+TMOTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+TMOTableView.h"; sourceTree = "<group>"; };
-		9227912E194EF23800D6902B /* UITableView+TMOTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+TMOTableView.m"; sourceTree = "<group>"; };
 		922F60A8193490F8005AD787 /* TModel.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = TModel.php; path = TModel/TModel.php; sourceTree = "<group>"; };
 		927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDBTests.m; sourceTree = "<group>"; };
 		927C800C194FD8BF004DD8BC /* XHActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHActivityIndicatorView.h; sourceTree = "<group>"; };
@@ -229,6 +227,8 @@
 		927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDB.m; sourceTree = "<group>"; };
 		92ABB0A81941915700FC40CB /* NIAttributedLabel+TagString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NIAttributedLabel+TagString.m"; sourceTree = "<group>"; };
 		92ABB0A91941915700FC40CB /* NIAttributedLabel+TagString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIAttributedLabel+TagString.h"; sourceTree = "<group>"; };
+		92B971F7195163D0005CE74A /* TMOTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableView.h; sourceTree = "<group>"; };
+		92B971F8195163D0005CE74A /* TMOTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTableView.m; sourceTree = "<group>"; };
 		92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMOImageView.h"; sourceTree = "<group>"; };
 		92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TMOImageView.m"; sourceTree = "<group>"; };
 		92BFF83D18F638E700A13FD8 /* NSString+TMOString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TMOString.h"; sourceTree = "<group>"; };
@@ -459,8 +459,8 @@
 				F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */,
 				92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */,
 				92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */,
-				9227912D194EF23800D6902B /* UITableView+TMOTableView.h */,
-				9227912E194EF23800D6902B /* UITableView+TMOTableView.m */,
+				92B971F7195163D0005CE74A /* TMOTableView.h */,
+				92B971F8195163D0005CE74A /* TMOTableView.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -695,13 +695,13 @@
 				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,
 				2E19539018EAA0F300E1F463 /* TMOToolKitCore.m in Sources */,
 				92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */,
+				92B971F9195163D0005CE74A /* TMOTableView.m in Sources */,
 				92ABB0AA1941915700FC40CB /* NIAttributedLabel+TagString.m in Sources */,
 				92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */,
 				920F0F2818E9625700B9E953 /* UIColor+TMOColor.m in Sources */,
 				2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */,
 				92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */,
 				9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */,
-				9227912F194EF23800D6902B /* UITableView+TMOTableView.m in Sources */,
 				2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

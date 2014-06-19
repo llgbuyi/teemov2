@@ -32,20 +32,6 @@
 - (NSString *)stringByTrim;
 
 /**
- *  返回字符串base64加码结果
- *
- *  @return NSString
- */
-- (NSString *)stringByBase64Encode;
-
-/**
- *  返回字符串base64解码结果
- *
- *  @return NSString
- */
-- (NSString *)stringByBase64Decode;
-
-/**
  *  返回字符串URL加码结果，用于保护GET请求的某一参数不受HTTP传输影响，POST请求不需要使用
  *
  *  @return NSString

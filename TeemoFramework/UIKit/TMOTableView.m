@@ -124,7 +124,7 @@
 }
 
 - (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
-    self.myRefreshControl = [[TMORefreshControl alloc] initWithTableView:self];
+    _myRefreshControl = [[TMORefreshControl alloc] initWithTableView:self];
     [self.myRefreshControl setDelay:argDelay];
     [self.myRefreshControl setCallback:argCallback];
     [self.superview addSubview:self.myRefreshControl];
@@ -139,7 +139,7 @@
 }
 
 - (void)loadMoreWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
-    self.myLoadMoreControl = [[TMOLoadMoreControl alloc] initWithTableView:self];
+    _myLoadMoreControl = [[TMOLoadMoreControl alloc] initWithTableView:self];
     [self.myLoadMoreControl setDelay:argDelay];
     [self.myLoadMoreControl setCallback:argCallback];
     [self addSubview:self.myLoadMoreControl];

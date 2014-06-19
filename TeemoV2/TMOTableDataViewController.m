@@ -63,45 +63,7 @@
 //    } withDelay:0.0];
     
     [self.tableView refreshAndScrollToTop];
-    
-//    [self.tableView refreshControlStart:^(UITableView *tableView, id viewController) {
-//        numbersOfRow0 = arc4random() % 10;
-//        numbersOfRow1 = arc4random() % 10;
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [tableView refreshControlDone];
-//        });
-//    } withDelay:0.0];
-////    return;
-//    [self.tableView loadMoreStart:^(UITableView *tableView, id viewController) {
-//        if (arc4random() % 10 < 5) {
-//            [tableView loadMoreFail];
-//            return ;
-//        }
-//        numbersOfRow1+=10;
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [tableView loadMoreDone];
-//            if (numbersOfRow1 > 100) {
-//                [tableView loadMoreInvalid:YES];
-//            }
-//        });
-//    } withDelay:0.0];
-    
     // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.tableView loadMoreStart:^(UITableView *tableView, id viewController) {
-//            numbersOfRow1+=10;
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [tableView loadMoreDone];
-//                if (numbersOfRow1 > 100) {
-//                    [tableView loadMoreInvalid:YES];
-//                }
-//            });
-//        } withDelay:0.0];
-//    });
 }
 
 - (void)didReceiveMemoryWarning

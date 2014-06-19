@@ -15,6 +15,7 @@
 #import "UIView+TMOSmarty.h"
 #import "NIAttributedLabel+TagString.h"
 #import "UIButton+TMOButton.h"
+#import "TMOTableView.h"
 
 /**
  *  请勿初始化此对象

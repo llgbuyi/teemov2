@@ -128,7 +128,7 @@ class TModel {
                $codeMerge = $meta.$hCode;
                file_put_contents($filePath,$codeMerge);
 
-               $mCodeContents = '#import "'.$BaseClassName.'.h"'."\n".'#import <JSONKit.h>'."\n".'#import <TMOToolKitCore.h>'."\n\n";
+               $mCodeContents = '#import "'.$BaseClassName.'.h"'."\n".'#import <TMOToolKitCore.h>'."\n\n";
                $mCode = "";
                $interfaceCode = "";
                $mCode .= $this -> _generateImplementation($BaseClassName, $objects, $interfaceCode);
@@ -218,7 +218,7 @@ class TModel {
                if($this->_is_assoc_array($object)) {
                     //Root NSDictionary
                     $code .= "- (instancetype)init {\n    self = [super init];\n    if (self) {\n        childObject = [NSMutableDictionary dictionary];\n    }\n    return self;\n}"."\n\n";
-                    $code .= "- (instancetype)initWithJSONString:(NSString *)argJSONString {\n    self = [super init];\n    if (self) {\n        _parsedObject = [argJSONString objectFromJSONString];\n        childObject = [NSMutableDictionary dictionary];\n    }\n    return self;\n}"."\n\n";
+                    $code .= "- (instancetype)initWithJSONString:(NSString *)argJSONString {\n    self = [super init];\n    if (self) {\n        _parsedObject = [NSJSONSerialization JSONObjectWithData:[argJSONString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];\n        childObject = [NSMutableDictionary dictionary];\n    }\n    return self;\n}"."\n\n";
                     $code .= "- (NSDictionary *)_object {\n    return self.parsedObject;\n}"."\n\n";
                     $code .= "- (NSError *)_error {\n    if (_parsedObject == nil) {\n        return [NSError errorWithDomain:@\"JSONKit\" code:0 userInfo:nil];\n    }\n    //你还可以自定义你认为是错误的判断\n    return nil;\n}"."\n\n";
                     $code .= "- (id)valueForKey:(NSString *)key {\n    return TODictionary(_parsedObject[key]);\n}"."\n\n";
@@ -249,7 +249,7 @@ class TModel {
                else {
                     //Root NSArray
                     $code .= "- (instancetype)init {\n    self = [super init];\n    if (self) {\n        childObject = [NSMutableDictionary dictionary];\n    }\n    return self;\n}"."\n\n";
-                    $code .= "- (instancetype)initWithJSONString:(NSString *)argJSONString {\n    self = [super init];\n    if (self) {\n        _parsedObject = [argJSONString objectFromJSONString];\n        childObject = [NSMutableDictionary dictionary];\n    }\n    return self;\n}"."\n\n";
+                    $code .= "- (instancetype)initWithJSONString:(NSString *)argJSONString {\n    self = [super init];\n    if (self) {\n        _parsedObject = [NSJSONSerialization JSONObjectWithData:[argJSONString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];\n        childObject = [NSMutableDictionary dictionary];\n    }\n    return self;\n}"."\n\n";
                     $code .= "- (NSArray *)_object {\n    return self.parsedObject;\n}"."\n\n";
                     $code .= "- (NSError *)_error {\n    if (_parsedObject == nil) {\n        return [NSError errorWithDomain:@\"JSONKit\" code:0 userInfo:nil];\n    }\n    //你还可以自定义你认为是错误的判断\n    return nil;\n}"."\n\n";
                     $code .= "- (id)objectAtIndex:(NSUInteger)index {\n    if (ISValidArray(_parsedObject, index)) {\n        return _parsedObject[index];\n    }\n    return nil;\n}"."\n\n";

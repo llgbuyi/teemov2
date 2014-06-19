@@ -11,7 +11,6 @@ pod 'FMDB', '~> 2.2'
 pod 'Objective-LevelDB', '~> 2.0.6'
 
 #ToolKit
-pod 'JSONKit-NoWarning', '~> 1.1'
 pod 'Base64nl', '~> 1.2'
 pod 'SSKeychain'
 pod 'RNCryptor', '~> 2.2'

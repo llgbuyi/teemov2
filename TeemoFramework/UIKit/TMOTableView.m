@@ -12,9 +12,13 @@
 #import "TMOUIKitMacro.h"
 #import "UIImage+TMOImage.h"
 
-@interface TMORefreshControl ()
+@interface TMORefreshControl (){
+    CGFloat _controlViewHeight;
+}
 
 @property (nonatomic, strong) XHActivityIndicatorView *activityView;
+
+@property (nonatomic, strong) UIView *customView;
 
 @property (nonatomic, weak) TMOTableView *tableView;
 
@@ -156,6 +160,7 @@
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView {
     self = [super initWithFrame:CGRectMake(0, 0, 320, 60)];
     if (self) {
+        _controlViewHeight = 60;
         self.tableView = argTabelView;
         self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(160, 26, 44, 44)];
         self.activityView.tintColor = [UIColor grayColor];
@@ -163,6 +168,16 @@
         [self addScrollViewObserver];
     }
     return self;
+}
+
+- (void)resetStyle {
+    if (self.delegate != nil) {
+        [self.activityView removeFromSuperview];
+        self.customView = [self.delegate refreshView];
+        _controlViewHeight = self.customView.frame.size.height;
+        self.frame = CGRectMake(0, 0, 320, _controlViewHeight);
+        [self addSubview:self.customView];
+    }
 }
 
 - (void)addScrollViewObserver {
@@ -179,7 +194,7 @@
     if ([keyPath isEqualToString:@"contentOffset"]) {
         
         if (self.isRefreshing) {
-            if (self.tableView.contentOffset.y > -60.0) {
+            if (self.tableView.contentOffset.y > -_controlViewHeight) {
                 CGFloat adjustInset = -MIN(self.tableView.contentOffset.y, 0.0);
                 [self.tableView setContentInset:UIEdgeInsetsMake(adjustInset,
                                                                  0,
@@ -188,27 +203,49 @@
             }
         }
         
-        if (self.tableView.contentOffset.y < -60.0 && !_isRefreshing) {
+        if (self.tableView.contentOffset.y < -_controlViewHeight && !_isRefreshing) {
             _isRefreshing = YES;
-            [self.activityView beginRefreshing];
+            if (self.delegate != nil &&
+                [self.delegate respondsToSelector:@selector(refreshViewWillStartRefresh:)]) {
+                [[self delegate] refreshViewWillStartRefresh:self.customView];
+            }
+            else if (self.delegate == nil) {
+                [self.activityView beginRefreshing];
+            }
             [self start];
         }
         
-        CGFloat currentY = -MIN(0.0, self.tableView.contentOffset.y);
-        if (currentY < 16.0) {
-            [self.activityView setTimeOffset:0.0];
+        if (!self.isRefreshing) {
+            CGFloat currentY = -MIN(0.0, self.tableView.contentOffset.y);
+            if (currentY < 16.0) {
+                if (self.delegate == nil) {
+                    [self.activityView setTimeOffset:0.0];
+                }
+            }
+            else {
+                CGFloat offset = (MIN(currentY, _controlViewHeight) - 16.0) / (_controlViewHeight - 16.0);
+                if (self.delegate != nil &&
+                    [self.delegate respondsToSelector:@selector(refreshViewInProcess:withProcess:)]) {
+                    [[self delegate] refreshViewInProcess:self.customView withProcess:offset];
+                }
+                else if (self.delegate == nil) {
+                    [self.activityView setTimeOffset:offset];
+                }
+            }
         }
-        else {
-            CGFloat offset = (MIN(currentY, 60.0) - 16.0) / (60.0 - 16.0);
-            [self.activityView setTimeOffset:offset];
-        }
+        
     }
 }
 
 - (void)stop {
     _isRefreshing = NO;
-    [self.activityView setTimeOffset:0.0];
-    [self.activityView endRefreshing];
+    if (self.delegate != nil && [[self delegate] respondsToSelector:@selector(refreshViewWillEndRefresh:)]) {
+        [self.delegate refreshViewWillEndRefresh:self.customView];
+    }
+    else if (self.delegate == nil) {
+        [self.activityView setTimeOffset:0.0];
+        [self.activityView endRefreshing];
+    }
     [UIView animateWithDuration:0.15 animations:^{
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, self.tableView.contentInset.bottom, 0)];
     }];
@@ -217,15 +254,21 @@
 - (void)refreshAndScrollToTop {
     if (!self.isRefreshing) {
         _isRefreshing = YES;
-        [self.activityView setTimeOffset:1.0];
-        [self.activityView beginRefreshing];
+        if (self.delegate != nil &&
+            [self.delegate respondsToSelector:@selector(refreshViewWillStartRefresh:)]) {
+            [[self delegate] refreshViewWillStartRefresh:self.customView];
+        }
+        else if (self.delegate == nil) {
+            [self.activityView setTimeOffset:1.0];
+            [self.activityView beginRefreshing];
+        }
         [self start];
         [UIView animateWithDuration:0.15 animations:^{
-            [self.tableView setContentInset:UIEdgeInsetsMake(60,
+            [self.tableView setContentInset:UIEdgeInsetsMake(_controlViewHeight,
                                                              0,
                                                              self.tableView.contentInset.bottom,
                                                              0)];
-            [self.tableView setContentOffset:CGPointMake(0, -60) animated:YES];
+            [self.tableView setContentOffset:CGPointMake(0, -_controlViewHeight) animated:YES];
         }];
     }
 }

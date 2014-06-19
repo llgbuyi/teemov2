@@ -8,12 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
+@class TMORefreshControl;
+
+@protocol TMORefreshControlDelegate <NSObject>
+
+@optional
+
+- (UIView *)refreshView;
+
+- (void)refreshViewInProcess:(UIView *)argCustomRefreshView withProcess:(CGFloat)argProcess;
+
+- (void)refreshViewWillStartRefresh:(UIView *)argCustomRefreshView;
+
+- (void)refreshViewWillEndRefresh:(UIView *)argCustomRefreshView;
+
+@end
+
 @interface TMORefreshControl : UIView
+
+@property (nonatomic, weak) id<TMORefreshControlDelegate> delegate;
 
 /**
  *  下拉刷新是否正在执行，只读
  */
 @property (nonatomic, readonly) BOOL isRefreshing;
+
+- (void)resetStyle;
 
 @end
 
@@ -45,7 +65,7 @@
 /**
  *  Rrefresh & LoadMore Callback Block
  *
- *  @param tableView      使用此变量以避免循环引用，使用前，调用前请使用 tableView.isValid 检测 tableView 是否已经失效
+ *  @param tableView      使用此变量以避免循环引用，调用前请使用 tableView.isValid 检测 tableView 是否已经失效
  *  @param viewController 代表tableView的父级viewController，使用此变量以避免循环引用
  */
 typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);

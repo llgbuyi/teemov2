@@ -9,7 +9,7 @@
 #import "TMOTableDataViewController.h"
 #import "TMOUIKitCore.h"
 
-@interface TMOTableDataViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface TMOTableDataViewController ()<UITableViewDataSource, UITableViewDelegate, TMORefreshControlDelegate>
 
 @property (weak, nonatomic) IBOutlet TMOTableView *tableView;
 
@@ -47,6 +47,9 @@
             [tableView refreshDone];
         });
     } withDelay:0.0];
+    
+    self.tableView.myRefreshControl.delegate = self;
+    [self.tableView.myRefreshControl resetStyle];
 
 //    [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -100,6 +103,36 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [NSString stringWithFormat:@"Hello - %d", section];
+}
+
+
+#pragma mark - 
+#pragma mark - TMORefreshControlDelegate
+
+- (UIView *)refreshView {
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+    progressView.frame = CGRectMake(0, 20, 320, 3);
+    progressView.tintColor = [UIColor orangeColor];
+    [backgroundView addSubview:progressView];
+    return backgroundView;
+}
+
+- (void)refreshViewInProcess:(UIView *)argCustomRefreshView withProcess:(CGFloat)argProcess {
+    UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView subviewWithClass:[UIProgressView class]];
+    [progessView setProgress:argProcess animated:NO];
+}
+
+- (void)refreshViewWillStartRefresh:(UIView *)argCustomRefreshView {
+    UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView subviewWithClass:[UIProgressView class]];
+    [progessView setProgress:1.0];
+    [progessView setTintColor:[UIColor greenColor]];
+}
+
+- (void)refreshViewWillEndRefresh:(UIView *)argCustomRefreshView {
+    UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView subviewWithClass:[UIProgressView class]];
+    [progessView setTintColor:[UIColor orangeColor]];
+    [progessView setProgress:0.0 animated:NO];
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "TMOHTTPResult.h"
-#import "JSONKit.h"
 
 @interface TMOHTTPResult ()
 
@@ -38,7 +37,7 @@
 }
 
 - (id)JSONObj {
-    return [_data objectFromJSONData];
+    return [NSJSONSerialization JSONObjectWithData:_data options:NSJSONReadingAllowFragments error:nil];
 }
 
 @end

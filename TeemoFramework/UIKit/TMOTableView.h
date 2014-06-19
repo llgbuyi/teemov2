@@ -63,12 +63,32 @@
 
 @optional
 
+/**
+ *  返回一个上拉加载自定式样式UIView
+ *
+ *  @return UIView
+ */
 - (UIView *)loadMoreView;
 
+/**
+ *  当上拉加载将要触发时，回调
+ *
+ *  @param argCustomView 已经自定义的UIView
+ */
 - (void)loadMoreViewWillStartLoading:(UIView *)argCustomView;
 
+/**
+ *  当上拉加载完成时，回调
+ *
+ *  @param argCustomView 已经自定义的UIView
+ */
 - (void)loadMoreViewWillEndLoading:(UIView *)argCustomView;
 
+/**
+ *  当上拉加载失败时，回调
+ *
+ *  @param argCustomView 已经自定义的UIView
+ */
 - (void)loadMoreViewLoadFail:(UIView *)argCustomView;
 
 @end

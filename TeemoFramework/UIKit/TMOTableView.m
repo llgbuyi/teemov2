@@ -24,6 +24,8 @@
 
 - (id)initWithTableView:(TMOTableView *)argTabelView;
 
+- (void)refreshAndScrollToTop;
+
 - (void)stop;
 
 @end
@@ -130,6 +132,12 @@
     [self setBackgroundColor:[UIColor clearColor]];
 }
 
+- (void)refreshAndScrollToTop {
+    if (self.myRefreshControl != nil) {
+        [self.myRefreshControl refreshAndScrollToTop];
+    }
+}
+
 - (void)loadMoreWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
     self.myLoadMoreControl = [[TMOLoadMoreControl alloc] initWithTableView:self];
     [self.myLoadMoreControl setDelay:argDelay];
@@ -204,6 +212,22 @@
     [UIView animateWithDuration:0.15 animations:^{
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, self.tableView.contentInset.bottom, 0)];
     }];
+}
+
+- (void)refreshAndScrollToTop {
+    if (!self.isRefreshing) {
+        _isRefreshing = YES;
+        [self.activityView setTimeOffset:1.0];
+        [self.activityView beginRefreshing];
+        [self start];
+        [UIView animateWithDuration:0.15 animations:^{
+            [self.tableView setContentInset:UIEdgeInsetsMake(60,
+                                                             0,
+                                                             self.tableView.contentInset.bottom,
+                                                             0)];
+            [self.tableView setContentOffset:CGPointMake(0, -60) animated:YES];
+        }];
+    }
 }
 
 - (void)start {

@@ -38,6 +38,8 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
 
 - (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay;
 
+- (void)refreshAndScrollToTop;
+
 - (void)loadMoreDone;
 
 - (void)loadMoreWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay;

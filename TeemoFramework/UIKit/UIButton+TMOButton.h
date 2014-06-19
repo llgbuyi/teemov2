@@ -19,7 +19,7 @@
 - (void)setCustomImageView:(void(^)(UIImageView *imageView))argCallback;
 
 /**
- *  加载指定URL的图片，将设置到UIButton的指定状态中
+ *  加载指定URL的图片，将设置到UIButton的指定状态中，缓存一天
  *
  *  @param argControlState     状态
  *  @param argURLString        URL
@@ -28,5 +28,18 @@
 - (void)setCustomImageForState:(UIControlState)argControlState
                  withURLString:(NSString *)argURLString
           withPlaceHolderImage:(UIImage *)argPlaceHolderImage;
+
+/**
+ *  加载指定URL的图片，将设置到UIButton的指定状态中
+ *
+ *  @param argControlState     状态
+ *  @param argURLString        URL
+ *  @param argPlaceHolderImage 加载成功前的图片
+ *  @param argCacheTime        缓存时间，0表示无限期，-1表示不缓存
+ */
+- (void)setCustomImageForState:(UIControlState)argControlState
+                 withURLString:(NSString *)argURLString
+          withPlaceHolderImage:(UIImage *)argPlaceHolderImage
+                 withCacheTime:(NSTimeInterval)argCacheTime;
 
 @end

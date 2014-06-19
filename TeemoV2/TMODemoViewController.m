@@ -15,14 +15,22 @@
 #import "TMOSmartyMoreViewController.h"
 #import "TMOStringDemoViewController.h"
 #import "TMOTextKitViewController.h"
+#import "TMOTableDataViewController.h"
 
 #import "TMOUIKitCore.h"
 
 @interface TMODemoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSString *hello;
+
 @end
 
 @implementation TMODemoViewController
+
+- (void)dealloc {
+    
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,7 +63,7 @@
         return 2;
     }
     else if (section == 2){
-        return 9;
+        return 10;
     }
     else if (section == 3){
         return 3;
@@ -131,6 +139,10 @@
         }
         else if (indexPath.row == 8) {
             [cell.textLabel setText:@"PonyTextKit"];
+        }
+        else if (indexPath.row == 9) {
+            [cell.textLabel setText:@"UITableView扩展"];
+            [cell.detailTextLabel setText:@"下拉刷新 上拉加载"];
         }
     }
     else if (indexPath.section == 3) {
@@ -236,6 +248,10 @@
         else if (indexPath.row == 8) {
             TMOTextKitViewController *textKitDemoViewController = [[TMOTextKitViewController alloc] initWithNibName:nil bundle:nil];
             [self.navigationController pushViewController:textKitDemoViewController animated:YES];
+        }
+        else if (indexPath.row == 9) {
+            TMOTableDataViewController *tableDemoViewController = [[TMOTableDataViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:tableDemoViewController animated:YES];
         }
     }
     else if (indexPath.section == 3) {

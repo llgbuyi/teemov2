@@ -34,10 +34,28 @@
 - (void)setCustomImageForState:(UIControlState)argControlState
                  withURLString:(NSString *)argURLString
           withPlaceHolderImage:(UIImage *)argPlaceHolderImage {
+    [self setCustomImageForState:argControlState
+                   withURLString:argURLString
+            withPlaceHolderImage:argPlaceHolderImage
+                   withCacheTime:86400];
+}
+
+- (void)setCustomImageForState:(UIControlState)argControlState
+                 withURLString:(NSString *)argURLString
+          withPlaceHolderImage:(UIImage *)argPlaceHolderImage
+                 withCacheTime:(NSTimeInterval)argCacheTime {
     if (argPlaceHolderImage != nil) {
         [self setImage:argPlaceHolderImage forState:argControlState];
     }
-    [TMOHTTPManager simpleGet:argURLString completionBlock:^(TMOHTTPResult *result, NSError *error) {
+    [[TMOHTTPManager shareInstance] fetchWithURL:argURLString
+                                        postData:nil
+                                 timeoutInterval:60
+                                         headers:nil
+                                           owner:nil
+                                       cacheTime:argCacheTime
+                                 fetcherPriority:TMOFetcherPriorityNormal
+                                 comletionHandle:nil
+                                 completionBlock:^(TMOHTTPResult *result, NSError *error) {
         if (error == nil) {
             UIImage *image = [UIImage imageWithData:result.data];
             if (image != nil) {

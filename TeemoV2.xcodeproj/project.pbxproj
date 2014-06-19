@@ -77,6 +77,9 @@
 		922F60A9193490F8005AD787 /* TModel.php in Resources */ = {isa = PBXBuildFile; fileRef = 922F60A8193490F8005AD787 /* TModel.php */; };
 		922F60AA19349104005AD787 /* TModel.php in CopyFiles */ = {isa = PBXBuildFile; fileRef = 922F60A8193490F8005AD787 /* TModel.php */; };
 		927AD2CF18FFBC7600498AD0 /* TMOFMDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */; };
+		927C800E194FD8BF004DD8BC /* XHActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927C800D194FD8BF004DD8BC /* XHActivityIndicatorView.m */; };
+		927C8012194FF23F004DD8BC /* TMOTableDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927C8010194FF23F004DD8BC /* TMOTableDataViewController.m */; };
+		927C8013194FF23F004DD8BC /* TMOTableDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */; };
 		927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */; };
 		92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */; };
 		92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */; };
@@ -88,6 +91,8 @@
 		92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DA479318EA624B0096D349 /* UIView+TMOView.m */; };
 		92DC4F43190E02E2009E6F81 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC4F42190E02E2009E6F81 /* CoreText.framework */; };
 		92E6DA9918ED4479002CC61F /* TMOKVDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */; };
+		AB8F8457194A9CB600290CD4 /* NSArray+TMODuplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */; };
+		AB8F845B194A9D8400290CD4 /* TMOBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */; };
 		F0F6FC2018F999090005A5BF /* UIView+TMOSmarty.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +212,11 @@
 		9225637B18FD2587005BD532 /* TMOStringDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOStringDemoViewController.m; sourceTree = "<group>"; };
 		922F60A8193490F8005AD787 /* TModel.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = TModel.php; path = TModel/TModel.php; sourceTree = "<group>"; };
 		927AD2CE18FFBC7600498AD0 /* TMOFMDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDBTests.m; sourceTree = "<group>"; };
+		927C800C194FD8BF004DD8BC /* XHActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHActivityIndicatorView.h; sourceTree = "<group>"; };
+		927C800D194FD8BF004DD8BC /* XHActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHActivityIndicatorView.m; sourceTree = "<group>"; };
+		927C800F194FF23F004DD8BC /* TMOTableDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableDataViewController.h; sourceTree = "<group>"; };
+		927C8010194FF23F004DD8BC /* TMOTableDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTableDataViewController.m; sourceTree = "<group>"; };
+		927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOTableDataViewController.xib; sourceTree = "<group>"; };
 		927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFMDB.h; sourceTree = "<group>"; };
 		927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDB.m; sourceTree = "<group>"; };
 		92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMOImageView.h"; sourceTree = "<group>"; };
@@ -224,6 +234,10 @@
 		92DA479318EA624B0096D349 /* UIView+TMOView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOView.m"; sourceTree = "<group>"; };
 		92DC4F42190E02E2009E6F81 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOKVDBTests.m; sourceTree = "<group>"; };
+		AB8F8455194A9CB600290CD4 /* NSArray+TMODuplicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TMODuplicate.h"; sourceTree = "<group>"; };
+		AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TMODuplicate.m"; sourceTree = "<group>"; };
+		AB8F8459194A9D8400290CD4 /* TMOBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOBaseModel.h; sourceTree = "<group>"; };
+		AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOBaseModel.m; sourceTree = "<group>"; };
 		F0F6FC1E18F999090005A5BF /* UIView+TMOSmarty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TMOSmarty.h"; sourceTree = "<group>"; };
 		F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOSmarty.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -319,6 +333,10 @@
 				92170D621907BD1300EB9ED9 /* TMOTextKitViewController.h */,
 				92170D631907BD1300EB9ED9 /* TMOTextKitViewController.m */,
 				92170D641907BD1300EB9ED9 /* TMOTextKitViewController.xib */,
+				927C800F194FF23F004DD8BC /* TMOTableDataViewController.h */,
+				927C8010194FF23F004DD8BC /* TMOTableDataViewController.m */,
+				927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */,
+				AB8F8458194A9D7100290CD4 /* Models */,
 				2E8CAA1118E93E5F0047D335 /* Images.xcassets */,
 				2E8CAA0018E93E5F0047D335 /* Supporting Files */,
 			);
@@ -360,6 +378,7 @@
 		2E8CAA3018E947DC0047D335 /* TeemoFramework */ = {
 			isa = PBXGroup;
 			children = (
+				927C800B194FD8BF004DD8BC /* Vendors */,
 				922F60A8193490F8005AD787 /* TModel.php */,
 				92BF7F5218F7922800CAC2FE /* ServiceKit */,
 				2E8CAA3118E947DC0047D335 /* DataKit */,
@@ -404,6 +423,8 @@
 				92C2AFF418F69375007EF9C3 /* TMOObjectVerifier.m */,
 				921C01321947F3B800BB558D /* TMOSecurity.h */,
 				921C01331947F3B800BB558D /* TMOSecurity.m */,
+				AB8F8455194A9CB600290CD4 /* NSArray+TMODuplicate.h */,
+				AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */,
 			);
 			path = ToolKit;
 			sourceTree = "<group>";
@@ -426,6 +447,8 @@
 				F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */,
 				92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */,
 				92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */,
+				92B971F7195163D0005CE74A /* TMOTableView.h */,
+				92B971F8195163D0005CE74A /* TMOTableView.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -437,11 +460,29 @@
 			name = iPad;
 			sourceTree = "<group>";
 		};
+		927C800B194FD8BF004DD8BC /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				927C800C194FD8BF004DD8BC /* XHActivityIndicatorView.h */,
+				927C800D194FD8BF004DD8BC /* XHActivityIndicatorView.m */,
+			);
+			path = Vendors;
+			sourceTree = "<group>";
+		};
 		92BF7F5218F7922800CAC2FE /* ServiceKit */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = ServiceKit;
+			sourceTree = "<group>";
+		};
+		AB8F8458194A9D7100290CD4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB8F8459194A9D8400290CD4 /* TMOBaseModel.h */,
+				AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -527,6 +568,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				927C8013194FF23F004DD8BC /* TMOTableDataViewController.xib in Resources */,
 				2E8CAA1218E93E5F0047D335 /* Images.xcassets in Resources */,
 				922F60A9193490F8005AD787 /* TModel.php in Resources */,
 				2E8CAA0418E93E5F0047D335 /* InfoPlist.strings in Resources */,
@@ -625,13 +667,17 @@
 				9225636A18FD1413005BD532 /* TMOFMDBDemoViewController.m in Sources */,
 				921C01341947F3B800BB558D /* TMOSecurity.m in Sources */,
 				2E19538A18EA8DAF00E1F463 /* TMOHTTPResult.m in Sources */,
+				927C8012194FF23F004DD8BC /* TMOTableDataViewController.m in Sources */,
 				9225637318FD1B85005BD532 /* TMOSmartyViewController.m in Sources */,
 				9225636318FCD886005BD532 /* TMONetworkDemoViewController.m in Sources */,
 				920F0F2118E94DB900B9E953 /* TMOUIKitCore.m in Sources */,
+				927C800E194FD8BF004DD8BC /* XHActivityIndicatorView.m in Sources */,
+				AB8F845B194A9D8400290CD4 /* TMOBaseModel.m in Sources */,
 				92DA479418EA624B0096D349 /* UIView+TMOView.m in Sources */,
 				92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */,
 				92DA478F18E96ED60096D349 /* UIImage+TMOImage.m in Sources */,
 				92170D651907BD1300EB9ED9 /* TMOTextKitViewController.m in Sources */,
+				AB8F8457194A9CB600290CD4 /* NSArray+TMODuplicate.m in Sources */,
 				2E8CAA0618E93E5F0047D335 /* main.m in Sources */,
 				9225636718FD1235005BD532 /* TMOKVDBDemoViewController.m in Sources */,
 				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,

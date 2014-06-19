@@ -28,6 +28,8 @@
 
 typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
 
+@property (nonatomic, readonly) BOOL isValid;
+
 @property (nonatomic, strong) TMORefreshControl *myRefreshControl;
 
 @property (nonatomic, strong) TMOLoadMoreControl *myLoadMoreControl;

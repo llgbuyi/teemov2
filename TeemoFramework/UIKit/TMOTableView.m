@@ -83,7 +83,14 @@
 - (void)setup {
 }
 
+- (BOOL)isValid {
+    return self.superview != nil;
+}
+
 - (void)reloadData {
+    if (!self.isValid) {
+        return;
+    }
     if (self.myLoadMoreControl != nil) {
         self.myLoadMoreControl.alpha = 0;
     }
@@ -95,11 +102,17 @@
 }
 
 - (void)refreshDone {
+    if (!self.isValid) {
+        return;
+    }
     [self reloadData];
     [self.myRefreshControl performSelector:@selector(stop) withObject:nil afterDelay:0.5];
 }
 
 - (void)loadMoreDone {
+    if (!self.isValid) {
+        return;
+    }
     if (self.myLoadMoreControl != nil && self.myLoadMoreControl.isInvalid == YES) {
         [self.myLoadMoreControl stop];
         return;
@@ -191,16 +204,10 @@
     [UIView animateWithDuration:0.15 animations:^{
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, self.tableView.contentInset.bottom, 0)];
     }];
-    if (self.tableView.myLoadMoreControl != nil) {
-        self.tableView.myLoadMoreControl.isInvalid = NO;
-    }
 }
 
 - (void)start {
     if (self.callback != nil) {
-        if (self.tableView.myLoadMoreControl != nil) {
-            self.tableView.myLoadMoreControl.isInvalid = YES;
-        }
         if (self.delay > 0) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.callback(self.tableView, [self scrollViewParentViewController]);

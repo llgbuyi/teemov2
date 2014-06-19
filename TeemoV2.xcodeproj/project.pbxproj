@@ -81,6 +81,7 @@
 		927C8012194FF23F004DD8BC /* TMOTableDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927C8010194FF23F004DD8BC /* TMOTableDataViewController.m */; };
 		927C8013194FF23F004DD8BC /* TMOTableDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */; };
 		927F92EE18EC0BBD00B3AEBE /* TMOFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */; };
+		929EB1BD1952CF2800A69311 /* TMOTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 929EB1BB1952CF2800A69311 /* TMOTableView.m */; };
 		92BAE07F18F3F1B900C941D0 /* UIImageView+TMOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */; };
 		92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BFF83E18F638E700A13FD8 /* NSString+TMOString.m */; };
 		92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */; };
@@ -219,6 +220,8 @@
 		927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOTableDataViewController.xib; sourceTree = "<group>"; };
 		927F92EC18EC0BBD00B3AEBE /* TMOFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFMDB.h; sourceTree = "<group>"; };
 		927F92ED18EC0BBD00B3AEBE /* TMOFMDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFMDB.m; sourceTree = "<group>"; };
+		929EB1BB1952CF2800A69311 /* TMOTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTableView.m; sourceTree = "<group>"; };
+		929EB1BC1952CF2800A69311 /* TMOTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableView.h; sourceTree = "<group>"; };
 		92BAE07D18F3F1B900C941D0 /* UIImageView+TMOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMOImageView.h"; sourceTree = "<group>"; };
 		92BAE07E18F3F1B900C941D0 /* UIImageView+TMOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TMOImageView.m"; sourceTree = "<group>"; };
 		92BFF83D18F638E700A13FD8 /* NSString+TMOString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TMOString.h"; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 		2E8CAA3518E947DC0047D335 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				929EB1BB1952CF2800A69311 /* TMOTableView.m */,
+				929EB1BC1952CF2800A69311 /* TMOTableView.h */,
 				920F0F1F18E94DB900B9E953 /* TMOUIKitCore.h */,
 				920F0F2018E94DB900B9E953 /* TMOUIKitCore.m */,
 				920F0F2218E94E2B00B9E953 /* TMOUIKitMacro.h */,
@@ -447,8 +452,6 @@
 				F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */,
 				92C13F7E1946D03900F6566A /* UIButton+TMOButton.h */,
 				92C13F7F1946D03900F6566A /* UIButton+TMOButton.m */,
-				92B971F7195163D0005CE74A /* TMOTableView.h */,
-				92B971F8195163D0005CE74A /* TMOTableView.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				2E8CAA0618E93E5F0047D335 /* main.m in Sources */,
 				9225636718FD1235005BD532 /* TMOKVDBDemoViewController.m in Sources */,
 				9225636E18FD1732005BD532 /* TMOUIKitDemoViewController.m in Sources */,
+				929EB1BD1952CF2800A69311 /* TMOTableView.m in Sources */,
 				2E19539018EAA0F300E1F463 /* TMOToolKitCore.m in Sources */,
 				92C2AFF518F69375007EF9C3 /* TMOObjectVerifier.m in Sources */,
 				92C13F801946D03900F6566A /* UIButton+TMOButton.m in Sources */,

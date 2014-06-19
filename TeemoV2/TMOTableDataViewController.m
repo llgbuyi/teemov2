@@ -116,7 +116,9 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 88)];
     UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     progressView.frame = CGRectMake(0, 20, 320, 3);
-    progressView.tintColor = [UIColor orangeColor];
+    if (TMO_UIKIT_APP_IS_IOS7) {
+        progressView.tintColor = [UIColor orangeColor];
+    }
     [backgroundView addSubview:progressView];
     return backgroundView;
 }
@@ -129,12 +131,16 @@
 - (void)refreshViewWillStartRefresh:(UIView *)argCustomRefreshView {
     UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView subviewWithClass:[UIProgressView class]];
     [progessView setProgress:1.0];
-    [progessView setTintColor:[UIColor greenColor]];
+    if (TMO_UIKIT_APP_IS_IOS7) {
+        [progessView setTintColor:[UIColor greenColor]];
+    }
 }
 
 - (void)refreshViewWillEndRefresh:(UIView *)argCustomRefreshView {
     UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView subviewWithClass:[UIProgressView class]];
-    [progessView setTintColor:[UIColor orangeColor]];
+    if (TMO_UIKIT_APP_IS_IOS7) {
+        [progessView setTintColor:[UIColor orangeColor]];
+    }
     [progessView setProgress:0.0 animated:NO];
 }
 

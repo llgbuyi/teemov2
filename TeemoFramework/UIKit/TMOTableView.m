@@ -34,7 +34,11 @@
 
 @end
 
-@interface TMOLoadMoreControl ()
+@interface TMOLoadMoreControl (){
+    CGFloat _controlViewHeight;
+}
+
+@property (nonatomic, strong) UIView *customView;
 
 @property (nonatomic, strong) UIToolbar *toolBar;
 
@@ -162,22 +166,34 @@
     if (self) {
         _controlViewHeight = 60;
         self.tableView = argTabelView;
-        self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(160, 26, 44, 44)];
-        self.activityView.tintColor = [UIColor grayColor];
-        [self addSubview:self.activityView];
+        [self defaultSetup];
         [self addScrollViewObserver];
     }
     return self;
 }
 
-- (void)resetStyle {
-    if (self.delegate != nil) {
+- (void)setDelegate:(id<TMORefreshControlDelegate>)delegate {
+    if (delegate != nil) {
+        _delegate = delegate;
         [self.activityView removeFromSuperview];
         self.customView = [self.delegate refreshView];
         _controlViewHeight = self.customView.frame.size.height;
         self.frame = CGRectMake(0, 0, 320, _controlViewHeight);
         [self addSubview:self.customView];
     }
+    else {
+        [self.customView removeFromSuperview];
+        _delegate = nil;
+        [self defaultSetup];
+    }
+}
+
+- (void)defaultSetup {
+    self.frame = CGRectMake(0, 0, 320, 60);
+    _controlViewHeight = 60;
+    self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(160, 26, 44, 44)];
+    self.activityView.tintColor = [UIColor grayColor];
+    [self addSubview:self.activityView];
 }
 
 - (void)addScrollViewObserver {
@@ -301,22 +317,42 @@
 @implementation TMOLoadMoreControl
 
 - (id)initWithTableView:(TMOTableView *)argTabelView {
-    self = [super init];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
     if (self) {
         self.tableView = argTabelView;
-        [self setup];
+        [self defaultSetup];
+        self.isInvalid = NO;
+        [self.tableView addObserver:self
+                         forKeyPath:@"contentOffset"
+                            options:NSKeyValueObservingOptionNew
+                            context:nil];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setDelegate:(id<TMOLoadMoreControlDelegate>)delegate {
+    if (delegate != nil) {
+        _delegate = delegate;
+        [self.toolBar removeFromSuperview];
+        [self.activityView removeFromSuperview];
+        self.customView = [[self delegate] loadMoreView];
+        [self addSubview:self.customView];
+        _controlViewHeight = self.customView.frame.size.height;
+        self.frame = CGRectMake(0, self.tableView.contentSize.height, 320, _controlViewHeight);
+        [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
+    }
+    else {
+        [self.customView removeFromSuperview];
+        [self defaultSetup];
+    }
+}
+
+- (void)defaultSetup {
+    _controlViewHeight = 44.0;
+    self.frame = CGRectMake(0, 0, 320, 44);
     [self addSubview:self.toolBar];
     [self addSubview:self.activityView];
-    self.isInvalid = NO;
-    [self.tableView addObserver:self
-                     forKeyPath:@"contentOffset"
-                        options:NSKeyValueObservingOptionNew
-                        context:nil];
+    [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
 }
 
 - (UIToolbar *)toolBar {
@@ -376,7 +412,7 @@
     }
     else {
         _isInvalid = NO;
-        [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 44, 0)];
+        [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
         [self setAlpha:1.0];
     }
 }
@@ -400,8 +436,13 @@
 }
 
 - (void)start {
-    [self.toolBar setAlpha:0.0];
-    [self.activityView setAlpha:1.0];
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreViewWillStartLoading:)]) {
+        [[self delegate] loadMoreViewWillStartLoading:self.customView];
+    }
+    else if (self.delegate == nil) {
+        [self.toolBar setAlpha:0.0];
+        [self.activityView setAlpha:1.0];
+    }
     if (self.callback != nil) {
         if (self.delay > 0) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -417,8 +458,13 @@
 - (void)stop {
     [self setAlpha:0.0];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.activityView setAlpha:0.0];
-        [self.toolBar setAlpha:1.0];
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreViewWillEndLoading:)]) {
+            [[self delegate] loadMoreViewWillEndLoading:self.customView];
+        }
+        else if (self.delegate == nil) {
+            [self.activityView setAlpha:0.0];
+            [self.toolBar setAlpha:1.0];
+        }
         [self setAlpha:1.0];
         _isLoading = NO;
     });
@@ -430,8 +476,13 @@
         _isFail = YES;
         _isLoading = NO;
         [self setAlpha:1.0];
-        [self.toolBar setAlpha:1.0];
-        [self.activityView setAlpha:0.0];
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreViewLoadFail:)]) {
+            [[self delegate] loadMoreViewLoadFail:self.customView];
+        }
+        else {
+            [self.toolBar setAlpha:1.0];
+            [self.activityView setAlpha:0.0];
+        }
     }
     else {
         //retry

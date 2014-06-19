@@ -9,7 +9,7 @@
 #import "TMOTableDataViewController.h"
 #import "TMOUIKitCore.h"
 
-@interface TMOTableDataViewController ()<UITableViewDataSource, UITableViewDelegate, TMORefreshControlDelegate>
+@interface TMOTableDataViewController ()<UITableViewDataSource, UITableViewDelegate, TMORefreshControlDelegate, TMOLoadMoreControlDelegate>
 
 @property (weak, nonatomic) IBOutlet TMOTableView *tableView;
 
@@ -47,23 +47,26 @@
             [tableView refreshDone];
         });
     } withDelay:0.0];
-    
-    self.tableView.myRefreshControl.delegate = self;
-    [self.tableView.myRefreshControl resetStyle];
 
-//    [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            if (arc4random() % 10 < 3) {
-//                tableView.myLoadMoreControl.isFail = YES;//模拟加载失败
-//                return ;
-//            }
-//            viewController.numbersOfRow1 += 10;
-//            [tableView loadMoreDone];
-//            if (viewController.numbersOfRow1 > 100) {
-//                tableView.myLoadMoreControl.isInvalid = YES;
-//            }
-//        });
-//    } withDelay:0.0];
+    [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (arc4random() % 10 < 3) {
+                tableView.myLoadMoreControl.isFail = YES;//模拟加载失败
+                return ;
+            }
+            viewController.numbersOfRow1 += 10;
+            [tableView loadMoreDone];
+            if (viewController.numbersOfRow1 > 100) {
+                tableView.myLoadMoreControl.isInvalid = YES;
+            }
+        });
+    } withDelay:0.0];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"自定义样式开启");
+        self.tableView.myRefreshControl.delegate = self;
+        self.tableView.myLoadMoreControl.delegate = self;
+    });
     
     [self.tableView refreshAndScrollToTop];
     // Do any additional setup after loading the view from its nib.
@@ -110,7 +113,7 @@
 #pragma mark - TMORefreshControlDelegate
 
 - (UIView *)refreshView {
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 88)];
     UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     progressView.frame = CGRectMake(0, 20, 320, 3);
     progressView.tintColor = [UIColor orangeColor];
@@ -133,6 +136,30 @@
     UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView subviewWithClass:[UIProgressView class]];
     [progessView setTintColor:[UIColor orangeColor]];
     [progessView setProgress:0.0 animated:NO];
+}
+
+#pragma mark - 
+#pragma mark - TMOLoadMoreControlDelegate
+
+- (UIView *)loadMoreView {
+    UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 88)];
+    [aLabel setBackgroundColor:[UIColor whiteColor]];
+    [aLabel setTextAlignment:NSTextAlignmentCenter];
+    [aLabel setFont:[UIFont systemFontOfSize:18.0]];
+    [aLabel setText:@"有种你再拉啊！"];
+    return aLabel;
+}
+
+- (void)loadMoreViewWillStartLoading:(UILabel *)argCustomView {
+    [argCustomView setText:@"讨厌，人家正在加载更多啦"];
+}
+
+- (void)loadMoreViewWillEndLoading:(UILabel *)argCustomView {
+    [argCustomView setText:@"有种你再拉啊！"];
+}
+
+- (void)loadMoreViewLoadFail:(UILabel *)argCustomView {
+    [argCustomView setText:@"人家累啦！"];
 }
 
 @end

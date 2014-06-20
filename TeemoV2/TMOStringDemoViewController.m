@@ -35,10 +35,8 @@
     NSString *theString = @"string";
     NSLog(@"Md5:%@",[theString stringByMD5Hash]);
     NSLog(@"Sha1:%@",[theString stringBySha1Hash]);
-    NSLog(@"Base64Encode:%@",[theString stringByBase64Encode]);
     NSString *url = @"http://www.baidu.com/?param=姐夫";
     NSLog(@"UrlEncode:%@",[url stringByURLEncode]);
-    NSLog(@"Base64Decode:%@",[[theString stringByBase64Encode] stringByBase64Decode]);
     NSString *pity = @"     fhdslkajfhdsak      ";
     NSLog(@"Trim:%@",[pity stringByTrim]);
     NSLog(@"isBlank:%d",[pity isBlank]);

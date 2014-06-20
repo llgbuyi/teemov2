@@ -9,7 +9,6 @@
 #import "NSString+TMOString.h"
 #import "TMOToolKitMacro.h"
 #import <CommonCrypto/CommonDigest.h>  // Need to import for CC_MD5 access
-#import <Base64.h>
 
 @implementation NSString (TMOString)
 
@@ -43,28 +42,6 @@
 
 - (NSString *)stringByTrim {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-
-- (NSString *)stringByBase64Encode {
-    if (TMO_SYSTEM_VERSION < 7.0) {
-        return [self base64EncodedString];
-    }
-    else {
-        NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
-        return [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    }
-}
-
-- (NSString *)stringByBase64Decode {
-    if (TMO_SYSTEM_VERSION < 7.0) {
-        return [self base64DecodedString];
-    }
-    else {
-        //Base64 Library included with 7.0+
-        NSData *data = [[NSData alloc] initWithBase64EncodedString:self
-                                                           options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
 }
 
 - (NSString *)stringByURLEncode {

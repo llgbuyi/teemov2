@@ -6,30 +6,31 @@
 //  Copyright (c) 2014年 com.duowan.zpc. All rights reserved.
 //
 
-static NSMutableDictionary *smartyCache;
+static NSMutableDictionary *smartyDictionary;
+static NSRegularExpression *smartyRegularExpression;
 
+#import "TMOToolKitCore.h"
 #import "UIView+TMOSmarty.h"
 #import "UIView+TMOView.h"
-#import "NSString+TMOString.h"
-#import "TMOObjectVerifier.h"
 #import "UIImageView+TMOImageView.h"
-#import "TMOObjectVerifier.h"
 
 
 @interface Smarty ()
 
++ (void)instance;
+
 + (NSString *)stringByReplaceingSmartyCode:(NSString *)argString
-                            withDictionary:(__weak NSDictionary *)argDictionary;
+                            withDictionary:(NSDictionary *)argDictionary;
 + (NSAttributedString *)attributedStringByReplaceingSmartyCode:(NSAttributedString *)argString
-                                                withDictionary:(__weak NSDictionary *)argDictionary;
-+ (NSString *)stringByParam:(NSString *)argParam withDictionary:(__weak NSDictionary *)argDictionary;
+                                                withDictionary:(NSDictionary *)argDictionary;
++ (NSString *)stringByParam:(NSString *)argParam withDictionary:(NSDictionary *)argDictionary;
 + (BOOL)isSmarty:(NSString *)argString;
 
 @end
 
-@interface Smarty_SystemFunction : NSObject
+@interface SmartySystemFunction : NSObject
 
-+ (void)systemFunctionRegister;
++ (void)instance;
 
 @end
 
@@ -40,7 +41,7 @@ static NSMutableDictionary *smartyCache;
  */
 - (void)smartyRendWithDictionary:(NSDictionary *)argDictionary
                      isRecursive:(BOOL)argIsRecursive {
-    [Smarty_SystemFunction systemFunctionRegister];//注册系统默认处理方法
+    [Smarty instance];
     if ([self.subviews count] == 0) {
         return;
     }
@@ -70,66 +71,64 @@ static NSMutableDictionary *smartyCache;
 /**
  *  UILabel
  */
-- (void)smartyRendWithLabel:(__weak UILabel *)argLabel
-             withDictionary:(__weak NSDictionary *)argDictionary {
-    [self saveUIViewOriginData:argLabel];
-    if ([[[self valueForOriginData:argLabel theKey:@"attributedText"] string] length] > 0) {
-        __weak NSAttributedString *attributedString = [self valueForOriginData:argLabel
-                                                                        theKey:@"attributedText"];
-        if ([Smarty isSmarty:attributedString.string]) {
-            argLabel.attributedText = [Smarty attributedStringByReplaceingSmartyCode:attributedString withDictionary:argDictionary];
-        }
+- (void)smartyRendWithLabel:(UILabel *)argLabel
+             withDictionary:(NSDictionary *)argDictionary {
+    [self saveOriginData:argLabel];
+    //优先处理attributedString
+    if ([argLabel valueForAdditionKey:@"smartyAttributedText"] != nil) {
+        NSAttributedString *attributedString = [argLabel valueForAdditionKey:@"smartyAttributedText"];
+        argLabel.attributedText = [Smarty attributedStringByReplaceingSmartyCode:attributedString
+                                                                  withDictionary:argDictionary];
     }
-    else if ([Smarty isSmarty:[self valueForOriginData:argLabel theKey:@"text"]]) {
-        argLabel.text = TOString([Smarty stringByReplaceingSmartyCode:[self valueForOriginData:argLabel theKey:@"text"] withDictionary:argDictionary]);
+    else if ([argLabel valueForAdditionKey:@"smartyText"] != nil) {
+        argLabel.text = [Smarty stringByReplaceingSmartyCode:[argLabel valueForAdditionKey:@"smartyText"]
+                                              withDictionary:argDictionary];
     }
 }
 
 /**
  *  UITextField
  */
-- (void)smartyRendWithTextField:(__weak UITextField *)argTextField
-                 withDictionary:(__weak NSDictionary *)argDictionary {
-    [self saveUIViewOriginData:argTextField];
-    if ([Smarty isSmarty:[self valueForOriginData:argTextField theKey:@"placeholder"]]) {
-        argTextField.placeholder = TOString([Smarty stringByReplaceingSmartyCode:[self valueForOriginData:argTextField theKey:@"placeholder"] withDictionary:argDictionary]);
+- (void)smartyRendWithTextField:(UITextField *)argTextField
+                 withDictionary:(NSDictionary *)argDictionary {
+    [self saveOriginData:argTextField];
+    if ([argTextField valueForAdditionKey:@"smartyPlaceholder"] != nil) {
+        argTextField.placeholder = [Smarty stringByReplaceingSmartyCode:[argTextField valueForAdditionKey:@"smartyPlaceholder"]
+                                                         withDictionary:argDictionary];
     }
-    if ([Smarty isSmarty:[self valueForOriginData:argTextField theKey:@"text"]]) {
-        argTextField.text = TOString([Smarty stringByReplaceingSmartyCode:[self valueForOriginData:argTextField theKey:@"text"] withDictionary:argDictionary]);
+    if ([argTextField valueForAdditionKey:@"smartyText"] != nil) {
+        argTextField.text = [Smarty stringByReplaceingSmartyCode:[argTextField valueForAdditionKey:@"smartyText"]
+                                                  withDictionary:argDictionary];
     }
 }
 
 /**
  *  UITextView
  */
-- (void)smartyRendWithTextView:(__weak UITextView *)argTextView
-             withDictionary:(__weak NSDictionary *)argDictionary {
-    [self saveUIViewOriginData:argTextView];
-    if ([[[self valueForOriginData:argTextView theKey:@"attributedText"] string] length] > 0) {
-        __weak NSAttributedString *attributedString = [self valueForOriginData:argTextView
-                                                                        theKey:@"attributedText"];
-        if ([Smarty isSmarty:attributedString.string]) {
-            argTextView.attributedText = [Smarty attributedStringByReplaceingSmartyCode:attributedString withDictionary:argDictionary];
-        }
+- (void)smartyRendWithTextView:(UITextView *)argTextView
+             withDictionary:(NSDictionary *)argDictionary {
+    [self saveOriginData:argTextView];
+    //优先处理attributedString
+    if ([argTextView valueForAdditionKey:@"smartyAttributedText"] != nil) {
+        NSAttributedString *attributedString = [argTextView valueForAdditionKey:@"smartyAttributedText"];
+        argTextView.attributedText = [Smarty attributedStringByReplaceingSmartyCode:attributedString
+                                                                     withDictionary:argDictionary];
     }
-    else {
-        if ([Smarty isSmarty:[self valueForOriginData:argTextView theKey:@"text"]]) {
-            argTextView.text = TOString([Smarty stringByReplaceingSmartyCode:[self valueForOriginData:argTextView theKey:@"text"]
-                                                            withDictionary:argDictionary]);
-        }
+    else if ([argTextView valueForAdditionKey:@"smartyText"] != nil) {
+        argTextView.text = [Smarty stringByReplaceingSmartyCode:[argTextView valueForAdditionKey:@"smartyText"]
+                                                 withDictionary:argDictionary];
     }
 }
 
 /**
  *  UIButton
  */
-- (void)smartyRendWithButton:(__weak UIButton *)argButton
-              withDictionary:(__weak NSDictionary *)argDictionary  {
-    [self saveUIViewOriginData:argButton];
-    if ([Smarty isSmarty:[self valueForOriginData:argButton theKey:@"title"]]) {
-        [argButton setTitle:[Smarty stringByReplaceingSmartyCode:[self valueForOriginData:argButton
-                                                                                 theKey:@"title"]
-                                                withDictionary:argDictionary]
+- (void)smartyRendWithButton:(UIButton *)argButton
+              withDictionary:(NSDictionary *)argDictionary  {
+    [self saveOriginData:argButton];
+    if ([argButton valueForAdditionKey:@"smartyTitle"] != nil) {
+        [argButton setTitle:[Smarty stringByReplaceingSmartyCode:[argButton valueForAdditionKey:@"smartyTitle"]
+                                                  withDictionary:argDictionary]
                    forState:UIControlStateNormal];
     }
 }
@@ -137,148 +136,88 @@ static NSMutableDictionary *smartyCache;
 /**
  *  UIImageView
  */
-- (void)smartyRendWithImageView:(__weak UIImageView *)argImageView
-                 withDictionary:(__weak NSDictionary *)argDictionary {
-    [self saveUIViewOriginData:argImageView];
-    if ([Smarty isSmarty:[self valueForOriginData:argImageView theKey:@"loadUrl"]]) {
-        NSString *loadURLString = [Smarty stringByReplaceingSmartyCode:[self valueForOriginData:argImageView theKey:@"loadUrl"] withDictionary:argDictionary];
+- (void)smartyRendWithImageView:(UIImageView *)argImageView
+                 withDictionary:(NSDictionary *)argDictionary {
+    [self saveOriginData:argImageView];
+    if ([argImageView valueForAdditionKey:@"smartyImageURLString"] != nil) {
+        NSString *loadURLString = [Smarty stringByReplaceingSmartyCode:[argImageView valueForAdditionKey:@"smartyImageURLString"]
+                                                        withDictionary:argDictionary];
         [argImageView loadImageWithURLString:loadURLString];
     }
 }
 
-- (void)saveUIViewOriginData:(__weak UIView *)argView {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        smartyCache = [NSMutableDictionary dictionary];
-    });
-    if ([argView valueForAdditionKey:@"smartyOriginDataUniqid"] == nil) {
-        
-        
-        if ([argView isKindOfClass:[UILabel class]]) {
-            
-            if (![Smarty isSmarty:TOString([(UILabel *)argView text])] &&
-                ![Smarty isSmarty:TOString([[(UILabel *)argView attributedText] string])]) {
-                return;
-            }
-            
-            NSString *uniqid = [[NSString stringWithFormat:@"%d%d%d",arc4random(), arc4random(), arc4random()] stringByMD5Hash];
-            [argView setAdditionValue:uniqid forKey:@"smartyOriginDataUniqid"];
-            [smartyCache setObject:@{@"text": TOString([(UILabel *)argView text]),
-                                     @"attributedText": [(UILabel *)argView attributedText]
-                                     } forKey:uniqid];
+- (void)saveOriginData:(UIView *)argView {
+    if ([argView isKindOfClass:[UILabel class]]) {
+        if ([Smarty isSmarty:TOString([(UILabel *)argView text])]) {
+            [argView setAdditionValue:[(UILabel *)argView text] forKey:@"smartyText"];
         }
-        else if ([argView isKindOfClass:[UITextField class]]) {
-            
-            if (![Smarty isSmarty:[(UITextField *)argView text]] &&
-                ![Smarty isSmarty:TOString([(UITextField *)argView placeholder])]) {
-                return;
-            }
-            
-            NSString *uniqid = [[NSString stringWithFormat:@"%d%d%d",arc4random(), arc4random(), arc4random()] stringByMD5Hash];
-            [argView setAdditionValue:uniqid forKey:@"smartyOriginDataUniqid"];
-            [smartyCache setObject:@{@"text": TOString([(UITextField *)argView text]),
-                                     @"placeholder": TOString([(UITextField *)argView placeholder])}
-                            forKey:uniqid];
-        }
-        else if ([argView isKindOfClass:[UITextView class]]) {
-            
-            if (![Smarty isSmarty:[(UITextView *)argView text]] &&
-                ![Smarty isSmarty:TOString([[(UITextView *)argView attributedText] string])]) {
-                return;
-            }
-            
-            NSString *uniqid = [[NSString stringWithFormat:@"%d%d%d",arc4random(), arc4random(), arc4random()] stringByMD5Hash];
-            [argView setAdditionValue:uniqid forKey:@"smartyOriginDataUniqid"];
-            [smartyCache setObject:@{@"text": TOString([(UITextView *)argView text]),
-                                     @"attributedText":[(UITextView *)argView attributedText]}
-                            forKey:uniqid];
-        }
-        else if ([argView isKindOfClass:[UIButton class]]) {
-            
-            if (![Smarty isSmarty:[(UIButton *)argView titleForState:UIControlStateNormal]]) {
-                return;
-            }
-            
-            NSString *uniqid = [[NSString stringWithFormat:@"%d%d%d",arc4random(), arc4random(), arc4random()] stringByMD5Hash];
-            [argView setAdditionValue:uniqid forKey:@"smartyOriginDataUniqid"];
-            [smartyCache setObject:@{@"title": [(UIButton *)argView titleForState:UIControlStateNormal]}
-                            forKey:uniqid];
-        }
-        else if ([argView isKindOfClass:[UIImageView class]]) {
-            
-            if (![Smarty isSmarty:TOString(argView.accessibilityLabel)]) {
-                return;
-            }
-            
-            NSString *uniqid = [[NSString stringWithFormat:@"%d%d%d",arc4random(), arc4random(), arc4random()] stringByMD5Hash];
-            [argView setAdditionValue:uniqid forKey:@"smartyOriginDataUniqid"];
-            [smartyCache setObject:@{@"loadUrl": TOString(argView.accessibilityLabel)}
-                            forKey:uniqid];
+        if (TMO_SYSTEM_VERSION >= 6.0 &&
+            [Smarty isSmarty:TOString([[(UILabel *)argView attributedText] string])]) {
+            [argView setAdditionValue:[(UILabel *)argView attributedText] forKey:@"smartyAttributedText"];
         }
     }
-}
-
-- (id)valueForOriginData:(__weak UIView *)argView theKey:(NSString *)argTheKey{
-    if ([argView valueForAdditionKey:@"smartyOriginDataUniqid"] != nil) {
-        if (smartyCache[[argView valueForAdditionKey:@"smartyOriginDataUniqid"]] != nil) {
-            return smartyCache[[argView valueForAdditionKey:@"smartyOriginDataUniqid"]][argTheKey];
+    else if ([argView isKindOfClass:[UITextField class]]) {
+        if ([Smarty isSmarty:TOString([(UITextField *)argView text])]) {
+            [argView setAdditionValue:[(UITextField *)argView text] forKey:@"smartyText"];
+        }
+        if ([Smarty isSmarty:TOString([(UITextField *)argView placeholder])]) {
+            [argView setAdditionValue:[(UITextField *)argView placeholder] forKey:@"smartyPlaceholder"];
         }
     }
-    return nil;
+    else if ([argView isKindOfClass:[UITextView class]]) {
+        if ([Smarty isSmarty:TOString([(UITextView *)argView text])]) {
+            [argView setAdditionValue:[(UITextView *)argView text] forKey:@"smartyText"];
+        }
+        if (TMO_SYSTEM_VERSION >= 6.0 &&
+            [Smarty isSmarty:TOString([[(UITextView *)argView attributedText] string])]) {
+            [argView setAdditionValue:[(UITextView *)argView attributedText] forKey:@"smartyAttributedText"];
+        }
+    }
+    else if ([argView isKindOfClass:[UIButton class]]) {
+        if ([Smarty isSmarty:TOString([(UIButton *)argView titleForState:UIControlStateNormal])]) {
+            [argView setAdditionValue:[(UIButton *)argView titleForState:UIControlStateNormal] forKey:@"smartyTitle"];
+        }
+    }
+    else if ([argView isKindOfClass:[UIImageView class]]) {
+        if ([Smarty isSmarty:TOString(argView.accessibilityLabel)]) {
+            [argView setAdditionValue:argView.accessibilityIdentifier forKey:@"smartyImageURLString"];
+        }
+    }
 }
 
 @end
-
-
 
 /**
  *  Smarty
  */
 
-static NSMutableDictionary *smartyCustomFunction;
-
 @implementation Smarty
 
-/**
- *  注册一个Smarty自定义函数
- *
- *  @param argName  函数标识符
- *  @param argOwner 函数执行者
- */
-+ (void)functionRegisterWithName:(NSString *)argName
-                       withOwner:(id)argOwner
-                    withSelector:(SEL)argSelector{
++ (void)instance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        smartyCustomFunction = [NSMutableDictionary dictionary];
+        smartyDictionary = [NSMutableDictionary dictionary];
+        smartyRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"<\\{\\$([^\\}]+)\\}>"
+                                                                       options:NSRegularExpressionAllowCommentsAndWhitespace
+                                                                         error:nil];
+        [SmartySystemFunction instance];
     });
-    [smartyCustomFunction setObject:@{@"owner": argOwner,
-                                      @"selector": [NSValue valueWithPointer:argSelector]}
-                             forKey:argName];
 }
 
-/**
- *  若传入argName则注销一个Smarty自定义函数
- *  若传入argOwner则注销owner下的所有Smarty自定义函数
- *  若argName和argOwner均为空，则注销所有Smarty自定义函数
- *
- *  @param argName  函数名
- *  @param argOwner 函数执行者
- */
-+ (void)functionUnregisterWithName:(NSString *)argName owner:(id)argOwner{
-    if (argName == nil && argOwner == nil) {
-        [smartyCustomFunction removeAllObjects];
++ (void)addFunction:(SmartyCallbackBlock)argBlock withTagName:(NSString *)tagName {
+    if (smartyDictionary != nil) {
+        [smartyDictionary setObject:argBlock forKey:tagName];
     }
-    else if (argName != nil) {
-        [smartyCustomFunction removeObjectForKey:argName];
+}
+
++ (void)removeFunctionWithTagName:(NSString *)tagName {
+    if (smartyDictionary != nil) {
+        [smartyDictionary removeObjectForKey:tagName];
     }
-    else if (argOwner != nil) {
-        for (NSString *key in smartyCustomFunction) {
-            if (smartyCustomFunction[key][@"owner"] == argOwner) {
-                [smartyCustomFunction removeObjectForKey:key];
-            }
-        }
-    }
+}
+
++ (SmartyCallbackBlock)blockForTagName:(NSString *)tagName {
+    return smartyDictionary[tagName];
 }
 
 + (NSString *)executeFunctionWithName:(NSString *)argName
@@ -288,13 +227,9 @@ static NSMutableDictionary *smartyCustomFunction;
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     NSString *returnString = @"";
-    if (smartyCustomFunction[argName] != nil) {
-        id owner = smartyCustomFunction[argName][@"owner"];
-        SEL selector = [smartyCustomFunction[argName][@"selector"] pointerValue];
-        if ([owner respondsToSelector:selector]) {
-            returnString = [owner performSelector:selector
-                                       withObject:@{@"value": argValue, @"params": argParams}];
-        }
+    SmartyCallbackBlock block = [self blockForTagName:argName];
+    if (block != nil) {
+        returnString = block(argValue, argParams);
     }
     else {
         returnString = argValue;
@@ -313,27 +248,15 @@ static NSMutableDictionary *smartyCustomFunction;
     return rightDelimiter;
 }
 
-+ (NSRegularExpression *)matchingRegularExpression {
-    static NSRegularExpression *regularExpression;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        regularExpression = [[NSRegularExpression alloc] initWithPattern:@"<\\{\\$([^\\}]+)\\}>"
-                                                                 options:NSRegularExpressionAllowCommentsAndWhitespace
-                                                                   error:nil];
-    });
-    return regularExpression;
-}
-
 /**
  *  替换所有Smarty关键词至最终值
  */
 + (NSString *)stringByReplaceingSmartyCode:(NSString *)argString
-                            withDictionary:(__weak NSDictionary *)argDictionary {
+                            withDictionary:(NSDictionary *)argDictionary {
     NSString *newString = [argString copy];
-    __weak NSRegularExpression *regularExpression = [Smarty matchingRegularExpression];
-    NSArray *theResult = [regularExpression matchesInString:argString
-                                                    options:NSMatchingReportCompletion
-                                                      range:NSMakeRange(0, [argString length])];
+    NSArray *theResult = [smartyRegularExpression matchesInString:argString
+                                                          options:NSMatchingReportCompletion
+                                                            range:NSMakeRange(0, [argString length])];
     for (NSTextCheckingResult *resultItem in theResult) {
         if (resultItem.numberOfRanges >= 2) {
             NSString *smartyString = [argString substringWithRange:[resultItem rangeAtIndex:0]];
@@ -355,13 +278,12 @@ static NSMutableDictionary *smartyCustomFunction;
  *  @return NSAttributedString
  */
 + (NSAttributedString *)attributedStringByReplaceingSmartyCode:(NSAttributedString *)argString
-                                                withDictionary:(__weak NSDictionary *)argDictionary {
+                                                withDictionary:(NSDictionary *)argDictionary {
     NSMutableAttributedString *mutableAttributedString = [argString mutableCopy];
     for (;[Smarty isSmarty:mutableAttributedString.string];) {
-        __weak NSRegularExpression *regularExpression = [Smarty matchingRegularExpression];
-        NSArray *theResult = [regularExpression matchesInString:mutableAttributedString.string
-                                                        options:NSMatchingReportCompletion
-                                                          range:NSMakeRange(0, [mutableAttributedString.string length])];
+        NSArray *theResult = [smartyRegularExpression matchesInString:mutableAttributedString.string
+                                                              options:NSMatchingReportCompletion
+                                                                range:NSMakeRange(0, [mutableAttributedString.string length])];
         for (NSTextCheckingResult *resultItem in theResult) {
             if (resultItem.numberOfRanges >= 2) {
                 NSString *smartyParam = [mutableAttributedString.string substringWithRange:[resultItem rangeAtIndex:1]];
@@ -376,7 +298,7 @@ static NSMutableDictionary *smartyCustomFunction;
 /**
  *  取得最终值
  */
-+ (NSString *)stringByParam:(NSString *)argParam withDictionary:(__weak NSDictionary *)argDictionary {
++ (NSString *)stringByParam:(NSString *)argParam withDictionary:(NSDictionary *)argDictionary {
     
     NSArray *functionUseArray;
     if ([argParam contains:@"|"]) {
@@ -441,21 +363,16 @@ static NSMutableDictionary *smartyCustomFunction;
 @end
 
 
-@implementation Smarty_SystemFunction
+@implementation SmartySystemFunction
 
-+ (void)systemFunctionRegister {
-    static Smarty_SystemFunction *systemFunction;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        systemFunction = [[Smarty_SystemFunction alloc] init];
-        [Smarty functionRegisterWithName:@"replace" withOwner:systemFunction withSelector:@selector(replace:)];
-        [Smarty functionRegisterWithName:@"length" withOwner:systemFunction withSelector:@selector(length:)];
-        [Smarty functionRegisterWithName:@"dateFormat" withOwner:systemFunction withSelector:@selector(dateFormat:)];
-        [Smarty functionRegisterWithName:@"dateOffset" withOwner:systemFunction withSelector:@selector(dateOffset:)];
-        [Smarty functionRegisterWithName:@"floatFormat" withOwner:systemFunction withSelector:@selector(floatFormat:)];
-        [Smarty functionRegisterWithName:@"default" withOwner:systemFunction withSelector:@selector(theDefault:)];
-        [Smarty functionRegisterWithName:@"truncate" withOwner:systemFunction withSelector:@selector(truncate:)];
-    });
++ (void)instance {
+    [self replace];
+    [self length];
+    [self dateFormat];
+    [self dateOffset];
+    [self truncate];
+    [self floatFormat];
+    [self theDefault];
 }
 
 /**
@@ -466,14 +383,16 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return 替换完毕的字符信息
  */
-- (NSString *)replace:(NSDictionary *)object {
-    if (ISValidArray(object[@"params"], 2)) {
-        return TOString([object[@"value"] stringByReplacingOccurrencesOfString:TOString(object[@"params"][1])
-                                                                    withString:TOString(object[@"params"][2])]);
-    }
-    else{
-        return TOString(object[@"value"]);
-    }
++ (void)replace {
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        if (ISValidArray(theParams, 2)) {
+            return [TOString(theString) stringByReplacingOccurrencesOfString:TOString(theParams[1])
+                                                                  withString:TOString(theParams[2])];
+        }
+        else{
+            return TOString(theString);
+        }
+    } withTagName:@"replace"];
 }
 
 /**
@@ -484,8 +403,11 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return 字符串长度(NSString)
  */
-- (NSString *)length:(NSDictionary *)object {
-    return [NSString stringWithFormat:@"%lu", (unsigned long)[TOString(object[@"value"]) length]];
++ (void)length {
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        return [NSString stringWithFormat:@"%lu", (unsigned long)[TOString(theString) length]];
+    } withTagName:@"length"];
+    
 }
 
 /**
@@ -497,41 +419,43 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return 指定格式字符串
  */
-- (NSString *)dateFormat:(NSDictionary *)object {
-    NSMutableArray *dateFormatArray = [object[@"params"] mutableCopy];
-    [dateFormatArray removeObjectAtIndex:0];
-    NSString *dateFormatString = [dateFormatArray componentsJoinedByString:@":"];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:TOInteger(object[@"value"])];
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    unsigned int unitFlags = NSMonthCalendarUnit | NSYearCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit;
-    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
-    
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%Y"
-                                                                   withString:[NSString stringWithFormat:@"%ld", (long)components.year]];
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%y"
-                                                                   withString:[[NSString stringWithFormat:@"%ld", (long)components.year] substringFromIndex:2]];
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%m"
-                                                               withString:[NSString stringWithFormat:@"%02ld", (long)components.month]];
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%d"
-                                                                   withString:[NSString stringWithFormat:@"%02ld", (long)components.day]];
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%H"
-                                                                   withString:[NSString stringWithFormat:@"%02ld", (long)components.hour]];
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%i"
-                                                                   withString:[NSString stringWithFormat:@"%02ld", (long)components.minute]];
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%s"
-                                                                   withString:[NSString stringWithFormat:@"%02ld", (long)components.second]];
-    
-    dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%w"
-                                                                   withString:[NSString stringWithFormat:@"%ld", (long)components.weekday-1]];
-    
-    return dateFormatString;
++ (void)dateFormat {
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        NSMutableArray *dateFormatArray = [theParams mutableCopy];
+        [dateFormatArray removeObjectAtIndex:0];
+        NSString *dateFormatString = [dateFormatArray componentsJoinedByString:@":"];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:TOInteger(theString)];
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        unsigned int unitFlags = NSMonthCalendarUnit | NSYearCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit;
+        NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+        
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%Y"
+                                                                       withString:[NSString stringWithFormat:@"%ld", (long)components.year]];
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%y"
+                                                                       withString:[[NSString stringWithFormat:@"%ld", (long)components.year] substringFromIndex:2]];
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%m"
+                                                                       withString:[NSString stringWithFormat:@"%02ld", (long)components.month]];
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%d"
+                                                                       withString:[NSString stringWithFormat:@"%02ld", (long)components.day]];
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%H"
+                                                                       withString:[NSString stringWithFormat:@"%02ld", (long)components.hour]];
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%i"
+                                                                       withString:[NSString stringWithFormat:@"%02ld", (long)components.minute]];
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%s"
+                                                                       withString:[NSString stringWithFormat:@"%02ld", (long)components.second]];
+        
+        dateFormatString = [dateFormatString stringByReplacingOccurrencesOfString:@"%w"
+                                                                       withString:[NSString stringWithFormat:@"%ld", (long)components.weekday-1]];
+        
+        return dateFormatString;
+    } withTagName:@"dateFormat"];
 }
 
 /**
@@ -544,20 +468,28 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return NSString
  */
-- (NSString *)dateOffset:(NSDictionary *)object {
-    NSDate *date = [NSDate date];
-    if (date.timeIntervalSince1970 - TOInteger(object[@"value"]) < 60) {
-        return @"刚刚";
-    }
-    else if (date.timeIntervalSince1970 - TOInteger(object[@"value"]) < 3600){
-        return [NSString stringWithFormat:@"%d分钟前", (int)(TOInteger(object[@"value"]) - date.timeIntervalSince1970)/60];
-    }
-    else if (date.timeIntervalSince1970 - TOInteger(object[@"value"]) < 43200) {
-        return [NSString stringWithFormat:@"%d小时前", (int)(TOInteger(object[@"value"]) - date.timeIntervalSince1970)/3600];
-    }
-    else{
-        return [self dateFormat:object];
-    }
++ (void)dateOffset {
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        NSDate *date = [NSDate date];
+        if (date.timeIntervalSince1970 - TOInteger(theString) < 60) {
+            return @"刚刚";
+        }
+        else if (date.timeIntervalSince1970 - TOInteger(theString) < 3600){
+            return [NSString stringWithFormat:@"%d分钟前", (int)(TOInteger(theString) - date.timeIntervalSince1970)/60];
+        }
+        else if (date.timeIntervalSince1970 - TOInteger(theString) < 43200) {
+            return [NSString stringWithFormat:@"%d小时前", (int)(TOInteger(theString) - date.timeIntervalSince1970)/3600];
+        }
+        else{
+            SmartyCallbackBlock dateFormatBlock = smartyDictionary[@"dateFormat"];
+            if (dateFormatBlock != nil) {
+                return dateFormatBlock(theString, theParams);
+            }
+            else {
+                return @"";
+            }
+        }
+    } withTagName:@"dateOffset"];
 }
 
 /**
@@ -568,11 +500,13 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return NSString
  */
-- (NSString *)floatFormat:(NSDictionary *)object {
-    if (ISValidArray(object[@"params"], 1)) {
-        return [NSString stringWithFormat:object[@"params"][1], TOFloat(object[@"value"])];
-    }
-    return TOString(object[@"value"]);
++ (void)floatFormat {
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        if (ISValidArray(theParams, 1)) {
+            return [NSString stringWithFormat:theParams[1], TOFloat(theString)];
+        }
+        return TOString(theString);
+    } withTagName:@"floatFormat"];
 }
 
 /**
@@ -583,16 +517,19 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return NSString
  */
-- (NSString *)theDefault:(NSDictionary *)object {
-    if ([TOString(object[@"value"]) length] > 0) {
-        return TOString(object[@"value"]);
-    }
-    if (ISValidArray(object[@"params"], 1)) {
-        return TOString(object[@"params"][1]);
-    }
-    else {
-        return @"";
-    }
++ (void)theDefault {
+    
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        if ([TOString(theString) length] > 0) {
+            return theString;
+        }
+        if (ISValidArray(theParams, 1)) {
+            return TOString(theParams[1]);
+        }
+        else {
+            return @"";
+        }
+    } withTagName:@"default"];
 }
 
 /**
@@ -606,27 +543,26 @@ static NSMutableDictionary *smartyCustomFunction;
  *
  *  @return NSString
  */
-- (NSString *)truncate:(NSDictionary *)object {
-    NSInteger length = ISValidArray(object[@"params"], 1) ? TOInteger(object[@"params"][1]) : 80;
-    NSString *etc = ISValidArray(object[@"params"], 2) ? TOString(object[@"params"][2]) : @"...";
-    BOOL middle = ISValidArray(object[@"params"], 3) ? [TONumber(object[@"params"][3]) boolValue] : NO;
-    
-    if (length == 0) {
-        return @"";
-    }
-    
-    if ([TOString(object[@"value"]) length] > 0) {
-        length -= MIN(length, [etc length]);
-        if (!middle) {
-            return [[TOString(object[@"value"]) substringWithRange:NSMakeRange(0, length)] stringByAppendingString:etc];
++ (void)truncate {
+    [Smarty addFunction:^NSString *(NSString *theString, NSArray *theParams) {
+        NSInteger length = ISValidArray(theParams, 1) ? TOInteger(theParams[1]) : 80;
+        NSString *etc = ISValidArray(theParams, 2) ? TOString(theParams[2]) : @"...";
+        BOOL middle = ISValidArray(theParams, 3) ? [TONumber(theParams[3]) boolValue] : NO;
+        if (length == 0) {
+            return @"";
         }
-        return [NSString stringWithFormat:@"%@%@%@",
-                [TOString(object[@"value"]) substringWithRange:NSMakeRange(0, length/2)],
-                etc,
-                [TOString(object[@"value"]) substringWithRange:NSMakeRange([TOString(object[@"value"]) length]-length/2, length/2)]];
-    }
-    
-    return TOString(object[@"value"]);
+        if ([TOString(theString) length] > 0) {
+            length -= MIN(length, [etc length]);
+            if (!middle) {
+                return [[TOString(theString) substringWithRange:NSMakeRange(0, length)] stringByAppendingString:etc];
+            }
+            return [NSString stringWithFormat:@"%@%@%@",
+                    [TOString(theString) substringWithRange:NSMakeRange(0, length/2)],
+                    etc,
+                    [TOString(theString) substringWithRange:NSMakeRange([TOString(theString) length]-length/2, length/2)]];
+        }
+        return TOString(theString);
+    } withTagName:@"truncate"];
 }
 
 @end

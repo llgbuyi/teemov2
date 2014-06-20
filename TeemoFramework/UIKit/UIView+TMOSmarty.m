@@ -9,13 +9,11 @@
 static NSMutableDictionary *smartyDictionary;
 static NSRegularExpression *smartyRegularExpression;
 
+#import "TMOToolKitCore.h"
 #import "UIView+TMOSmarty.h"
 #import "UIView+TMOView.h"
-#import "NSString+TMOString.h"
-#import "TMOObjectVerifier.h"
 #import "UIImageView+TMOImageView.h"
-#import "TMOObjectVerifier.h"
-#import "TMOToolKitMacro.h"
+
 
 @interface Smarty ()
 

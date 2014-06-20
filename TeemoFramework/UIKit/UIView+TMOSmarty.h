@@ -8,27 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NSString *(^SmartyCallbackBlock)(NSString *theString, NSArray *theParams);
+
 @interface Smarty : NSObject
 
-/**
- *  注册一个Smarty自定义函数
- *
- *  @param argName  函数标识符
- *  @param argOwner 函数执行者
- */
-+ (void)functionRegisterWithName:(NSString *)argName
-                       withOwner:(id)argOwner
-                    withSelector:(SEL)argSelector;
++ (void)addFunction:(SmartyCallbackBlock)argBlock withTagName:(NSString *)tagName;
 
-/**
- *  若传入argName则注销一个Smarty自定义函数
- *  若传入argOwner则注销owner下的所有Smarty自定义函数
- *  若argName和argOwner均为空，则注销所有Smarty自定义函数
- *
- *  @param argName  函数名
- *  @param argOwner 函数执行者
- */
-+ (void)functionUnregisterWithName:(NSString *)argName owner:(id)argOwner;
++ (void)removeFunctionWithTagName:(NSString *)tagName;
 
 @end
 

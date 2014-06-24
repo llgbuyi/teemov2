@@ -44,8 +44,10 @@ NSString *stringWithoutTags(NSString *argText) {
     });
 }
 
-- (void)setWithTagString:(NSString *)argTagString {
-    [self setAttributedText:[[NIAttributedLabel attributedStringWithTagString:argTagString] copy]];
+- (NSAttributedString *)setWithTagString:(NSString *)argTagString {
+    NSAttributedString *attrbutedString = [[NIAttributedLabel attributedStringWithTagString:argTagString] copy];
+    [self setAttributedText:attrbutedString];
+    return attrbutedString;
 }
 
 - (void)addLinks {

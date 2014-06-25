@@ -158,9 +158,30 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
  */
 @property (nonatomic, readonly) TMOLoadMoreControl *myLoadMoreControl;
 
+/**
+ *  首次加载控制器
+ *  加载完成后，调用[myFirstLoadControl done]
+ *  加载失败后，调用[myFirstLoadControl fail]
+ *  如需要重试，调用[myFirstLoadControl start]
+ *
+ *  @param argBlock       加载Block
+ *  @param argLoadingView 可选，一个自定义的loadingView
+ *  @param argFailView    可选，一个自定义的failView
+ */
 - (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
            withLoadingView:(UIView *)argLoadingView
               withFailView:(UIView *)argFailView;
+
+/**
+ *  首次加载控制器，使用默认的样式
+ *
+ *  @param argBlock       加载Block
+ *  @param argYOffset     菊花、失败提示Y偏移值
+ */
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+           withLoadingView:(UIView *)argLoadingView
+              withFailView:(UIView *)argFailView
+               withYOffset:(CGFloat)argYOffset;
 
 /**
  *  下拉刷新完成后，你需要执行此方法，此方法会为你完成菊花停转、表视图刷新等操作

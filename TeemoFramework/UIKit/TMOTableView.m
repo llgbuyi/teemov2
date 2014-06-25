@@ -100,6 +100,15 @@
     [self.myFirstLoadControl start];
 }
 
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+               withYOffset:(CGFloat)argYOffset {
+    _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
+    self.myFirstLoadControl.callback = argBlock;
+    self.myFirstLoadControl.yOffset = argYOffset;
+    [self.myFirstLoadControl setup];
+    [self.myFirstLoadControl start];
+}
+
 - (void)setup {
 }
 

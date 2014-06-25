@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class TMORefreshControl,TMOLoadMoreControl;
+@class TMOTableView, TMORefreshControl, TMOLoadMoreControl;
 
 @protocol TMORefreshControlDelegate <NSObject>
 
@@ -118,6 +118,16 @@
 
 @end
 
+@interface TMOFirstLoadControl : NSObject
+
+@property (nonatomic, assign) CGFloat yOffset;
+
+- (void)start;
+- (void)done;
+- (void)fail;
+
+@end
+
 @interface TMOTableView : UITableView
 
 /**
@@ -134,6 +144,11 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
 @property (nonatomic, readonly) BOOL isValid;
 
 /**
+ *  首次加载控制器
+ */
+@property (nonatomic, readonly) TMOFirstLoadControl *myFirstLoadControl;
+
+/**
  *  下拉刷新控制器，使用refreshWithCallback:withDelay:执行初始化
  */
 @property (nonatomic, readonly) TMORefreshControl *myRefreshControl;
@@ -142,6 +157,10 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
  *  上拉加载控制器，使用loadMoreWithCallback:withDelay:执行初始化
  */
 @property (nonatomic, readonly) TMOLoadMoreControl *myLoadMoreControl;
+
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+           withLoadingView:(UIView *)argLoadingView
+              withFailView:(UIView *)argFailView;
 
 /**
  *  下拉刷新完成后，你需要执行此方法，此方法会为你完成菊花停转、表视图刷新等操作

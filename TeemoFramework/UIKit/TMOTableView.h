@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class TMORefreshControl,TMOLoadMoreControl;
+@class TMOTableView, TMORefreshControl, TMOLoadMoreControl;
 
 @protocol TMORefreshControlDelegate <NSObject>
 
@@ -132,6 +132,26 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
  *  tableView是否已经移出superView，若已经移出，则勿执行任何UI相关操作
  */
 @property (nonatomic, readonly) BOOL isValid;
+
+/**
+ *  数据空白时，是否显示placeHolder界面
+ */
+@property (nonatomic, assign) BOOL hasPlaceHolder;
+
+/**
+ *  数据空白时，placeHolder的自定义界面，需要先将hasPlaceHolder设为YES才会生效
+ */
+@property (nonatomic, strong) UIView *placeHolderView;
+
+/**
+ *  数据加载失败时，是否显示失败界面
+ */
+@property (nonatomic, assign) BOOL hasFail;
+
+/**
+ *  数据加载失败时，自定义一个失败界面
+ */
+@property (nonatomic, strong) UIView *failView;
 
 /**
  *  下拉刷新控制器，使用refreshWithCallback:withDelay:执行初始化

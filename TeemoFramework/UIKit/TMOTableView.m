@@ -90,6 +90,61 @@
     return self;
 }
 
+- (void)setHasPlaceHolder:(BOOL)hasPlaceHolder {
+    if (hasPlaceHolder) {
+        [self.superview addSubview:self.placeHolderView];
+        [self.superview sendSubviewToBack:self.placeHolderView];
+        [self resetPlaceHolderView];
+    }
+    else {
+        [self.placeHolderView removeFromSuperview];
+    }
+}
+
+- (UIView *)placeHolderView {
+    if (_placeHolderView == nil) {
+        UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [backgroundView setBackgroundColor:[UIColor whiteColor]];
+        UIActivityIndicatorView *juhua = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [juhua setColor:[UIColor grayColor]];
+        juhua.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        juhua.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+        [juhua startAnimating];
+        [backgroundView addSubview:juhua];
+        _placeHolderView = backgroundView;
+    }
+    return _placeHolderView;
+}
+
+- (void)resetPlaceHolderView {
+    if (self.dataSource != nil) {
+        NSUInteger allRowsCount = 0;
+        for (NSUInteger currentSection = 0; currentSection < [self.dataSource numberOfSectionsInTableView:self]; currentSection++) {
+            allRowsCount += [self.dataSource tableView:self
+                                 numberOfRowsInSection:currentSection];
+        }
+        if (allRowsCount == 0) {
+            [self.placeHolderView setAlpha:1.0];
+            [self setAlpha:0.0];
+            [self.myRefreshControl setAlpha:0.0];
+            [self.myLoadMoreControl setAlpha:0.0];
+        }
+        else {
+            [self setAlpha:1.0];
+            [self.placeHolderView setAlpha:0.0];
+            [self.myRefreshControl setAlpha:1.0];
+            [self.myLoadMoreControl setAlpha:1.0];
+        }
+    }
+    else {
+        [self.placeHolderView setAlpha:1.0];
+        [self setAlpha:0.0];
+        [self.myRefreshControl setAlpha:1.0];
+        [self.myLoadMoreControl setAlpha:1.0];
+    }
+}
+
 - (void)setup {
 }
 
@@ -101,6 +156,7 @@
     if (!self.isValid) {
         return;
     }
+    
     if (self.myLoadMoreControl != nil) {
         self.myLoadMoreControl.alpha = 0;
     }
@@ -109,6 +165,7 @@
         [self.myLoadMoreControl setFrame:CGRectMake(0, self.contentSize.height, 320, 44)];
         self.myLoadMoreControl.alpha = 1;
     }
+    [self resetPlaceHolderView];
 }
 
 - (void)refreshDone {

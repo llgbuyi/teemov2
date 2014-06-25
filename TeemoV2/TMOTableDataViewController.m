@@ -44,37 +44,37 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             viewController.numbersOfRow0 = arc4random() % 10;
             viewController.numbersOfRow1 = arc4random() % 10;
-            [tableView.myFirstLoadControl fail];
+            [tableView.myFirstLoadControl done];
         });
     } withLoadingView:nil withFailView:nil];
     
-//    [self.tableView refreshWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
-//        viewController.numbersOfRow0 = arc4random() % 10;
-//        viewController.numbersOfRow1 = arc4random() % 10;
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [tableView refreshDone];
-//        });
-//    } withDelay:3.0];
-//
-//    [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            if (arc4random() % 10 < 3) {
-//                tableView.myLoadMoreControl.isFail = YES;//模拟加载失败
-//                return ;
-//            }
-//            viewController.numbersOfRow1 += 10;
-//            [tableView loadMoreDone];
-//            if (viewController.numbersOfRow1 > 100) {
-//                tableView.myLoadMoreControl.isInvalid = YES;
-//            }
-//        });
-//    } withDelay:0.0];
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        NSLog(@"自定义样式开启");
-//        self.tableView.myRefreshControl.delegate = self;
-//        self.tableView.myLoadMoreControl.delegate = self;
-//    });
+    [self.tableView refreshWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
+        viewController.numbersOfRow0 = arc4random() % 10;
+        viewController.numbersOfRow1 = arc4random() % 10;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [tableView refreshDone];
+        });
+    } withDelay:3.0];
+
+    [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (arc4random() % 10 < 3) {
+                tableView.myLoadMoreControl.isFail = YES;//模拟加载失败
+                return ;
+            }
+            viewController.numbersOfRow1 += 10;
+            [tableView loadMoreDone];
+            if (viewController.numbersOfRow1 > 100) {
+                tableView.myLoadMoreControl.isInvalid = YES;
+            }
+        });
+    } withDelay:0.0];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"自定义样式开启");
+        self.tableView.myRefreshControl.delegate = self;
+        self.tableView.myLoadMoreControl.delegate = self;
+    });
     
     
     // Do any additional setup after loading the view from its nib.

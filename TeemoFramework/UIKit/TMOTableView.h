@@ -144,29 +144,6 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
 @property (nonatomic, readonly) BOOL isValid;
 
 /**
- *  数据空白时，是否显示placeHolder界面
- */
-@property (nonatomic, assign) BOOL hasPlaceHolder;
-
-/**
- *  数据空白时，placeHolder的自定义界面，需要先将hasPlaceHolder设为YES才会生效
- */
-@property (nonatomic, strong) UIView *placeHolderView;
-
-/**
- *  数据加载是否失败
- *  设为YES时，将显示failView
- *  设为NO时，failView将消失
- *  只有当初始化数据加载失败时，才使用该功能，否则failView会覆盖掉所有内容
- */
-@property (nonatomic, assign) BOOL isFail;
-
-/**
- *  数据加载失败时，自定义一个失败界面
- */
-@property (nonatomic, strong) UIView *failView;
-
-/**
  *  首次加载控制器
  */
 @property (nonatomic, readonly) TMOFirstLoadControl *myFirstLoadControl;

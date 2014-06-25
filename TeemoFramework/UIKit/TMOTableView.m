@@ -12,24 +12,30 @@
 #import "TMOUIKitMacro.h"
 #import "UIImage+TMOImage.h"
 
+@interface TMOFirstLoadControl ()
+
+@property (nonatomic, weak) TMOTableView *tableView;
+@property (nonatomic, strong) TMOTableviewCallback callback;
+@property (nonatomic, strong) UIView *loadingView;
+@property (nonatomic, strong) UIView *failView;
+- (instancetype)initWithTableView:(TMOTableView *)argTabelView;
+- (void)setup;
+
+
+@end
+
 @interface TMORefreshControl (){
     CGFloat _controlViewHeight;
 }
 
 @property (nonatomic, strong) XHActivityIndicatorView *activityView;
-
 @property (nonatomic, strong) UIView *customView;
-
 @property (nonatomic, weak) TMOTableView *tableView;
-
 @property (nonatomic, strong) TMOTableviewCallback callback;
-
 @property (nonatomic, assign) NSTimeInterval delay;
 
 - (id)initWithTableView:(TMOTableView *)argTabelView;
-
 - (void)refreshAndScrollToTop;
-
 - (void)stop;
 
 @end
@@ -39,21 +45,14 @@
 }
 
 @property (nonatomic, strong) UIView *customView;
-
 @property (nonatomic, strong) UIToolbar *toolBar;
-
 @property (nonatomic, strong) UIBarButtonItem *retryButton;
-
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
-
 @property (nonatomic, weak) TMOTableView *tableView;
-
 @property (nonatomic, strong) TMOTableviewCallback callback;
-
 @property (nonatomic, assign) NSTimeInterval delay;
 
 - (id)initWithTableView:(TMOTableView *)argTabelView;
-
 - (void)stop;
 
 @end
@@ -90,59 +89,15 @@
     return self;
 }
 
-- (void)setHasPlaceHolder:(BOOL)hasPlaceHolder {
-    if (hasPlaceHolder) {
-        [self.superview addSubview:self.placeHolderView];
-        [self.superview sendSubviewToBack:self.placeHolderView];
-        [self resetPlaceHolderView];
-    }
-    else {
-        [self.placeHolderView removeFromSuperview];
-    }
-}
-
-- (UIView *)placeHolderView {
-    if (_placeHolderView == nil) {
-        UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-        backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [backgroundView setBackgroundColor:[UIColor whiteColor]];
-        UIActivityIndicatorView *juhua = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [juhua setColor:[UIColor grayColor]];
-        juhua.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-        juhua.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-        [juhua startAnimating];
-        [backgroundView addSubview:juhua];
-        _placeHolderView = backgroundView;
-    }
-    return _placeHolderView;
-}
-
-- (void)resetPlaceHolderView {
-    if (self.dataSource != nil) {
-        NSUInteger allRowsCount = 0;
-        for (NSUInteger currentSection = 0; currentSection < [self.dataSource numberOfSectionsInTableView:self]; currentSection++) {
-            allRowsCount += [self.dataSource tableView:self
-                                 numberOfRowsInSection:currentSection];
-        }
-        if (allRowsCount == 0) {
-            [self.placeHolderView setAlpha:1.0];
-            [self setAlpha:0.0];
-            [self.myRefreshControl setAlpha:0.0];
-            [self.myLoadMoreControl setAlpha:0.0];
-        }
-        else {
-            [self setAlpha:1.0];
-            [self.placeHolderView setAlpha:0.0];
-            [self.myRefreshControl setAlpha:1.0];
-            [self.myLoadMoreControl setAlpha:1.0];
-        }
-    }
-    else {
-        [self.placeHolderView setAlpha:1.0];
-        [self setAlpha:0.0];
-        [self.myRefreshControl setAlpha:1.0];
-        [self.myLoadMoreControl setAlpha:1.0];
-    }
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+           withLoadingView:(UIView *)argLoadingView
+              withFailView:(UIView *)argFailView {
+    _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
+    self.myFirstLoadControl.callback = argBlock;
+    self.myFirstLoadControl.loadingView = argLoadingView;
+    self.myFirstLoadControl.failView = argFailView;
+    [self.myFirstLoadControl setup];
+    [self.myFirstLoadControl start];
 }
 
 - (void)setup {
@@ -165,7 +120,6 @@
         [self.myLoadMoreControl setFrame:CGRectMake(0, self.contentSize.height, 320, 44)];
         self.myLoadMoreControl.alpha = 1;
     }
-    [self resetPlaceHolderView];
 }
 
 - (void)refreshDone {
@@ -551,6 +505,102 @@
 
 - (void)handleRetryButtonTapped {
     self.isFail = NO;
+}
+
+- (UIViewController *)scrollViewParentViewController {
+    for (UIView *next = [self.tableView superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
+@end
+
+@implementation TMOFirstLoadControl
+
+- (instancetype)initWithTableView:(TMOTableView *)argTabelView {
+    self = [super init];
+    if (self) {
+        self.yOffset = 44.0;
+        self.tableView = argTabelView;
+    }
+    return self;
+}
+
+- (void)setup {
+    if (self.tableView.superview != nil) {
+        [self.tableView.superview addSubview:self.loadingView];
+        [self.tableView.superview addSubview:self.failView];
+        [self.loadingView setAlpha:0.0];
+        [self.failView setAlpha:0.0];
+    }
+}
+
+- (void)start {
+    [self.tableView setAlpha:0.0];
+    [self.loadingView setAlpha:1.0];
+    [self.loadingView.superview bringSubviewToFront:self.loadingView];
+    TMOTableviewCallback callback = self.callback;
+    if (callback != nil) {
+        callback(self.tableView, [self scrollViewParentViewController]);
+    }
+}
+
+- (void)done {
+    [self.tableView setAlpha:1.0];
+    [self.loadingView setAlpha:0.0];
+    [self.failView setAlpha:0.0];
+    if ([self.tableView isValid]) {
+        [self.tableView reloadData];
+    }
+}
+
+- (void)fail {
+    [self.tableView setAlpha:0.0];
+    [self.failView setAlpha:1.0];
+    [self.failView.superview bringSubviewToFront:self.failView];
+}
+
+- (UIView *)loadingView {
+    if (_loadingView == nil) {
+        UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
+        backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [backgroundView setBackgroundColor:[UIColor whiteColor]];
+        UIActivityIndicatorView *juhua = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [juhua setColor:[UIColor grayColor]];
+        juhua.center = CGPointMake(self.tableView.frame.size.width/2, self.tableView.frame.size.height/2 - self.yOffset);
+        juhua.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        [juhua startAnimating];
+        [backgroundView addSubview:juhua];
+        _loadingView = backgroundView;
+    }
+    return _loadingView;
+}
+
+- (UIView *)failView {
+    if (_failView == nil) {
+        UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
+        backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [backgroundView setBackgroundColor:[UIColor whiteColor]];
+        
+        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, backgroundView.frame.size.height/2-25-self.yOffset, backgroundView.frame.size.width, 50)];
+        errorLabel.numberOfLines = 2;
+        errorLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        [errorLabel setText:@"\ue108\n加载失败"];
+        [errorLabel setTextColor:[UIColor grayColor]];
+        [errorLabel setFont:[UIFont systemFontOfSize:16.0]];
+        [errorLabel setBackgroundColor:[UIColor clearColor]];
+        [errorLabel setTextAlignment:NSTextAlignmentCenter];
+        
+        [backgroundView addSubview:errorLabel];
+
+        
+        _failView = backgroundView;
+    }
+    return _failView;
 }
 
 - (UIViewController *)scrollViewParentViewController {

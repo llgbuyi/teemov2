@@ -118,6 +118,16 @@
 
 @end
 
+@interface TMOFirstLoadControl : NSObject
+
+@property (nonatomic, assign) CGFloat yOffset;
+
+- (void)start;
+- (void)done;
+- (void)fail;
+
+@end
+
 @interface TMOTableView : UITableView
 
 /**
@@ -144,14 +154,22 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
 @property (nonatomic, strong) UIView *placeHolderView;
 
 /**
- *  数据加载失败时，是否显示失败界面
+ *  数据加载是否失败
+ *  设为YES时，将显示failView
+ *  设为NO时，failView将消失
+ *  只有当初始化数据加载失败时，才使用该功能，否则failView会覆盖掉所有内容
  */
-@property (nonatomic, assign) BOOL hasFail;
+@property (nonatomic, assign) BOOL isFail;
 
 /**
  *  数据加载失败时，自定义一个失败界面
  */
 @property (nonatomic, strong) UIView *failView;
+
+/**
+ *  首次加载控制器
+ */
+@property (nonatomic, readonly) TMOFirstLoadControl *myFirstLoadControl;
 
 /**
  *  下拉刷新控制器，使用refreshWithCallback:withDelay:执行初始化
@@ -162,6 +180,10 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
  *  上拉加载控制器，使用loadMoreWithCallback:withDelay:执行初始化
  */
 @property (nonatomic, readonly) TMOLoadMoreControl *myLoadMoreControl;
+
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+           withLoadingView:(UIView *)argLoadingView
+              withFailView:(UIView *)argFailView;
 
 /**
  *  下拉刷新完成后，你需要执行此方法，此方法会为你完成菊花停转、表视图刷新等操作

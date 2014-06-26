@@ -22,7 +22,6 @@
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView;
 - (void)setup;
 
-
 @end
 
 @interface TMORefreshControl (){
@@ -46,8 +45,7 @@
 }
 
 @property (nonatomic, strong) UIView *customView;
-@property (nonatomic, strong) UIToolbar *toolBar;
-@property (nonatomic, strong) UIBarButtonItem *retryButton;
+@property (nonatomic, strong) UIView *retryView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 @property (nonatomic, weak) TMOTableView *tableView;
 @property (nonatomic, strong) TMOTableviewCallback callback;
@@ -59,6 +57,10 @@
 @end
 
 @interface TMOSVGInfomationView : UIView
+
+@end
+
+@interface TMOSVGArrowDownView : UIView
 
 @end
 
@@ -357,7 +359,7 @@
 - (void)setDelegate:(id<TMOLoadMoreControlDelegate>)delegate {
     if (delegate != nil) {
         _delegate = delegate;
-        [self.toolBar removeFromSuperview];
+        [self.retryView removeFromSuperview];
         [self.activityView removeFromSuperview];
         self.customView = [[self delegate] loadMoreView];
         [self addSubview:self.customView];
@@ -374,45 +376,20 @@
 - (void)defaultSetup {
     _controlViewHeight = 44.0;
     self.frame = CGRectMake(0, 0, 320, 44);
-    [self addSubview:self.toolBar];
+    [self addSubview:self.retryView];
     [self addSubview:self.activityView];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
 }
 
-- (UIToolbar *)toolBar {
-    if (_toolBar == nil) {
-        _toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        if (TMO_UIKIT_APP_IS_IOS7) {
-            [_toolBar setBackgroundImage:[UIImage imageWithPureColor:[UIColor clearColor]]
-                      forToolbarPosition:UIBarPositionAny
-                              barMetrics:UIBarMetricsDefault];
-            _toolBar.barStyle = UIBarStyleBlackTranslucent;
-        }
-        else {
-            //toolBar.barStyle = UIBarStyleBlackTranslucent;
-            [_toolBar setBackgroundImage:[UIImage imageWithPureColor:[UIColor clearColor]]
-                      forToolbarPosition:UIBarPositionAny
-                              barMetrics:UIBarMetricsDefault];
-        }
-        UIBarButtonItem *fixItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixItem.width = 138.0;
-        UIBarButtonItem *fixItem2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixItem2.width = 138.0;
-        [_toolBar setItems:@[fixItem, self.retryButton, fixItem2]];
+- (UIView *)retryView {
+    if (_retryView == nil) {
+        _retryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        TMOSVGArrowDownView *arrowDown = [[TMOSVGArrowDownView alloc] initWithFrame:CGRectMake(138, 0, 44, 44)];
+        arrowDown.backgroundColor = [UIColor whiteColor];
+        [_retryView addSubview:arrowDown];
+        [_retryView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleRetryButtonTapped)]];
     }
-    return _toolBar;
-}
-
-- (UIBarButtonItem *)retryButton {
-    if (_retryButton == nil) {
-        _retryButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                                     target:self
-                                                                     action:@selector(handleRetryButtonTapped)];
-        if (TMO_UIKIT_APP_IS_IOS7) {
-            [_retryButton setTintColor:[UIColor grayColor]];
-        }
-    }
-    return _retryButton;
+    return _retryView;
 }
 
 - (UIActivityIndicatorView *)activityView {
@@ -464,7 +441,7 @@
         [[self delegate] loadMoreViewWillStartLoading:self.customView];
     }
     else if (self.delegate == nil) {
-        [self.toolBar setAlpha:0.0];
+        [self.retryView setAlpha:0.0];
         [self.activityView setAlpha:1.0];
     }
     if (self.callback != nil) {
@@ -487,7 +464,7 @@
         }
         else if (self.delegate == nil) {
             [self.activityView setAlpha:0.0];
-            [self.toolBar setAlpha:1.0];
+            [self.retryView setAlpha:1.0];
         }
         [self setAlpha:1.0];
         _isLoading = NO;
@@ -504,7 +481,7 @@
             [[self delegate] loadMoreViewLoadFail:self.customView];
         }
         else {
-            [self.toolBar setAlpha:1.0];
+            [self.retryView setAlpha:1.0];
             [self.activityView setAlpha:0.0];
         }
     }
@@ -665,6 +642,57 @@
         [color2 setFill];
         [rectangle3Path fill];
     }
+}
+
+@end
+
+@implementation TMOSVGArrowDownView
+
+- (void)drawRect:(CGRect)rect {
+    //// Color Declarations
+    UIColor* color2 = [UIColor colorWithRed: 0.513 green: 0.508 blue: 0.509 alpha: 1];
+    
+    //// Group 137
+    {
+        //// Oval 75 Drawing
+        UIBezierPath* oval75Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(12.33, 11.33, 21.67, 21.67)];
+        [color2 setStroke];
+        oval75Path.lineWidth = 1.96;
+        [oval75Path stroke];
+        
+        
+        //// Group 138
+        {
+            //// Bezier 373 Drawing
+            UIBezierPath* bezier373Path = UIBezierPath.bezierPath;
+            [bezier373Path moveToPoint: CGPointMake(22.98, 27.49)];
+            [bezier373Path addLineToPoint: CGPointMake(17, 21.37)];
+            [bezier373Path addLineToPoint: CGPointMake(22.98, 27.49)];
+            [bezier373Path closePath];
+            [color2 setStroke];
+            bezier373Path.lineWidth = 1.96;
+            [bezier373Path stroke];
+            
+            
+            //// Bezier 374 Drawing
+            UIBezierPath* bezier374Path = UIBezierPath.bezierPath;
+            [bezier374Path moveToPoint: CGPointMake(22.48, 28)];
+            [bezier374Path addLineToPoint: CGPointMake(28.83, 21.5)];
+            [color2 setStroke];
+            bezier374Path.lineWidth = 1.96;
+            [bezier374Path stroke];
+            
+            
+            //// Bezier 375 Drawing
+            UIBezierPath* bezier375Path = UIBezierPath.bezierPath;
+            [bezier375Path moveToPoint: CGPointMake(22.98, 26.47)];
+            [bezier375Path addLineToPoint: CGPointMake(22.98, 15)];
+            [color2 setStroke];
+            bezier375Path.lineWidth = 2;
+            [bezier375Path stroke];
+        }
+    }
+
 }
 
 @end

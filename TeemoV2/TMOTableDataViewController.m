@@ -29,8 +29,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"tableView";
-        self.numbersOfRow0 = 5;
-        self.numbersOfRow1 = 5;
+        self.numbersOfRow0 = 0;
+        self.numbersOfRow1 = 0;
         // Custom initialization
     }
     return self;
@@ -40,13 +40,29 @@
 {
     [super viewDidLoad];
     
+    [self.tableView firstLoadWithBlock:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            viewController.numbersOfRow0 = arc4random() % 10;
+            viewController.numbersOfRow1 = arc4random() % 10;
+            if (arc4random() % 8 < 4) {
+                //模拟首次加载失败
+                [tableView.myFirstLoadControl fail];
+            }
+            else {
+                [tableView.myFirstLoadControl done];
+            }
+            
+        });
+    } withLoadingView:nil withFailView:nil];
+    self.tableView.myFirstLoadControl.allowRetry = YES;
+    
     [self.tableView refreshWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
         viewController.numbersOfRow0 = arc4random() % 10;
         viewController.numbersOfRow1 = arc4random() % 10;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [tableView refreshDone];
         });
-    } withDelay:0.0];
+    } withDelay:3.0];
 
     [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -68,7 +84,7 @@
         self.tableView.myLoadMoreControl.delegate = self;
     });
     
-    [self.tableView refreshAndScrollToTop];
+    
     // Do any additional setup after loading the view from its nib.
 }
 

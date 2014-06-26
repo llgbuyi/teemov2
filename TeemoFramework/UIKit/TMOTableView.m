@@ -188,7 +188,7 @@
 }
 
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 60)];
+    self = [super initWithFrame:CGRectMake(0, 0, argTabelView.frame.size.width, 60)];
     if (self) {
         _controlViewHeight = 60;
         self.tableView = argTabelView;
@@ -201,10 +201,10 @@
 - (void)setDelegate:(id<TMORefreshControlDelegate>)delegate {
     if (delegate != nil) {
         _delegate = delegate;
-        [self.activityView removeFromSuperview];
+        [self.activityView.superview removeFromSuperview];
         self.customView = [self.delegate refreshView];
         _controlViewHeight = self.customView.frame.size.height;
-        self.frame = CGRectMake(0, 0, 320, _controlViewHeight);
+        self.frame = CGRectMake(0, 0, self.tableView.frame.size.width, _controlViewHeight);
         [self addSubview:self.customView];
     }
     else {
@@ -215,11 +215,17 @@
 }
 
 - (void)defaultSetup {
-    self.frame = CGRectMake(0, 0, 320, 60);
+    self.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 60);
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _controlViewHeight = 60;
-    self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(160, 26, 44, 44)];
+    self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(22, 22, 44, 44)];
     self.activityView.tintColor = [UIColor grayColor];
-    [self addSubview:self.activityView];
+    
+    UIView *activityParentView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width/2-22.0, 0, 44, 44)];
+    [activityParentView addSubview:self.activityView];
+    activityParentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    [self addSubview:activityParentView];
 }
 
 - (void)addScrollViewObserver {

@@ -132,7 +132,7 @@
     }
     [super reloadData];
     if (self.myLoadMoreControl != nil) {
-        [self.myLoadMoreControl setFrame:CGRectMake(0, self.contentSize.height, 320, 44)];
+        [self.myLoadMoreControl setFrame:CGRectMake(0, self.contentSize.height, self.frame.size.width, 44)];
         self.myLoadMoreControl.alpha = 1;
     }
 }
@@ -343,7 +343,7 @@
 @implementation TMOLoadMoreControl
 
 - (id)initWithTableView:(TMOTableView *)argTabelView {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self = [super initWithFrame:CGRectMake(0, 0, argTabelView.frame.size.width, 44)];
     if (self) {
         self.tableView = argTabelView;
         [self defaultSetup];
@@ -364,7 +364,7 @@
         self.customView = [[self delegate] loadMoreView];
         [self addSubview:self.customView];
         _controlViewHeight = self.customView.frame.size.height;
-        self.frame = CGRectMake(0, self.tableView.contentSize.height, 320, _controlViewHeight);
+        self.frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.frame.size.width, _controlViewHeight);
         [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
     }
     else {
@@ -375,7 +375,8 @@
 
 - (void)defaultSetup {
     _controlViewHeight = 44.0;
-    self.frame = CGRectMake(0, 0, 320, 44);
+    self.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 44);
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.retryView];
     [self addSubview:self.activityView];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
@@ -383,11 +384,13 @@
 
 - (UIView *)retryView {
     if (_retryView == nil) {
-        _retryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        TMOSVGArrowDownView *arrowDown = [[TMOSVGArrowDownView alloc] initWithFrame:CGRectMake(138, 0, 44, 44)];
+        _retryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44)];
+        TMOSVGArrowDownView *arrowDown = [[TMOSVGArrowDownView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width/2-22.0, 0, 44, 44)];
         arrowDown.backgroundColor = [UIColor whiteColor];
         [_retryView addSubview:arrowDown];
         [_retryView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleRetryButtonTapped)]];
+        arrowDown.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        _retryView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
     return _retryView;
 }
@@ -395,9 +398,10 @@
 - (UIActivityIndicatorView *)activityView {
     if (_activityView == nil) {
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [_activityView setFrame:CGRectMake(138, 0, 44, 44)];
+        [_activityView setFrame:CGRectMake(self.tableView.frame.size.width/2-22.0, 0, 44, 44)];
         [_activityView startAnimating];
         [_activityView setAlpha:0.0];
+        _activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     }
     return _activityView;
 }

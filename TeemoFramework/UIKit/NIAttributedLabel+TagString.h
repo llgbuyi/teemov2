@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 NimbusKit. All rights reserved.
 //
 
-#import "NIAttributedLabel.h"
+#import <NIAttributedLabel.h>
 
 /**
  *  HTML标签的结构

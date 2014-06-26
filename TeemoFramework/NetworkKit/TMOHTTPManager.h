@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TMOHTTPResult.h"
-#import "GTMHTTPFetcher.h"
+#import <GTMHTTPFetcher.h>
 
 @class GTMHTTPFetcherService;
 @class Reachability;

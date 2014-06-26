@@ -14,6 +14,7 @@
 
 @interface TMOFirstLoadControl ()
 
+@property (nonatomic, assign) CGFloat yOffset;
 @property (nonatomic, weak) TMOTableView *tableView;
 @property (nonatomic, strong) TMOTableviewCallback callback;
 @property (nonatomic, strong) UIView *loadingView;
@@ -57,6 +58,9 @@
 
 @end
 
+@interface TMOSVGInfomationView : UIView
+
+@end
 
 @interface TMOTableView ()
 
@@ -571,6 +575,14 @@
     [self.tableView setAlpha:0.0];
     [self.failView setAlpha:1.0];
     [self.failView.superview bringSubviewToFront:self.failView];
+    if (self.allowRetry) {
+        if ([[self.failView gestureRecognizers] count] == 0) {
+            [self.failView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(start)]];
+        }
+    }
+    else {
+        [self.failView setGestureRecognizers:@[]];
+    }
 }
 
 - (UIView *)loadingView {
@@ -594,19 +606,18 @@
         UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
         backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [backgroundView setBackgroundColor:[UIColor whiteColor]];
-        
-        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, backgroundView.frame.size.height/2-25-self.yOffset, backgroundView.frame.size.width, 50)];
-        errorLabel.numberOfLines = 2;
-        errorLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-        [errorLabel setText:@"\ue108\n加载失败"];
+        TMOSVGInfomationView *iconView = [[TMOSVGInfomationView alloc] initWithFrame:CGRectMake(backgroundView.frame.size.width/2-48.0, backgroundView.frame.size.height/2-48.0-self.yOffset, 96.0, 116.0)];
+        iconView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+        iconView.backgroundColor = [UIColor whiteColor];
+        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 86, iconView.frame.size.width, 20)];
+        errorLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+        [errorLabel setText:@"加载失败"];
         [errorLabel setTextColor:[UIColor grayColor]];
         [errorLabel setFont:[UIFont systemFontOfSize:16.0]];
         [errorLabel setBackgroundColor:[UIColor clearColor]];
         [errorLabel setTextAlignment:NSTextAlignmentCenter];
-        
-        [backgroundView addSubview:errorLabel];
-
-        
+        [iconView addSubview:errorLabel];
+        [backgroundView addSubview:iconView];
         _failView = backgroundView;
     }
     return _failView;
@@ -620,6 +631,40 @@
         }
     }
     return nil;
+}
+
+@end
+
+
+#pragma mark - 
+#pragma mark - SVGViews
+
+@implementation TMOSVGInfomationView
+
+- (void)drawRect:(CGRect)rect {
+    //// Color Declarations
+    UIColor* color2 = [UIColor colorWithRed: 0.513 green: 0.508 blue: 0.509 alpha: 1];
+    
+    //// Group 4
+    {
+        //// Oval 2 Drawing
+        UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(17, 18, 61.88, 61.88)];
+        [color2 setStroke];
+        oval2Path.lineWidth = 2;
+        [oval2Path stroke];
+        
+        
+        //// Oval 3 Drawing
+        UIBezierPath* oval3Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(44.35, 30.04, 7.61, 7.61)];
+        [color2 setFill];
+        [oval3Path fill];
+        
+        
+        //// Rectangle 3 Drawing
+        UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(46, 43, 4, 25)];
+        [color2 setFill];
+        [rectangle3Path fill];
+    }
 }
 
 @end

@@ -120,7 +120,7 @@
 
 @interface TMOFirstLoadControl : NSObject
 
-@property (nonatomic, assign) CGFloat yOffset;
+@property (nonatomic, assign) BOOL allowRetry;
 
 - (void)start;
 - (void)done;
@@ -179,8 +179,6 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
  *  @param argYOffset     菊花、失败提示Y偏移值
  */
 - (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
-           withLoadingView:(UIView *)argLoadingView
-              withFailView:(UIView *)argFailView
                withYOffset:(CGFloat)argYOffset;
 
 /**

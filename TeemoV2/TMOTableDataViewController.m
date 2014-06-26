@@ -44,9 +44,17 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             viewController.numbersOfRow0 = arc4random() % 10;
             viewController.numbersOfRow1 = arc4random() % 10;
-            [tableView.myFirstLoadControl done];
+            if (arc4random() % 8 < 4) {
+                //模拟首次加载失败
+                [tableView.myFirstLoadControl fail];
+            }
+            else {
+                [tableView.myFirstLoadControl done];
+            }
+            
         });
     } withLoadingView:nil withFailView:nil];
+    self.tableView.myFirstLoadControl.allowRetry = YES;
     
     [self.tableView refreshWithCallback:^(TMOTableView *tableView, TMOTableDataViewController *viewController) {
         viewController.numbersOfRow0 = arc4random() % 10;

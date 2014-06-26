@@ -550,12 +550,16 @@
 }
 
 - (void)done {
-    [self.tableView setAlpha:1.0];
-    [self.loadingView setAlpha:0.0];
     [self.failView setAlpha:0.0];
-    if ([self.tableView isValid]) {
-        [self.tableView reloadData];
-    }
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.tableView setAlpha:1.0];
+        [self.loadingView setAlpha:0.0];
+        if ([self.tableView isValid]) {
+            [self.tableView reloadData];
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)fail {

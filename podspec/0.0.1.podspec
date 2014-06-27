@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/duowan/teemov2"
 
   s.license      = "MIT"
-  
+
   s.author             = { "PonyCui" => "cuis@vip.qq.com" }
 
   s.platform     = :ios, "6.0"
@@ -31,7 +31,6 @@ Pod::Spec.new do |s|
   s.dependency "MBProgressHUD", "~> 0.8"
   s.dependency "FMDB", "~> 2.2"
   s.dependency "Objective-LevelDB", "~> 2.0.6"
-  s.dependency "Base64nl", "~> 1.2"
   s.dependency "NimbusKit-AttributedLabel", "~> 1.0.0"
   s.dependency "RNCryptor", "~> 2.2"
   s.dependency "SSKeychain"

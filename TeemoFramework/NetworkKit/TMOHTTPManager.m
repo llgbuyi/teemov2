@@ -489,7 +489,7 @@ completeUploadBlock:(void (^)(TMOHTTPResult *result, NSError *error))argBlock {
 #pragma mark - 与Http服务相关的支持方法
 
 - (long long)cacheSize {
-    return self.cacheDatabase.currentSize;
+    return [TMOKVDB sizeOfPath:kTMONetworkCacheDatabaseKey];
 }
 
 - (void)cleanAllCache {

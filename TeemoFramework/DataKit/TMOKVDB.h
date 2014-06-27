@@ -45,7 +45,7 @@ extern NSString *const defaultLevelDBName;
  *
  *  @return long long
  */
-- (long long)currentSize;
+//- (long long)currentSize;//抛弃
 
 /**
  *  将所有过期数据清除
@@ -73,5 +73,7 @@ extern NSString *const defaultLevelDBName;
 + (LevelDB *)customDatabase:(NSString *)basePath;
 
 + (void)closeAndReleaseSpace:(NSString *)basePath;
+
++ (long long)sizeOfPath:(NSString *)basePath;
 
 @end

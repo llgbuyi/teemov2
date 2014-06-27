@@ -6,31 +6,36 @@
 //  Copyright (c) 2014年 com.duowan.zpc. All rights reserved.
 //
 
+#define kTMOKVDBCacheDirectory [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingString:@"/com.duowan.kvdb/"]
+
 #import "TMOKVDB.h"
 #import <LevelDB.h>
 #import "TMOToolKitCore.h"
-#import <sys/stat.h>
-#import <dirent.h>
-
-static NSMutableDictionary *dbPool = nil;
 
 @interface TMOKVDB ()
-
-@property (nonatomic, strong) LevelDB *currentDB;
 
 @end
 
 @implementation TMOKVDB
 
-NSString * TMOKVDBPath() {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesDir = [paths objectAtIndex:0];
-    return [NSString stringWithFormat:@"%@/com.duowan.kvdb/", cachesDir];
++ (NSString *)realPath:(NSString *)argPath {
+    if (argPath == nil || ([argPath isKindOfClass:[NSString class]] && [argPath isEqualToString:@""])) {
+        return [kTMOKVDBCacheDirectory stringByAppendingString:@"default"];
+    }
+    else {
+        if ([argPath rangeOfString:@"/"].location == NSNotFound) {
+            return [kTMOKVDBCacheDirectory stringByAppendingString:argPath];
+        }
+        else {
+            return argPath;
+        }
+    }
+    return argPath;
 }
 
-LevelDB * createConnectionWithPath(NSString *path) {
-    LevelDB *db = nil;
-    db = [[LevelDB alloc] initWithPath:path andName:@"kvdb"];
++ (LevelDB *)dbConnection:(NSString *)realPath {
+    LevelDB *db;
+    db = [[LevelDB alloc] initWithPath:realPath andName:@"kvdb"];
     db.encoder = ^ NSData* (LevelDBKey *key, id object) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
         return data;
@@ -43,45 +48,35 @@ LevelDB * createConnectionWithPath(NSString *path) {
 }
 
 + (LevelDB *)defaultDatabase {
-    return [TMOKVDB customDatabase:[TMOKVDBPath() stringByAppendingString:@"default"]];
+    return [TMOKVDB customDatabase:nil];
 }
 
 + (LevelDB *)customDatabase:(NSString *)basePath {
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        dbPool = [NSMutableDictionary dictionary];
-    });
-    if (!dbPool[basePath]) {
-        NSString *newPath = basePath;
-        if ([newPath rangeOfString:@"/"].location == NSNotFound) {
-            newPath = [TMOKVDBPath() stringByAppendingString:basePath];
-        }
-        dbPool[basePath] = createConnectionWithPath(newPath);
-    }
-    return dbPool[basePath];
+    NSString *realPath = [self realPath:basePath];
+    return [self dbConnection:realPath];
 }
 
 + (void)closeAndReleaseSpace:(NSString *)basePath {
-    [self closeDatabase:basePath];
-    NSString *thePath = basePath;
-    if ([thePath rangeOfString:@"/"].location == NSNotFound) {
-        thePath = [TMOKVDBPath() stringByAppendingString:basePath];
-    }
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    [fileManager removeItemAtPath:thePath error:&error];
+    [[NSFileManager defaultManager] removeItemAtPath:[self realPath:basePath] error:nil];
 }
 
-+ (void)closeDatabase:(NSString *)basePath {
-    [dbPool removeObjectForKey:basePath];
++ (long long)sizeOfPath:(NSString *)basePath {
+    long long totalSize = 0;
+    NSString *realPath = [[self realPath:basePath] stringByAppendingString:@"/"];
+    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:realPath];
+    for (NSString *itemPath in enumerator) {
+        NSDictionary *fileAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:[realPath stringByAppendingString:itemPath] error:nil];
+        totalSize += [fileAttr[NSFileSize] integerValue];
+    }
+    return totalSize;
 }
 
 @end
 
 @implementation LevelDB (TMOLevelDB)
 
-NSString * getCacheKey_TMO(NSString *key) {
-    return [NSString stringWithFormat:@"TMO_Cache_Prefix_%@",key];
++ (NSString *)realCacheKey:(NSString *)fadeKey {
+    return [NSString stringWithFormat:@"TMO_Cache_Prefix_%@", fadeKey];
 }
 
 - (void)setObject:(id)obj forKey:(NSString *)key cacheTime:(NSTimeInterval)argCacheTime {
@@ -94,7 +89,7 @@ NSString * getCacheKey_TMO(NSString *key) {
     NSString *realKey = [key stringByMD5Hash];
     [self setObject:obj forKey:realKey];
 
-    NSString *cacheKey = getCacheKey_TMO(realKey);
+    NSString *cacheKey = [LevelDB realCacheKey:realKey];
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:argCacheTime];
     [self setObject:date forKey:cacheKey];
 }
@@ -107,7 +102,7 @@ NSString * getCacheKey_TMO(NSString *key) {
         return nil;
     }
     NSString *realKey = [key stringByMD5Hash];
-    NSString *cacheKey = getCacheKey_TMO(realKey);
+    NSString *cacheKey = [LevelDB realCacheKey:realKey];
     NSDate *date = [self objectForKey:cacheKey];
     
     NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -130,52 +125,22 @@ NSString * getCacheKey_TMO(NSString *key) {
 #pragma mark - KVDB服务机制
 
 - (long long)currentSize {
-    return [self cacheFolderSize:[self.path cStringUsingEncoding:NSUTF8StringEncoding]];
-}
-
-- (long long) cacheFolderSize:(const char *)folderPath{
-    if (folderPath == nil) {
-        folderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    long long folderSize = 0;
-    DIR* dir = opendir(folderPath);
-    if (dir == NULL) return 0;
-    struct dirent* child;
-    while ((child = readdir(dir))!=NULL) {
-        if (child->d_type == DT_DIR && (
-                                        (child->d_name[0] == '.' && child->d_name[1] == 0) || // 忽略目录 .
-                                        (child->d_name[0] == '.' && child->d_name[1] == '.' && child->d_name[2] == 0) // 忽略目录 ..
-                                        )) continue;
-        
-        int folderPathLength = strlen(folderPath);
-        char childPath[1024]; // 子文件的路径地址
-        stpcpy(childPath, folderPath);
-        if (folderPath[folderPathLength-1] != '/'){
-            childPath[folderPathLength] = '/';
-            folderPathLength++;
-        }
-        stpcpy(childPath+folderPathLength, child->d_name);
-        childPath[folderPathLength + child->d_namlen] = 0;
-        if (child->d_type == DT_DIR){ // directory
-            folderSize += [self cacheFolderSize:childPath]; // 递归调用子目录
-            // 把目录本身所占的空间也加上
-            struct stat st;
-            if(lstat(childPath, &st) == 0) folderSize += st.st_size;
-        }else if (child->d_type == DT_REG || child->d_type == DT_LNK){ // file or link
-            struct stat st;
-            if(lstat(childPath, &st) == 0) folderSize += st.st_size;
-        }
-    }
-    return folderSize;
+    NSAssert(NO, @"方法已被废弃，请使用[TMOKVDB sizeOfPath:]");
+    return 0;
 }
 
 - (void)removeGarbage {
-    [self enumerateKeysBackward:YES startingAtKey:nil filteredByPredicate:nil andPrefix:getCacheKey_TMO(@"") usingBlock:^(LevelDBKey *key, BOOL *stop) {
+    [self enumerateKeysBackward:YES
+                  startingAtKey:nil
+            filteredByPredicate:nil
+                      andPrefix:[LevelDB realCacheKey:@""]
+                     usingBlock:^(LevelDBKey *key, BOOL *stop) {
         NSString *cacheDateKey = [NSString stringWithUTF8String:key->data];
         NSDate *expireDate = [self valueForKey:cacheDateKey];
         NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
         if ([expireDate compare:currentDate] != NSOrderedDescending) {
-            NSString *realKey = [cacheDateKey stringByReplacingOccurrencesOfString:getCacheKey_TMO(@"") withString:@""];
+            NSString *realKey = [cacheDateKey stringByReplacingOccurrencesOfString:[LevelDB realCacheKey:@""]
+                                                                        withString:@""];
             [self removeObjectForKey:cacheDateKey];
             [self removeObjectForKey:realKey];
         }

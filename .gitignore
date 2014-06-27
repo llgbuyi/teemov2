@@ -3,3 +3,6 @@ Podfile.lock
 Pods/
 *.xcworkspace/
 xcuserdata/
+TeemoFramework/UIKit/NIAttributedLabel+TagString.m
+
+TeemoFramework/UIKit/NIAttributedLabel+TagString.h

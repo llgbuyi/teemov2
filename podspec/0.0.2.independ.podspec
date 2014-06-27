@@ -26,12 +26,4 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.dependency "gtm-http-fetcher", "~> 1.0.129"
-  s.dependency "Reachability", "~> 3.1.1"
-  s.dependency "MBProgressHUD", "~> 0.8"
-  s.dependency "FMDB", "~> 2.2"
-  s.dependency "Objective-LevelDB", "~> 2.0.6"
-  s.dependency "RNCryptor", "~> 2.2"
-  s.dependency "SSKeychain"
-
 end

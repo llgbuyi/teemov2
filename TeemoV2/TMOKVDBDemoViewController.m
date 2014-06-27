@@ -36,6 +36,8 @@
     LevelDB *customDb = [TMOKVDB customDatabase:@"myCustom"];//使用一个新库存储对象
     [customDb setObject:@"otherThings" forKey:@"theKey"];
     NSLog(@"%@",[customDb valueForKey:@"theKey"]);
+    
+    NSLog(@"cachesize:%lld",[TMOKVDB sizeOfPath:nil]);
     [TMOKVDB closeAndReleaseSpace:@"default"];
     
     LevelDB *customPath = [TMOKVDB customDatabase:[NSString stringWithFormat:@"%@tmpKVDB/",NSTemporaryDirectory()]];//把KV库保存至指定路径

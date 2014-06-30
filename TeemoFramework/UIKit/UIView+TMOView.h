@@ -102,6 +102,13 @@
 - (id)valueForAdditionKey:(NSString *)argKey;
 
 /**
+ *  将UIView中的某一Key-Value删除
+ *
+ *  @param argKey Key
+ */
+- (void)removeAdditionValueForKey:(NSString *)argKey;
+
+/**
  *  在view的右上角展现一个数字圆角标
  *
  *  @param argInteger 角标数字，为0则隐藏角标

@@ -204,6 +204,13 @@ static char kUIViewAddtionValueKey;
     return self.additionValueDictionary[argKey];
 }
 
+- (void)removeAdditionValueForKey:(NSString *)argKey {
+    if (self.additionValueDictionary == nil) {
+        self.additionValueDictionary = [NSMutableDictionary dictionary];
+    }
+    [self.additionValueDictionary removeObjectForKey:argKey];
+}
+
 - (void)showBadge:(NSInteger)argInteger {
     if (argInteger < 0) {
         //nothing

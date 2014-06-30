@@ -20,11 +20,15 @@ static NSRegularExpression *smartyRegularExpression;
 + (void)instance;
 
 + (NSString *)stringByReplaceingSmartyCode:(NSString *)argString
-                            withDictionary:(NSDictionary *)argDictionary;
+                            withObject:(NSDictionary *)argObject;
 + (NSAttributedString *)attributedStringByReplaceingSmartyCode:(NSAttributedString *)argString
-                                                withDictionary:(NSDictionary *)argDictionary;
-+ (NSString *)stringByParam:(NSString *)argParam withDictionary:(NSDictionary *)argDictionary;
+                                                withObject:(NSDictionary *)argObject;
++ (NSString *)stringByParam:(NSString *)argParam withObject:(NSDictionary *)argObject;
 + (BOOL)isSmarty:(NSString *)argString;
+
++ (void)addSmartyBindBySmartyCode:(NSString *)argString
+                         withView:(UIView *)argView
+                   withDataSource:(id)argDataSource;
 
 @end
 
@@ -34,153 +38,139 @@ static NSRegularExpression *smartyRegularExpression;
 
 @end
 
+@interface SmartyBinder : NSObject
+
+@property (nonatomic, assign) SmartyBindCallbackBlock callback;
+@property (nonatomic, copy) NSString *bindKey;
+@property (nonatomic, weak) UIView *bindView;
+@property (nonatomic, weak) id bindObject;
+@property (nonatomic, weak) id dataSource;
+
+- (instancetype)initWithBindObject:(id)argBindObject
+                    withDataSource:(id)argDataSource
+                          withView:(UIView *)argView
+                           withKey:(NSString *)argKey;
+
+@end
+
 @implementation UIView (TMOSmarty)
 
 /**
  *  执行Smarty替换
  */
-- (void)smartyRendWithDictionary:(NSDictionary *)argDictionary
-                     isRecursive:(BOOL)argIsRecursive {
+- (void)smartyRendWithDictionary:(NSDictionary *)argDictionary isRecursive:(BOOL)argIsRecursive {
+    [self smartyRendWithObject:argDictionary isRecursive:argIsRecursive];
+}
+
+- (void)smartyRendWithObject:(id)argObject isRecursive:(BOOL)argIsRecursive {
     [Smarty instance];
-    if ([self.subviews count] == 0) {
-        return;
-    }
-    for (UIView *subView in self.subviews) {
-        if ([subView isKindOfClass:[UILabel class]]) {
-            [self smartyRendWithLabel:(UILabel *)subView withDictionary:argDictionary];
-        }
-        else if ([subView isKindOfClass:[UITextField class]]) {
-            [self smartyRendWithTextField:(UITextField *)subView withDictionary:argDictionary];
-        }
-        else if ([subView isKindOfClass:[UITextView class]]) {
-            [self smartyRendWithTextView:(UITextView *)subView withDictionary:argDictionary];
-        }
-        else if ([subView isKindOfClass:[UIButton class]]) {
-            [self smartyRendWithButton:(UIButton *)subView withDictionary:argDictionary];
-        }
-        else if ([subView isKindOfClass:[UIImageView class]]) {
-            [self smartyRendWithImageView:(UIImageView *)subView withDictionary:argDictionary];
-        }
-        //递归渲染
-        if (argIsRecursive) {
-            [subView smartyRendWithDictionary:argDictionary isRecursive:YES];
+    //self
+    [self smartyReplaceWithObject:argObject];
+    if (argIsRecursive) {
+        for (UIView *subView in self.subviews) {
+            [subView smartyRendWithObject:argObject isRecursive:YES];
         }
     }
 }
 
 /**
- *  UILabel
+ *  SmartyBind
+ *  Model View动态绑定
  */
-- (void)smartyRendWithLabel:(UILabel *)argLabel
-             withDictionary:(NSDictionary *)argDictionary {
-    [self saveOriginData:argLabel];
-    //优先处理attributedString
-    if ([argLabel valueForAdditionKey:@"smartyAttributedText"] != nil) {
-        NSAttributedString *attributedString = [argLabel valueForAdditionKey:@"smartyAttributedText"];
-        argLabel.attributedText = [Smarty attributedStringByReplaceingSmartyCode:attributedString
-                                                                  withDictionary:argDictionary];
+
+- (void)smartyBind {
+    [self setAdditionValue:@(YES) forKey:@"smartyBinded"];
+}
+
+- (void)smartyBindForSubviews {
+    [self setAdditionValue:@(YES) forKey:@"smartyBinded"];
+    [self.subviews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        [obj smartyBindForSubviews];
+    }];
+}
+
+- (void)smartyBindWithBlock:(SmartyBindCallbackBlock)argBlock {
+    [self setAdditionValue:@(YES) forKey:@"smartyBinded"];
+    [self setAdditionValue:argBlock forKey:@"smartyBindCallbackBlock"];
+}
+
+- (void)smartyUnBind {
+    [self removeAdditionValueForKey:@"smartyBinded"];
+    [self removeAdditionValueForKey:@"smartyBinder"];
+    [self.subviews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        [obj smartyUnBind];
+    }];
+}
+
+- (void)smartyReplaceWithObject:(id)argObject {
+    [self smartySaveOriginData:argObject];
+    if ([self valueForAdditionKey:@"smartyAttributedText"] != nil) {
+        NSAttributedString *attributedString = [self valueForAdditionKey:@"smartyAttributedText"];
+        [(UILabel *)self setAttributedText:[Smarty attributedStringByReplaceingSmartyCode:attributedString
+                                                                               withObject:argObject]];
     }
-    else if ([argLabel valueForAdditionKey:@"smartyText"] != nil) {
-        argLabel.text = [Smarty stringByReplaceingSmartyCode:[argLabel valueForAdditionKey:@"smartyText"]
-                                              withDictionary:argDictionary];
+    else if ([self valueForAdditionKey:@"smartyText"] != nil) {
+        NSString *text = [self valueForAdditionKey:@"smartyText"];
+        [(UILabel *)self setText:[Smarty stringByReplaceingSmartyCode:text withObject:argObject]];
+    }
+    if ([self valueForAdditionKey:@"smartyPlaceholder"] != nil) {
+        NSString *text = [self valueForAdditionKey:@"smartyPlaceholder"];
+        [(UITextField *)self setPlaceholder:[Smarty stringByReplaceingSmartyCode:text withObject:argObject]];
+    }
+    if ([self valueForAdditionKey:@"smartyTitle"] != nil) {
+        NSString *text = [self valueForAdditionKey:@"smartyTitle"];
+        [(UIButton *)self setTitle:[Smarty stringByReplaceingSmartyCode:text withObject:argObject]
+                          forState:UIControlStateNormal];
+    }
+    if ([self valueForAdditionKey:@"smartyImageURLString"] != nil) {
+        NSString *text = [self valueForAdditionKey:@"smartyImageURLString"];
+        [(UIImageView *)self loadImageWithURLString:[Smarty stringByReplaceingSmartyCode:text withObject:argObject]];
     }
 }
 
-/**
- *  UITextField
- */
-- (void)smartyRendWithTextField:(UITextField *)argTextField
-                 withDictionary:(NSDictionary *)argDictionary {
-    [self saveOriginData:argTextField];
-    if ([argTextField valueForAdditionKey:@"smartyPlaceholder"] != nil) {
-        argTextField.placeholder = [Smarty stringByReplaceingSmartyCode:[argTextField valueForAdditionKey:@"smartyPlaceholder"]
-                                                         withDictionary:argDictionary];
-    }
-    if ([argTextField valueForAdditionKey:@"smartyText"] != nil) {
-        argTextField.text = [Smarty stringByReplaceingSmartyCode:[argTextField valueForAdditionKey:@"smartyText"]
-                                                  withDictionary:argDictionary];
-    }
-}
-
-/**
- *  UITextView
- */
-- (void)smartyRendWithTextView:(UITextView *)argTextView
-             withDictionary:(NSDictionary *)argDictionary {
-    [self saveOriginData:argTextView];
-    //优先处理attributedString
-    if ([argTextView valueForAdditionKey:@"smartyAttributedText"] != nil) {
-        NSAttributedString *attributedString = [argTextView valueForAdditionKey:@"smartyAttributedText"];
-        argTextView.attributedText = [Smarty attributedStringByReplaceingSmartyCode:attributedString
-                                                                     withDictionary:argDictionary];
-    }
-    else if ([argTextView valueForAdditionKey:@"smartyText"] != nil) {
-        argTextView.text = [Smarty stringByReplaceingSmartyCode:[argTextView valueForAdditionKey:@"smartyText"]
-                                                 withDictionary:argDictionary];
-    }
-}
-
-/**
- *  UIButton
- */
-- (void)smartyRendWithButton:(UIButton *)argButton
-              withDictionary:(NSDictionary *)argDictionary  {
-    [self saveOriginData:argButton];
-    if ([argButton valueForAdditionKey:@"smartyTitle"] != nil) {
-        [argButton setTitle:[Smarty stringByReplaceingSmartyCode:[argButton valueForAdditionKey:@"smartyTitle"]
-                                                  withDictionary:argDictionary]
-                   forState:UIControlStateNormal];
-    }
-}
-
-/**
- *  UIImageView
- */
-- (void)smartyRendWithImageView:(UIImageView *)argImageView
-                 withDictionary:(NSDictionary *)argDictionary {
-    [self saveOriginData:argImageView];
-    if ([argImageView valueForAdditionKey:@"smartyImageURLString"] != nil) {
-        NSString *loadURLString = [Smarty stringByReplaceingSmartyCode:[argImageView valueForAdditionKey:@"smartyImageURLString"]
-                                                        withDictionary:argDictionary];
-        [argImageView loadImageWithURLString:loadURLString];
-    }
-}
-
-- (void)saveOriginData:(UIView *)argView {
-    if ([argView isKindOfClass:[UILabel class]]) {
-        if ([Smarty isSmarty:TOString([(UILabel *)argView text])]) {
-            [argView setAdditionValue:[(UILabel *)argView text] forKey:@"smartyText"];
+- (void)smartySaveOriginData:(id)argDataSource {
+    if ([self isKindOfClass:[UILabel class]]) {
+        if ([Smarty isSmarty:TOString([(UILabel *)self text])]) {
+            [self setAdditionValue:[(UILabel *)self text] forKey:@"smartyText"];
+            [Smarty addSmartyBindBySmartyCode:[(UILabel *)self text] withView:self withDataSource:argDataSource];
         }
         if (TMO_SYSTEM_VERSION >= 6.0 &&
-            [Smarty isSmarty:TOString([[(UILabel *)argView attributedText] string])]) {
-            [argView setAdditionValue:[(UILabel *)argView attributedText] forKey:@"smartyAttributedText"];
+            [Smarty isSmarty:TOString([[(UILabel *)self attributedText] string])]) {
+            [self setAdditionValue:[(UILabel *)self attributedText] forKey:@"smartyAttributedText"];
+            [Smarty addSmartyBindBySmartyCode:[[(UILabel *)self attributedText] string] withView:self withDataSource:argDataSource];
         }
     }
-    else if ([argView isKindOfClass:[UITextField class]]) {
-        if ([Smarty isSmarty:TOString([(UITextField *)argView text])]) {
-            [argView setAdditionValue:[(UITextField *)argView text] forKey:@"smartyText"];
+    else if ([self isKindOfClass:[UITextField class]]) {
+        if ([Smarty isSmarty:TOString([(UITextField *)self text])]) {
+            [self setAdditionValue:[(UITextField *)self text] forKey:@"smartyText"];
+            [Smarty addSmartyBindBySmartyCode:[(UITextField *)self text] withView:self withDataSource:argDataSource];
         }
-        if ([Smarty isSmarty:TOString([(UITextField *)argView placeholder])]) {
-            [argView setAdditionValue:[(UITextField *)argView placeholder] forKey:@"smartyPlaceholder"];
+        if ([Smarty isSmarty:TOString([(UITextField *)self placeholder])]) {
+            [self setAdditionValue:[(UITextField *)self placeholder] forKey:@"smartyPlaceholder"];
+            [Smarty addSmartyBindBySmartyCode:[(UITextField *)self placeholder] withView:self withDataSource:argDataSource];
         }
     }
-    else if ([argView isKindOfClass:[UITextView class]]) {
-        if ([Smarty isSmarty:TOString([(UITextView *)argView text])]) {
-            [argView setAdditionValue:[(UITextView *)argView text] forKey:@"smartyText"];
+    else if ([self isKindOfClass:[UITextView class]]) {
+        if ([Smarty isSmarty:TOString([(UITextView *)self text])]) {
+            [self setAdditionValue:[(UITextView *)self text] forKey:@"smartyText"];
+            [Smarty addSmartyBindBySmartyCode:[(UITextView *)self text] withView:self withDataSource:argDataSource];
         }
         if (TMO_SYSTEM_VERSION >= 6.0 &&
-            [Smarty isSmarty:TOString([[(UITextView *)argView attributedText] string])]) {
-            [argView setAdditionValue:[(UITextView *)argView attributedText] forKey:@"smartyAttributedText"];
+            [Smarty isSmarty:TOString([[(UITextView *)self attributedText] string])]) {
+            [self setAdditionValue:[(UITextView *)self attributedText] forKey:@"smartyAttributedText"];
+            [Smarty addSmartyBindBySmartyCode:[[(UITextView *)self attributedText] string] withView:self withDataSource:argDataSource];
         }
     }
-    else if ([argView isKindOfClass:[UIButton class]]) {
-        if ([Smarty isSmarty:TOString([(UIButton *)argView titleForState:UIControlStateNormal])]) {
-            [argView setAdditionValue:[(UIButton *)argView titleForState:UIControlStateNormal] forKey:@"smartyTitle"];
+    else if ([self isKindOfClass:[UIButton class]]) {
+        if ([Smarty isSmarty:TOString([(UIButton *)self titleForState:UIControlStateNormal])]) {
+            [self setAdditionValue:[(UIButton *)self titleForState:UIControlStateNormal] forKey:@"smartyTitle"];
+            [Smarty addSmartyBindBySmartyCode:[(UIButton *)self titleForState:UIControlStateNormal] withView:self withDataSource:argDataSource];
         }
     }
-    else if ([argView isKindOfClass:[UIImageView class]]) {
-        if ([Smarty isSmarty:TOString(argView.accessibilityLabel)]) {
-            [argView setAdditionValue:argView.accessibilityIdentifier forKey:@"smartyImageURLString"];
+    else if ([self isKindOfClass:[UIImageView class]]) {
+        if ([Smarty isSmarty:TOString(self.accessibilityLabel)]) {
+            [self setAdditionValue:self.accessibilityIdentifier forKey:@"smartyImageURLString"];
+            [Smarty addSmartyBindBySmartyCode:[(UIImageView *)self accessibilityIdentifier] withView:self withDataSource:argDataSource];
         }
     }
 }
@@ -252,7 +242,7 @@ static NSRegularExpression *smartyRegularExpression;
  *  替换所有Smarty关键词至最终值
  */
 + (NSString *)stringByReplaceingSmartyCode:(NSString *)argString
-                            withDictionary:(NSDictionary *)argDictionary {
+                            withObject:(NSDictionary *)argObject {
     NSString *newString = [argString copy];
     NSArray *theResult = [smartyRegularExpression matchesInString:argString
                                                           options:NSMatchingReportCompletion
@@ -263,22 +253,104 @@ static NSRegularExpression *smartyRegularExpression;
             NSString *smartyParam = [argString substringWithRange:[resultItem rangeAtIndex:1]];
             newString = [newString stringByReplacingOccurrencesOfString:smartyString
                                                              withString:[self stringByParam:smartyParam
-                                                                             withDictionary:argDictionary]];
+                                                                             withObject:argObject]];
         }
     }
     return newString;
+}
+
++ (void)addSmartyBindBySmartyCode:(NSString *)argString
+                         withView:(UIView *)argView
+                   withDataSource:(id)argDataSource {
+    if ([argView valueForAdditionKey:@"smartyBinded"] != nil) {
+        NSArray *theResult = [smartyRegularExpression matchesInString:argString
+                                                              options:NSMatchingReportCompletion
+                                                                range:NSMakeRange(0, [argString length])];
+        for (NSTextCheckingResult *resultItem in theResult) {
+            if (resultItem.numberOfRanges >= 2) {
+                NSString *argParam = [argString substringWithRange:[resultItem rangeAtIndex:1]];
+                {
+                    NSArray *functionUseArray;
+                    if ([argParam contains:@"|"]) {
+                        //注册函数调用
+                        functionUseArray = [argParam componentsSeparatedByString:@"|"];
+                        argParam = [functionUseArray firstObject];
+                    }
+                    
+                    id lastValue = argDataSource;
+                    id targetObject = argDataSource;
+                    NSString *targetKey;
+                    NSArray *theResult = [argParam componentsSeparatedByString:@"["];
+                    NSUInteger index = 0;
+                    for (NSString *resultItem in theResult) {
+                        NSString *theKey = [resultItem stringByReplacingOccurrencesOfString:@"]" withString:@""];
+                        if ([theKey contains:@"'"] || [theKey contains:@"\""] || index == 0) {
+                            theKey = [theKey stringByReplacingOccurrencesOfString:@"'" withString:@""];
+                            theKey = [theKey stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                            targetKey = theKey;
+                            SEL sel = sel_registerName([theKey cStringUsingEncoding:NSUTF8StringEncoding]);
+                            if ([lastValue respondsToSelector:sel]) {
+                                //可认为是对象取值
+                                targetObject = lastValue;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                                lastValue = [lastValue performSelector:sel withObject:nil];
+#pragma clang diagnostic pop
+                                if (lastValue == nil) {
+                                    targetObject = nil;
+                                    break;
+                                }
+                            }
+                            else {
+                                //可认为是字典取值
+                                if ([lastValue isKindOfClass:[NSDictionary class]]) {
+                                    targetObject = lastValue;
+                                    lastValue = [lastValue valueForKey:TOString(theKey)];
+                                }
+                                else {
+                                    targetObject = nil;
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            //可认为是数组取值
+                            if (ISValidArray(lastValue, TOInteger(theKey))) {
+                                targetObject = lastValue;
+                                lastValue = [lastValue objectAtIndex:TOInteger(theKey)];
+                            }
+                            else{
+                                targetObject = nil;
+                                break;
+                            }
+                        }
+                        index++;
+                    }
+                    if (targetObject != nil) {
+                        [argView setAdditionValue:[[SmartyBinder alloc] initWithBindObject:targetObject
+                                                                            withDataSource:argDataSource
+                                                                                  withView:argView
+                                                                                   withKey:targetKey]
+                                           forKey:@"smartyBinder"];
+                    }
+                }
+                
+            }
+        }
+    }
 }
 
 /**
  *  替换AttributedString关键词至最终值
  *
  *  @param argString     NSAttributedString
- *  @param argDictionary NSDictionary
+ *  @param argObject NSDictionary
  *
  *  @return NSAttributedString
  */
 + (NSAttributedString *)attributedStringByReplaceingSmartyCode:(NSAttributedString *)argString
-                                                withDictionary:(NSDictionary *)argDictionary {
+                                                withObject:(NSDictionary *)argObject {
     NSMutableAttributedString *mutableAttributedString = [argString mutableCopy];
     for (;[Smarty isSmarty:mutableAttributedString.string];) {
         NSArray *theResult = [smartyRegularExpression matchesInString:mutableAttributedString.string
@@ -287,7 +359,7 @@ static NSRegularExpression *smartyRegularExpression;
         for (NSTextCheckingResult *resultItem in theResult) {
             if (resultItem.numberOfRanges >= 2) {
                 NSString *smartyParam = [mutableAttributedString.string substringWithRange:[resultItem rangeAtIndex:1]];
-                [mutableAttributedString replaceCharactersInRange:resultItem.range withString:[Smarty stringByParam:smartyParam withDictionary:argDictionary]];
+                [mutableAttributedString replaceCharactersInRange:resultItem.range withString:[Smarty stringByParam:smartyParam withObject:argObject]];
             }
             break;
         }
@@ -298,7 +370,7 @@ static NSRegularExpression *smartyRegularExpression;
 /**
  *  取得最终值
  */
-+ (NSString *)stringByParam:(NSString *)argParam withDictionary:(NSDictionary *)argDictionary {
++ (NSString *)stringByParam:(NSString *)argParam withObject:(id)argObject {
     
     NSArray *functionUseArray;
     if ([argParam contains:@"|"]) {
@@ -307,20 +379,34 @@ static NSRegularExpression *smartyRegularExpression;
         argParam = [functionUseArray firstObject];
     }
     
-    id lastValue = argDictionary;
+    id lastValue = argObject;
     NSArray *theResult = [argParam componentsSeparatedByString:@"["];
     NSUInteger index = 0;
     for (NSString *resultItem in theResult) {
         NSString *theKey = [resultItem stringByReplacingOccurrencesOfString:@"]" withString:@""];
         if ([theKey contains:@"'"] || [theKey contains:@"\""] || index == 0) {
-            //可认为是字典取值
             theKey = [theKey stringByReplacingOccurrencesOfString:@"'" withString:@""];
             theKey = [theKey stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-            if ([lastValue isKindOfClass:[NSDictionary class]]) {
-                lastValue = [lastValue valueForKey:TOString(theKey)];
+            SEL sel = sel_registerName([theKey cStringUsingEncoding:NSUTF8StringEncoding]);
+            if ([lastValue respondsToSelector:sel]) {
+                //可认为是对象取值
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                lastValue = [lastValue performSelector:sel withObject:nil];
+#pragma clang diagnostic pop
+                if (lastValue == nil) {
+                    return @"";
+                }
             }
             else {
-                return @"";
+                //可认为是字典取值
+                if ([lastValue isKindOfClass:[NSDictionary class]]) {
+                    lastValue = [lastValue valueForKey:TOString(theKey)];
+                }
+                else {
+                    return @"";
+                }
             }
         }
         else {
@@ -563,6 +649,40 @@ static NSRegularExpression *smartyRegularExpression;
         }
         return TOString(theString);
     } withTagName:@"truncate"];
+}
+
+@end
+
+@implementation SmartyBinder
+
+- (void)dealloc {
+    [self.bindObject removeObserver:self forKeyPath:self.bindKey context:nil];
+}
+
+- (instancetype)initWithBindObject:(id)argBindObject
+                    withDataSource:(id)argDataSource
+                          withView:(UIView *)argView
+                           withKey:(NSString *)argKey {
+    self = [super init];
+    if (self) {
+        self.bindObject = argBindObject;
+        self.dataSource = argDataSource;
+        self.bindView = argView;
+        self.bindKey = argKey;
+        [self.bindObject addObserver:self
+                          forKeyPath:self.bindKey
+                             options:NSKeyValueObservingOptionNew
+                             context:nil];
+        self.callback = [self.bindView valueForAdditionKey:@"smartyBindCallbackBlock"];
+    }
+    return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self.bindView smartyRendWithObject:self.dataSource isRecursive:NO];
+    if (self.callback != nil) {
+        self.callback(self.bindView, self.dataSource, self.bindObject, keyPath, change[NSKeyValueChangeNewKey]);
+    }
 }
 
 @end

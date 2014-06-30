@@ -29,4 +29,13 @@ typedef NSString *(^SmartyCallbackBlock)(NSString *theString, NSArray *theParams
 - (void)smartyRendWithDictionary:(NSDictionary *)argDictionary
                      isRecursive:(BOOL)argIsRecursive ;
 
+/**
+ *  对当前View下的所有SubView执行Smarty替换
+ *  V2.1.2新增方法，支持NSObject、NSDictionary替换
+ *
+ *  @param argObject      数据源
+ *  @param argIsRecursive 是否递归执行，即view.subview.subview.subview.....均会被执行替换
+ */
+- (void)smartyRendWithObject:(id)argObject isRecursive:(BOOL)argIsRecursive;
+
 @end

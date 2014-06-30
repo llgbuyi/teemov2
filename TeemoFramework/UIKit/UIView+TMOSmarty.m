@@ -292,7 +292,11 @@ static NSRegularExpression *smartyRegularExpression;
                             if ([lastValue respondsToSelector:sel]) {
                                 //可认为是对象取值
                                 targetObject = lastValue;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                                 lastValue = [lastValue performSelector:sel withObject:nil];
+#pragma clang diagnostic pop
                                 if (lastValue == nil) {
                                     targetObject = nil;
                                     break;
@@ -386,7 +390,11 @@ static NSRegularExpression *smartyRegularExpression;
             SEL sel = sel_registerName([theKey cStringUsingEncoding:NSUTF8StringEncoding]);
             if ([lastValue respondsToSelector:sel]) {
                 //可认为是对象取值
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 lastValue = [lastValue performSelector:sel withObject:nil];
+#pragma clang diagnostic pop
                 if (lastValue == nil) {
                     return @"";
                 }

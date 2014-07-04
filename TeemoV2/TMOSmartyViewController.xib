@@ -34,7 +34,7 @@
                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
-                        <fragment content="&lt;{$result['location']['lng']}>">
+                        <fragment content="&lt;{$result.location.lng}>">
                             <attributes>
                                 <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="17" name="HelveticaNeue"/>

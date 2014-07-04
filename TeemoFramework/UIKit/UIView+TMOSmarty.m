@@ -280,11 +280,11 @@ static NSRegularExpression *smartyRegularExpression;
                     id lastValue = argDataSource;
                     id targetObject = argDataSource;
                     NSString *targetKey;
-                    NSArray *theResult = [argParam componentsSeparatedByString:@"["];
+                    NSArray *theResult = [argParam contains:@"."] ? [argParam componentsSeparatedByString:@"."] : [argParam componentsSeparatedByString:@"["];
                     NSUInteger index = 0;
                     for (NSString *resultItem in theResult) {
                         NSString *theKey = [resultItem stringByReplacingOccurrencesOfString:@"]" withString:@""];
-                        if ([theKey contains:@"'"] || [theKey contains:@"\""] || index == 0) {
+                        if ([theKey contains:@"'"] || [theKey contains:@"\""] || index == 0 || ![lastValue isKindOfClass:[NSArray class]]) {
                             theKey = [theKey stringByReplacingOccurrencesOfString:@"'" withString:@""];
                             theKey = [theKey stringByReplacingOccurrencesOfString:@"\"" withString:@""];
                             targetKey = theKey;
@@ -380,11 +380,11 @@ static NSRegularExpression *smartyRegularExpression;
     }
     
     id lastValue = argObject;
-    NSArray *theResult = [argParam componentsSeparatedByString:@"["];
+    NSArray *theResult = [argParam contains:@"."] ? [argParam componentsSeparatedByString:@"."] : [argParam componentsSeparatedByString:@"["];
     NSUInteger index = 0;
     for (NSString *resultItem in theResult) {
         NSString *theKey = [resultItem stringByReplacingOccurrencesOfString:@"]" withString:@""];
-        if ([theKey contains:@"'"] || [theKey contains:@"\""] || index == 0) {
+        if ([theKey contains:@"'"] || [theKey contains:@"\""] || index == 0 || ![lastValue isKindOfClass:[NSArray class]]) {
             theKey = [theKey stringByReplacingOccurrencesOfString:@"'" withString:@""];
             theKey = [theKey stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             SEL sel = sel_registerName([theKey cStringUsingEncoding:NSUTF8StringEncoding]);

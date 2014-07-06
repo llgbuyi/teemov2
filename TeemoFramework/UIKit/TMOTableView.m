@@ -12,13 +12,18 @@
 #import "TMOUIKitMacro.h"
 #import "UIImage+TMOImage.h"
 
-@interface TMOFirstLoadControl ()
+@interface TMOFirstLoadControl (){
+    BOOL _isTableViewController;//Identity current TableView is UNDER TableViewController
+}
 
 @property (nonatomic, assign) CGFloat yOffset;
 @property (nonatomic, weak) TMOTableView *tableView;
 @property (nonatomic, strong) TMOTableviewCallback callback;
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIView *failView;
+
+@property (nonatomic, strong) UIView *tmpHeaderView;//Use for UITableViewControll, save tableView.headerView TEMPERARY
+
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView;
 - (void)setup;
 
@@ -26,6 +31,7 @@
 
 @interface TMORefreshControl (){
     CGFloat _controlViewHeight;
+    BOOL _isTableViewController;//Identity current TableView is UNDER TableViewController
 }
 
 @property (nonatomic, strong) XHActivityIndicatorView *activityView;
@@ -119,6 +125,9 @@
 }
 
 - (BOOL)isValid {
+    if ([[self nextResponder] isKindOfClass:[UITableViewController class]]) {
+        return YES;
+    }
     return self.superview != nil;
 }
 
@@ -192,6 +201,9 @@
     if (self) {
         _controlViewHeight = 60;
         self.tableView = argTabelView;
+        if ([[self.tableView nextResponder] isKindOfClass:[UITableViewController class]]) {
+            _isTableViewController = YES;
+        }
         [self defaultSetup];
         [self addScrollViewObserver];
     }
@@ -537,12 +549,23 @@
         [self.loadingView setAlpha:0.0];
         [self.failView setAlpha:0.0];
     }
+    else {
+        _isTableViewController = YES;
+    }
 }
 
 - (void)start {
-    [self.tableView setAlpha:0.0];
-    [self.loadingView setAlpha:1.0];
-    [self.loadingView.superview bringSubviewToFront:self.loadingView];
+    if (_isTableViewController) {
+        self.tmpHeaderView = self.tableView.tableHeaderView;
+        self.tableView.tableHeaderView = self.loadingView;
+        self.loadingView.alpha = 1.0;
+        self.tableView.scrollEnabled = NO;
+    }
+    else {
+        [self.tableView setAlpha:0.0];
+        [self.loadingView setAlpha:1.0];
+        [self.loadingView.superview bringSubviewToFront:self.loadingView];
+    }
     TMOTableviewCallback callback = self.callback;
     if (callback != nil) {
         callback(self.tableView, [self scrollViewParentViewController]);
@@ -550,22 +573,42 @@
 }
 
 - (void)done {
-    [self.failView setAlpha:0.0];
-    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.tableView setAlpha:1.0];
-        [self.loadingView setAlpha:0.0];
-        if ([self.tableView isValid]) {
-            [self.tableView reloadData];
-        }
-    } completion:^(BOOL finished) {
-        
-    }];
+    if (_isTableViewController) {
+        [UIView animateWithDuration:0.15 animations:^{
+            self.tableView.tableHeaderView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            self.tableView.tableHeaderView = self.tmpHeaderView;
+            self.tableView.scrollEnabled = YES;
+            if ([self.tableView isValid]) {
+                [self.tableView reloadData];
+            }
+        }];
+    }
+    else {
+        [self.failView setAlpha:0.0];
+        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.tableView setAlpha:1.0];
+            [self.loadingView setAlpha:0.0];
+            if ([self.tableView isValid]) {
+                [self.tableView reloadData];
+            }
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 - (void)fail {
-    [self.tableView setAlpha:0.0];
-    [self.failView setAlpha:1.0];
-    [self.failView.superview bringSubviewToFront:self.failView];
+    if (_isTableViewController) {
+        self.tableView.tableHeaderView = self.failView;
+        self.failView.alpha = 1.0;
+        self.tableView.scrollEnabled = NO;
+    }
+    else {
+        [self.tableView setAlpha:0.0];
+        [self.failView setAlpha:1.0];
+        [self.failView.superview bringSubviewToFront:self.failView];
+    }
     if (self.allowRetry) {
         if ([[self.failView gestureRecognizers] count] == 0) {
             [self.failView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(start)]];
@@ -615,6 +658,9 @@
 }
 
 - (UIViewController *)scrollViewParentViewController {
+    if (_isTableViewController) {
+        return (UIViewController *)[self.tableView nextResponder];
+    }
     for (UIView *next = [self.tableView superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {

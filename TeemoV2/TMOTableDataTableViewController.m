@@ -34,6 +34,15 @@
     return self;
 }
 
+- (void)loadView {
+    //iOS5 use StoryBoard should use these code.
+    TMOTableView *tableView = [[TMOTableView alloc] initWithFrame:CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height) style:UITableViewStylePlain];
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    self.view = tableView;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

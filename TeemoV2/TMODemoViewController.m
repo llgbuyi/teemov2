@@ -16,6 +16,7 @@
 #import "TMOStringDemoViewController.h"
 #import "TMOTextKitViewController.h"
 #import "TMOTableDataViewController.h"
+#import "TMOTableDataTableViewController.h"
 
 #import "TMOUIKitCore.h"
 
@@ -63,7 +64,7 @@
         return 2;
     }
     else if (section == 2){
-        return 10;
+        return 11;
     }
     else if (section == 3){
         return 3;
@@ -142,6 +143,10 @@
         }
         else if (indexPath.row == 9) {
             [cell.textLabel setText:@"UITableView扩展"];
+            [cell.detailTextLabel setText:@"下拉刷新 上拉加载"];
+        }
+        else if (indexPath.row == 10) {
+            [cell.textLabel setText:@"UITableViewController"];
             [cell.detailTextLabel setText:@"下拉刷新 上拉加载"];
         }
     }
@@ -251,6 +256,10 @@
         }
         else if (indexPath.row == 9) {
             TMOTableDataViewController *tableDemoViewController = [[TMOTableDataViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:tableDemoViewController animated:YES];
+        }
+        else if (indexPath.row == 10) {
+            TMOTableDataTableViewController *tableDemoViewController = [[TMOTableDataTableViewController alloc] initWithNibName:nil bundle:nil];
             [self.navigationController pushViewController:tableDemoViewController animated:YES];
         }
     }

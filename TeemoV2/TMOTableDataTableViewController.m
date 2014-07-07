@@ -62,6 +62,10 @@
         });
     } withDelay:3.0];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView refreshAndScrollToTop];
+    });
+    
 //    [self.tableView loadMoreWithCallback:^(TMOTableView *tableView, TMOTableDataTableViewController *viewController) {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            if (arc4random() % 10 < 3) {

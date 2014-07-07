@@ -12,9 +12,7 @@
 #import "TMOUIKitMacro.h"
 #import "UIImage+TMOImage.h"
 
-@interface TMOFirstLoadControl (){
-    BOOL _isTableViewController;//Identity current TableView is UNDER TableViewController
-}
+@interface TMOFirstLoadControl ()
 
 @property (nonatomic, assign) CGFloat yOffset;
 @property (nonatomic, weak) TMOTableView *tableView;
@@ -31,7 +29,6 @@
 
 @interface TMORefreshControl (){
     CGFloat _controlViewHeight;
-    BOOL _isTableViewController;//Identity current TableView is UNDER TableViewController
 }
 
 @property (nonatomic, strong) XHActivityIndicatorView *activityView;
@@ -125,10 +122,14 @@
 }
 
 - (BOOL)isValid {
-    if ([[self nextResponder] isKindOfClass:[UITableViewController class]]) {
+    if ([self isTableViewController]) {
         return YES;
     }
     return self.superview != nil;
+}
+
+- (BOOL)isTableViewController {
+    return [[self nextResponder] isKindOfClass:[UITableViewController class]];
 }
 
 - (void)reloadData {
@@ -170,9 +171,14 @@
     _myRefreshControl = [[TMORefreshControl alloc] initWithTableView:self];
     [self.myRefreshControl setDelay:argDelay];
     [self.myRefreshControl setCallback:argCallback];
-    [self.superview addSubview:self.myRefreshControl];
-    [self.superview bringSubviewToFront:self];
-    [self setBackgroundColor:[UIColor clearColor]];
+    if ([self isTableViewController]) {
+        [self addSubview:self.myRefreshControl];
+    }
+    else {
+        [self.superview addSubview:self.myRefreshControl];
+        [self.superview bringSubviewToFront:self];
+        [self setBackgroundColor:[UIColor clearColor]];
+    }
 }
 
 - (void)refreshAndScrollToTop {
@@ -188,6 +194,19 @@
     [self addSubview:self.myLoadMoreControl];
 }
 
+- (UIViewController *)tableViewParentViewController {
+    if ([self isTableViewController]) {
+        return (UIViewController *)[self nextResponder];
+    }
+    for (UIView *next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
 @end
 
 @implementation TMORefreshControl
@@ -201,9 +220,6 @@
     if (self) {
         _controlViewHeight = 60;
         self.tableView = argTabelView;
-        if ([[self.tableView nextResponder] isKindOfClass:[UITableViewController class]]) {
-            _isTableViewController = YES;
-        }
         [self defaultSetup];
         [self addScrollViewObserver];
     }
@@ -294,6 +310,20 @@
             }
         }
         
+        if ([self.tableView isTableViewController]) {
+            [self setFrame:CGRectMake(self.frame.origin.x,
+                                      self.tableView.contentOffset.y,
+                                      self.frame.size.width,
+                                      self.frame.size.height)];
+            if (self.isRefreshing) {
+                CGFloat offsetY = MIN(-_controlViewHeight, self.tableView.contentOffset.y);
+                [self setFrame:CGRectMake(self.frame.origin.x,
+                                          offsetY,
+                                          self.frame.size.width,
+                                          self.frame.size.height)];
+            }
+        }
+        
     }
 }
 
@@ -337,23 +367,13 @@
     if (self.callback != nil) {
         if (self.delay > 0) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.callback(self.tableView, [self scrollViewParentViewController]);
+                self.callback(self.tableView, [self.tableView tableViewParentViewController]);
             });
         }
         else {
-            self.callback(self.tableView, [self scrollViewParentViewController]);
+            self.callback(self.tableView, [self.tableView tableViewParentViewController]);
         }
     }
-}
-
-- (UIViewController *)scrollViewParentViewController {
-    for (UIView *next = [self.tableView superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
-        }
-    }
-    return nil;
 }
 
 @end
@@ -549,13 +569,10 @@
         [self.loadingView setAlpha:0.0];
         [self.failView setAlpha:0.0];
     }
-    else {
-        _isTableViewController = YES;
-    }
 }
 
 - (void)start {
-    if (_isTableViewController) {
+    if ([self.tableView isTableViewController]) {
         self.tmpHeaderView = self.tableView.tableHeaderView;
         self.tableView.tableHeaderView = self.loadingView;
         self.loadingView.alpha = 1.0;
@@ -568,12 +585,12 @@
     }
     TMOTableviewCallback callback = self.callback;
     if (callback != nil) {
-        callback(self.tableView, [self scrollViewParentViewController]);
+        callback(self.tableView, [self.tableView tableViewParentViewController]);
     }
 }
 
 - (void)done {
-    if (_isTableViewController) {
+    if ([self.tableView isTableViewController]) {
         [UIView animateWithDuration:0.15 animations:^{
             self.tableView.tableHeaderView.alpha = 0.0;
         } completion:^(BOOL finished) {
@@ -599,7 +616,7 @@
 }
 
 - (void)fail {
-    if (_isTableViewController) {
+    if ([self.tableView isTableViewController]) {
         self.tableView.tableHeaderView = self.failView;
         self.failView.alpha = 1.0;
         self.tableView.scrollEnabled = NO;
@@ -655,19 +672,6 @@
         _failView = backgroundView;
     }
     return _failView;
-}
-
-- (UIViewController *)scrollViewParentViewController {
-    if (_isTableViewController) {
-        return (UIViewController *)[self.tableView nextResponder];
-    }
-    for (UIView *next = [self.tableView superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
-        }
-    }
-    return nil;
 }
 
 @end

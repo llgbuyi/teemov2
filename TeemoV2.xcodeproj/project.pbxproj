@@ -94,6 +94,8 @@
 		92E6DA9918ED4479002CC61F /* TMOKVDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E6DA9818ED4479002CC61F /* TMOKVDBTests.m */; };
 		AB8F8457194A9CB600290CD4 /* NSArray+TMODuplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */; };
 		AB8F845B194A9D8400290CD4 /* TMOBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */; };
+		F0F60D631968F2A6003FD46A /* TMOTableDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F60D611968F2A6003FD46A /* TMOTableDataTableViewController.m */; };
+		F0F60D641968F2A6003FD46A /* TMOTableDataTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0F60D621968F2A6003FD46A /* TMOTableDataTableViewController.xib */; };
 		F0F6FC2018F999090005A5BF /* UIView+TMOSmarty.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +243,9 @@
 		AB8F8456194A9CB600290CD4 /* NSArray+TMODuplicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TMODuplicate.m"; sourceTree = "<group>"; };
 		AB8F8459194A9D8400290CD4 /* TMOBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOBaseModel.h; sourceTree = "<group>"; };
 		AB8F845A194A9D8400290CD4 /* TMOBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOBaseModel.m; sourceTree = "<group>"; };
+		F0F60D601968F2A6003FD46A /* TMOTableDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableDataTableViewController.h; sourceTree = "<group>"; };
+		F0F60D611968F2A6003FD46A /* TMOTableDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTableDataTableViewController.m; sourceTree = "<group>"; };
+		F0F60D621968F2A6003FD46A /* TMOTableDataTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMOTableDataTableViewController.xib; sourceTree = "<group>"; };
 		F0F6FC1E18F999090005A5BF /* UIView+TMOSmarty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TMOSmarty.h"; sourceTree = "<group>"; };
 		F0F6FC1F18F999090005A5BF /* UIView+TMOSmarty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TMOSmarty.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -339,6 +344,9 @@
 				927C800F194FF23F004DD8BC /* TMOTableDataViewController.h */,
 				927C8010194FF23F004DD8BC /* TMOTableDataViewController.m */,
 				927C8011194FF23F004DD8BC /* TMOTableDataViewController.xib */,
+				F0F60D601968F2A6003FD46A /* TMOTableDataTableViewController.h */,
+				F0F60D611968F2A6003FD46A /* TMOTableDataTableViewController.m */,
+				F0F60D621968F2A6003FD46A /* TMOTableDataTableViewController.xib */,
 				AB8F8458194A9D7100290CD4 /* Models */,
 				2E8CAA1118E93E5F0047D335 /* Images.xcassets */,
 				2E8CAA0018E93E5F0047D335 /* Supporting Files */,
@@ -578,6 +586,7 @@
 				9225637918FD2397005BD532 /* TMOSmartyMoreViewController.xib in Resources */,
 				92170D661907BD1300EB9ED9 /* TMOTextKitViewController.xib in Resources */,
 				9225636F18FD1732005BD532 /* TMOUIKitDemoViewController.xib in Resources */,
+				F0F60D641968F2A6003FD46A /* TMOTableDataTableViewController.xib in Resources */,
 				9225636418FCD886005BD532 /* TMONetworkDemoViewController.xib in Resources */,
 				9225635F18FCD209005BD532 /* TMODemoViewController.xib in Resources */,
 				9225637418FD1B85005BD532 /* TMOSmartyViewController.xib in Resources */,
@@ -692,6 +701,7 @@
 				2E8CAA0A18E93E5F0047D335 /* TMOAppDelegate.m in Sources */,
 				92BFF83F18F638E700A13FD8 /* NSString+TMOString.m in Sources */,
 				9225637C18FD2587005BD532 /* TMOStringDemoViewController.m in Sources */,
+				F0F60D631968F2A6003FD46A /* TMOTableDataTableViewController.m in Sources */,
 				2EE8D85618EC075600405406 /* TMOKVDB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,9 +8,6 @@
 
 #import "TMOTableView.h"
 #import "XHActivityIndicatorView.h"
-#import "TMOToolKitCore.h"
-#import "TMOUIKitMacro.h"
-#import "UIImage+TMOImage.h"
 
 @interface TMOFirstLoadControl ()
 
@@ -489,11 +486,11 @@
     if (self.callback != nil) {
         if (self.delay > 0) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.callback(self.tableView, [self scrollViewParentViewController]);
+                self.callback(self.tableView, [self.tableView tableViewParentViewController]);
             });
         }
         else {
-            self.callback(self.tableView, [self scrollViewParentViewController]);
+            self.callback(self.tableView, [self.tableView tableViewParentViewController]);
         }
     }
 }
@@ -537,16 +534,6 @@
 
 - (void)handleRetryButtonTapped {
     self.isFail = NO;
-}
-
-- (UIViewController *)scrollViewParentViewController {
-    for (UIView *next = [self.tableView superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
-        }
-    }
-    return nil;
 }
 
 @end

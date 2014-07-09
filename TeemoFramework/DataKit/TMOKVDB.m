@@ -18,6 +18,17 @@
 
 @implementation TMOKVDB
 
++ (NSMutableDictionary *)levelDBCache {
+    static NSMutableDictionary *_levelDBCache = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_levelDBCache) {
+            _levelDBCache = [[NSMutableDictionary alloc] init];
+        }
+    });
+    return _levelDBCache;
+}
+
 + (NSString *)realPath:(NSString *)argPath {
     if (argPath == nil || ([argPath isKindOfClass:[NSString class]] && [argPath isEqualToString:@""])) {
         return [kTMOKVDBCacheDirectory stringByAppendingString:@"default"];
@@ -34,16 +45,19 @@
 }
 
 + (LevelDB *)dbConnection:(NSString *)realPath {
-    LevelDB *db;
-    db = [[LevelDB alloc] initWithPath:realPath andName:@"kvdb"];
-    db.encoder = ^ NSData* (LevelDBKey *key, id object) {
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
-        return data;
-    };
-    db.decoder = ^ id (LevelDBKey *key, NSData * data) {
-        id obj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        return obj;
-    };
+    LevelDB *db = [[TMOKVDB levelDBCache] objectForKey:realPath];
+    if (!db) {
+        db = [[LevelDB alloc] initWithPath:realPath andName:@"kvdb"];
+        db.encoder = ^ NSData* (LevelDBKey *key, id object) {
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
+            return data;
+        };
+        db.decoder = ^ id (LevelDBKey *key, NSData * data) {
+            id obj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            return obj;
+        };
+        [[TMOKVDB levelDBCache] setObject:db forKey:realPath];
+    }
     return db;
 }
 
@@ -88,7 +102,7 @@
     }
     NSString *realKey = [key stringByMD5Hash];
     [self setObject:obj forKey:realKey];
-
+    
     NSString *cacheKey = [LevelDB realCacheKey:realKey];
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:argCacheTime];
     [self setObject:date forKey:cacheKey];
@@ -121,7 +135,7 @@
     [self removeObjectForKey:realKey];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - KVDB服务机制
 
 - (long long)currentSize {
@@ -135,16 +149,16 @@
             filteredByPredicate:nil
                       andPrefix:[LevelDB realCacheKey:@""]
                      usingBlock:^(LevelDBKey *key, BOOL *stop) {
-        NSString *cacheDateKey = [NSString stringWithUTF8String:key->data];
-        NSDate *expireDate = [self valueForKey:cacheDateKey];
-        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
-        if ([expireDate compare:currentDate] != NSOrderedDescending) {
-            NSString *realKey = [cacheDateKey stringByReplacingOccurrencesOfString:[LevelDB realCacheKey:@""]
-                                                                        withString:@""];
-            [self removeObjectForKey:cacheDateKey];
-            [self removeObjectForKey:realKey];
-        }
-    }];
+                         NSString *cacheDateKey = [NSString stringWithUTF8String:key->data];
+                         NSDate *expireDate = [self valueForKey:cacheDateKey];
+                         NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
+                         if ([expireDate compare:currentDate] != NSOrderedDescending) {
+                             NSString *realKey = [cacheDateKey stringByReplacingOccurrencesOfString:[LevelDB realCacheKey:@""]
+                                                                                         withString:@""];
+                             [self removeObjectForKey:cacheDateKey];
+                             [self removeObjectForKey:realKey];
+                         }
+                     }];
 }
 
 @end

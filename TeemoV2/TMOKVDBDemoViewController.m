@@ -44,8 +44,28 @@
     [customPath setObject:@"123123" forKey:@"ccc"];
     NSLog(@"%@",[customPath valueForKey:@"ccc"]);
     
+    [self reuseLevelKVDB];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)reuseLevelKVDB {
+    for (int i = 0; i < 1000; i ++) {
+        // 打开1000条新的子线程去操作同一个数据库文件
+        [NSThread detachNewThreadSelector:@selector(setupSomeDataToKVDB) toTarget:self withObject:nil];
+    }
+}
+
+- (void)setupSomeDataToKVDB {
+    // 同一个KVDB数据库
+    LevelDB *customPath = [TMOKVDB customDatabase:[NSString stringWithFormat:@"%@tmpKVDB/",NSTemporaryDirectory()]];//把KV库保存至指定路径
+    
+    for (int i = 0; i < 10; i ++) {
+        [customPath setObject:@"123123" forKey:@"ccc"];
+        sleep(0.1);
+        [customPath setObject:@"setupSomeDataToKVDB" forKey:@"setupSomeDataToKVDB"];
+    }
+    NSLog(@"setupSomeDataToKVDB");
 }
 
 - (void)didReceiveMemoryWarning

@@ -20,7 +20,7 @@ extern NSString *const defaultLevelDBName;
 *  @param key          可根据key获取之前存入对象    - (id)DBObjectForDBKey:(NSString *)key;
 *  @param argCacheTime 缓存时间，等于0->无限期，小于0->清除缓存，大于0->N秒后失效
 */
-- (void)setObject:(id)obj forKey:(NSString *)key cacheTime:(NSTimeInterval)argCacheTime;
+- (BOOL)setObject:(id)obj forKey:(NSString *)key cacheTime:(NSTimeInterval)argCacheTime;
 
 /**
  *  取出数据方法（数据失效时返回nil）

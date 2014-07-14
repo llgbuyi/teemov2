@@ -6,6 +6,7 @@ pod 'Reachability', '~> 3.1.1'
 #UIKit
 pod 'MBProgressHUD', '~> 0.8'
 pod 'NimbusKit-AttributedLabel', '~> 1.0.0'
+pod 'TMOTableView'
 
 #DataKit
 pod 'FMDB', '~> 2.2'

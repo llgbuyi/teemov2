@@ -44,7 +44,6 @@
     [customPath setObject:@"123123" forKey:@"ccc"];
     NSLog(@"%@",[customPath valueForKey:@"ccc"]);
     
-    // 测试多线程操作同一个数据库
     [self reuseLevelKVDB];
     
     // Do any additional setup after loading the view.
@@ -54,17 +53,7 @@
     for (int i = 0; i < 1000; i ++) {
         // 打开1000条新的子线程去操作同一个数据库文件
         [NSThread detachNewThreadSelector:@selector(setupSomeDataToKVDB) toTarget:self withObject:nil];
-        if (i == 500) {
-            [NSThread detachNewThreadSelector:@selector(removeSomeKVDB) toTarget:self withObject:nil];
-        } else if (i == 700) {
-            [NSThread detachNewThreadSelector:@selector(removeSomeKVDB) toTarget:self withObject:nil];
-        }
     }
-}
-
-- (void)removeSomeKVDB {
-    [TMOKVDB closeAndReleaseSpace:[NSString stringWithFormat:@"%@tmpKVDB/",NSTemporaryDirectory()]];
-    NSLog(@"删除了数据库");
 }
 
 - (void)setupSomeDataToKVDB {
@@ -72,13 +61,9 @@
     LevelDB *customPath = [TMOKVDB customDatabase:[NSString stringWithFormat:@"%@tmpKVDB/",NSTemporaryDirectory()]];//把KV库保存至指定路径
     
     for (int i = 0; i < 10; i ++) {
-        if (![customPath setObject:@"123123" forKey:@"ccc"]) {
-            NSLog(@"失败了");
-        }
+        [customPath setObject:@"123123" forKey:@"ccc"];
         sleep(0.1);
-        if (![customPath setObject:@"setupSomeDataToKVDB" forKey:@"setupSomeDataToKVDB"]) {
-            NSLog(@"失败了");
-        }
+        [customPath setObject:@"setupSomeDataToKVDB" forKey:@"setupSomeDataToKVDB"];
     }
     NSLog(@"setupSomeDataToKVDB");
 }

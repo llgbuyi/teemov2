@@ -56,9 +56,7 @@
             id obj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             return obj;
         };
-        if (db) {
-            [[TMOKVDB levelDBCache] setObject:db forKey:realPath];
-        }
+        [[TMOKVDB levelDBCache] setObject:db forKey:realPath];
     }
     return db;
 }
@@ -95,21 +93,19 @@
     return [NSString stringWithFormat:@"TMO_Cache_Prefix_%@", fadeKey];
 }
 
-- (BOOL)setObject:(id)obj forKey:(NSString *)key cacheTime:(NSTimeInterval)argCacheTime {
+- (void)setObject:(id)obj forKey:(NSString *)key cacheTime:(NSTimeInterval)argCacheTime {
     if (obj == nil || key == nil) {
-        return NO;
+        return;
     }
     if (argCacheTime == 0) {
         argCacheTime = NSIntegerMax;
     }
     NSString *realKey = [key stringByMD5Hash];
-    BOOL writed = [self setObject:obj forKey:realKey];
+    [self setObject:obj forKey:realKey];
     
     NSString *cacheKey = [LevelDB realCacheKey:realKey];
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:argCacheTime];
     [self setObject:date forKey:cacheKey];
-    
-    return writed;
 }
 
 - (id)objectWithCacheForKey:(NSString *)key {
